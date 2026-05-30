@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set Apart Movement — Called. Equipped. Sent.</title>
+  <meta name="description" content="A Gen Z missional meetup for those ready to serve, grow, and leave a mark. You've been called. Will you answer?">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #C4952A;
+      --gold-light: #DFB967;
+      --gold-dim: rgba(196,149,42,0.15);
+      --bg: #050505;
+      --surface: #0C0C0C;
+      --surface2: #111111;
+      --white: #F4F4EF;
+      --white-60: rgba(244,244,239,0.6);
+      --white-30: rgba(244,244,239,0.3);
+      --white-10: rgba(244,244,239,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Typography */
+    .f-display { font-family: 'Cormorant Garamond', serif; }
+
+    /* Reveal */
+    .rv {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.9s cubic-bezier(0.16,1,0.3,1);
+    }
+    .rv.on { opacity: 1; transform: translateY(0); }
+    .rv.d1 { transition-delay: 0.1s; }
+    .rv.d2 { transition-delay: 0.2s; }
+    .rv.d3 { transition-delay: 0.3s; }
+    .rv.d4 { transition-delay: 0.4s; }
+    .rv.d5 { transition-delay: 0.5s; }
+    .rv.d6 { transition-delay: 0.6s; }
+
+    /* Gold line */
+    .g-line {
+      display: block;
+      width: 56px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0 auto;
+    }
+    .g-line.left { margin: 0; }
+
+    /* Nav */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s cubic-bezier(0.16,1,0.3,1),
+                  border-color 0.4s cubic-bezier(0.16,1,0.3,1);
+      border-bottom: 1px solid transparent;
+    }
+    #nav.scrolled {
+      background: rgba(5,5,5,0.94);
+      backdrop-filter: blur(12px);
+      border-bottom-color: rgba(196,149,42,0.12);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    /* Buttons */
+    .btn-gold {
+      display: inline-block;
+      padding: 0.85rem 2.25rem;
+      background: var(--gold);
+      color: #050505;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.3s cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .btn-gold:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(196,149,42,0.28), 0 2px 8px rgba(196,149,42,0.18);
+    }
+    .btn-gold:active { transform: translateY(0); }
+    .btn-gold:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    .btn-ghost {
+      display: inline-block;
+      padding: 0.85rem 2.25rem;
+      background: transparent;
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid rgba(244,244,239,0.28);
+      transition: border-color 0.3s cubic-bezier(0.16,1,0.3,1),
+                  color 0.3s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .btn-ghost:active { transform: translateY(0); }
+    .btn-ghost:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* Grid bg */
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(196,149,42,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(196,149,42,0.025) 1px, transparent 1px);
+      background-size: 72px 72px;
+      pointer-events: none;
+    }
+
+    /* Section base */
+    .sec {
+      padding: 9rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) { .sec { padding: 11rem 3rem; } }
+
+    /* Eyebrow */
+    .eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+
+    /* Step cards */
+    .step-card {
+      position: relative;
+      padding: 2.5rem 1.75rem 2rem;
+      border-top: 1px solid rgba(196,149,42,0.18);
+    }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem;
+      font-weight: 300;
+      color: rgba(196,149,42,0.1);
+      line-height: 1;
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      pointer-events: none;
+    }
+
+    /* Parent grid */
+    .parent-grid {
+      border: 1px solid var(--white-10);
+    }
+    .parent-item {
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      border-bottom: 1px solid var(--white-10);
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+    .parent-item:last-child { border-bottom: none; }
+    .parent-item::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* Scroll cue */
+    @keyframes drip {
+      0%, 100% { transform: translateX(-50%) scaleY(1); opacity: 0.6; }
+      50% { transform: translateX(-50%) scaleY(1.4); opacity: 1; }
+    }
+
+    /* Involved grid */
+    .inv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .inv-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="nav">
+    <a href="#home" class="nav-logo">Set Apart</a>
+    <a href="#rsvp" class="btn-gold" style="padding:0.6rem 1.4rem; font-size:0.67rem;">RSVP NOW</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       1. HERO
+  ══════════════════════════════════════════ -->
+  <section id="home" class="sec" style="min-height:100dvh; display:flex; align-items:center; justify-content:center; text-align:center; padding-top:0; padding-bottom:0;">
+    <div class="grid-bg"></div>
+
+    <!-- Radial glows -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 65% at 50% 60%, rgba(196,149,42,0.07) 0%, transparent 70%);pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 35% 35% at 25% 15%, rgba(196,149,42,0.04) 0%, transparent 60%);pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 30% 30% at 80% 80%, rgba(196,149,42,0.03) 0%, transparent 60%);pointer-events:none;"></div>
+
+    <div style="position:relative;z-index:1;max-width:960px;margin:0 auto;padding:7rem 1rem 5rem;">
+
+      <div class="rv eyebrow" style="margin-bottom:2.5rem;">Set Apart Movement</div>
+
+      <h1 class="rv d1 f-display" style="font-size:clamp(4.5rem,13vw,11rem);font-weight:300;line-height:0.92;letter-spacing:-0.02em;margin-bottom:1.5rem;">
+        YOU'VE BEEN<br>
+        <em style="font-style:italic;color:var(--gold);">CALLED.</em>
+      </h1>
+
+      <span class="rv d2 g-line" style="margin:2.25rem auto;"></span>
+
+      <p class="rv d3" style="font-size:clamp(0.9rem,2vw,1.1rem);font-weight:300;letter-spacing:0.04em;color:var(--white-60);max-width:520px;margin:0 auto 1rem;line-height:1.75;">
+        A Gen Z missional meetup for those ready to<br>serve, grow, and leave a mark.
+      </p>
+
+      <p class="rv d4 f-display" style="font-size:1.2rem;font-style:italic;color:rgba(244,244,239,0.38);margin-bottom:3.25rem;">
+        Very few answer. Will you?
+      </p>
+
+      <div class="rv d5" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+        <a href="[GOHIGHLEVEL_RSVP_LINK]" class="btn-gold">RSVP for the Next Meetup</a>
+        <a href="sms:[PHONE_NUMBER]?body=MEETUP" class="btn-ghost">Text MEETUP to [PHONE NUMBER]</a>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div style="position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;animation:drip 2.4s ease-in-out infinite;">
+      <div style="width:1px;height:44px;background:linear-gradient(to bottom,transparent,var(--gold));"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       2. WHAT IS SET APART
+  ══════════════════════════════════════════ -->
+  <section id="about" class="sec" style="background:var(--surface);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 50%, rgba(196,149,42,0.05) 0%,transparent 70%);pointer-events:none;"></div>
+
+    <div style="max-width:760px;margin:0 auto;text-align:center;position:relative;z-index:1;">
+      <div class="rv eyebrow">The Movement</div>
+
+      <h2 class="rv d1 f-display" style="font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;line-height:1.08;letter-spacing:-0.02em;margin-bottom:2rem;">
+        This is not just<br>
+        <em style="color:var(--gold);">a hangout.</em>
+      </h2>
+
+      <span class="rv d2 g-line" style="margin:2rem auto;"></span>
+
+      <p class="rv d3" style="font-size:1rem;font-weight:300;line-height:1.85;color:var(--white-60);margin-bottom:1.5rem;">
+        Set Apart Movement is a Gen Z missional meetup built around<br>purpose, service, faith, leadership, and real-world impact.
+      </p>
+
+      <p class="rv d4" style="font-size:0.95rem;font-weight:300;line-height:1.85;color:rgba(244,244,239,0.4);">
+        Students gather. Receive a mission. Serve together. Reflect.<br>
+        And leave with a challenge to carry into real life.
+      </p>
+
+      <div class="rv d5" style="margin-top:4rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1.5rem 3rem;">
+        <span class="f-display" style="font-size:2.2rem;font-style:italic;color:var(--gold);">Called.</span>
+        <span style="color:rgba(244,244,239,0.15);font-size:1.25rem;">—</span>
+        <span class="f-display" style="font-size:2.2rem;font-style:italic;color:var(--gold);">Equipped.</span>
+        <span style="color:rgba(244,244,239,0.15);font-size:1.25rem;">—</span>
+        <span class="f-display" style="font-size:2.2rem;font-style:italic;color:var(--gold);">Sent.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       3. NEXT MISSION
+  ══════════════════════════════════════════ -->
+  <section id="rsvp" class="sec">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 18% 55%, rgba(196,149,42,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+
+    <div style="max-width:660px;margin:0 auto;position:relative;z-index:1;">
+
+      <div style="text-align:center;margin-bottom:4.5rem;">
+        <div class="rv eyebrow">Mark Your Calendar</div>
+        <h2 class="rv d1 f-display" style="font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;letter-spacing:-0.02em;">
+          Next Mission
+        </h2>
+      </div>
+
+      <!-- Event card -->
+      <div class="rv d2" style="position:relative;border:1px solid rgba(196,149,42,0.25);background:linear-gradient(135deg,rgba(196,149,42,0.05),rgba(5,5,5,0.6));padding:3rem 2.5rem;">
+
+        <!-- Corner marks -->
+        <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:2px solid var(--gold);border-left:2px solid var(--gold);"></div>
+        <div style="position:absolute;top:-1px;right:-1px;width:18px;height:18px;border-top:2px solid var(--gold);border-right:2px solid var(--gold);"></div>
+        <div style="position:absolute;bottom:-1px;left:-1px;width:18px;height:18px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold);"></div>
+        <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold);"></div>
+
+        <h3 class="f-display" style="font-size:1.9rem;font-weight:400;margin-bottom:2.25rem;line-height:1.2;">
+          Set Apart Movement<br>
+          <em style="color:var(--gold);">Launch Meetup</em>
+        </h3>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;margin-bottom:2.5rem;">
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Date</div>
+            <div style="font-size:0.95rem;color:var(--white);">Saturday, June 13</div>
+          </div>
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Time</div>
+            <div style="font-size:0.95rem;color:var(--white-60);">TBD</div>
+          </div>
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Location</div>
+            <div style="font-size:0.95rem;color:var(--white-60);">Sent to confirmed RSVPs</div>
+          </div>
+          <div>
+            <div style="font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:0.4rem;">Capacity</div>
+            <div style="font-size:0.95rem;color:var(--white);">50 students max</div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid var(--white-10);padding-top:2.25rem;">
+          <a href="[GOHIGHLEVEL_RSVP_LINK]" class="btn-gold" style="display:block;text-align:center;width:100%;">RESERVE YOUR SPOT</a>
+          <p style="font-size:0.74rem;color:rgba(244,244,239,0.32);text-align:center;margin-top:1.25rem;line-height:1.65;">
+            Space, food, and supplies are limited.<br>Only confirmed RSVPs receive final meetup details.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       4. HOW IT WORKS
+  ══════════════════════════════════════════ -->
+  <section id="process" class="sec" style="background:var(--surface);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(196,149,42,0.05) 0%,transparent 70%);pointer-events:none;"></div>
+
+    <div style="max-width:1040px;margin:0 auto;position:relative;z-index:1;">
+
+      <div style="text-align:center;margin-bottom:5.5rem;">
+        <div class="rv eyebrow">The Process</div>
+        <h2 class="rv d1 f-display" style="font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;letter-spacing:-0.02em;">How It Works</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:0;">
+
+        <div class="rv step-card">
+          <span class="step-num">01</span>
+          <div style="width:1px;height:28px;background:linear-gradient(to bottom,var(--gold),transparent);margin-bottom:1.25rem;"></div>
+          <div style="font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;">Step One</div>
+          <div class="f-display" style="font-size:1.5rem;font-weight:400;line-height:1.2;">Get Invited</div>
+        </div>
+
+        <div class="rv d1 step-card">
+          <span class="step-num">02</span>
+          <div style="width:1px;height:28px;background:linear-gradient(to bottom,var(--gold),transparent);margin-bottom:1.25rem;"></div>
+          <div style="font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;">Step Two</div>
+          <div class="f-display" style="font-size:1.5rem;font-weight:400;line-height:1.2;">RSVP</div>
+        </div>
+
+        <div class="rv d2 step-card">
+          <span class="step-num">03</span>
+          <div style="width:1px;height:28px;background:linear-gradient(to bottom,var(--gold),transparent);margin-bottom:1.25rem;"></div>
+          <div style="font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;">Step Three</div>
+          <div class="f-display" style="font-size:1.5rem;font-weight:400;line-height:1.2;">Show Up<br>+ Serve</div>
+        </div>
+
+        <div class="rv d3 step-card">
+          <span class="step-num">04</span>
+          <div style="width:1px;height:28px;background:linear-gradient(to bottom,var(--gold),transparent);margin-bottom:1.25rem;"></div>
+          <div style="font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;">Step Four</div>
+          <div class="f-display" style="font-size:1.5rem;font-weight:400;line-height:1.2;">Receive Mission Drops</div>
+        </div>
+
+        <div class="rv d4 step-card">
+          <span class="step-num">05</span>
+          <div style="width:1px;height:28px;background:linear-gradient(to bottom,var(--gold),transparent);margin-bottom:1.25rem;"></div>
+          <div style="font-size:0.62rem;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;">Step Five</div>
+          <div class="f-display" style="font-size:1.5rem;font-weight:400;line-height:1.2;">Come Back With a Story</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       5. MISSION DROPS
+  ══════════════════════════════════════════ -->
+  <section id="mission" class="sec" style="text-align:center;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(196,149,42,0.07) 0%,transparent 70%);pointer-events:none;"></div>
+
+    <!-- Watermark text -->
+    <div class="f-display" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(6rem,22vw,20rem);font-weight:300;color:rgba(196,149,42,0.03);white-space:nowrap;pointer-events:none;letter-spacing:-0.04em;user-select:none;">MISSION</div>
+
+    <div style="max-width:700px;margin:0 auto;position:relative;z-index:1;">
+      <div class="rv eyebrow">Stay Sharp</div>
+
+      <h2 class="rv d1 f-display" style="font-size:clamp(2.2rem,5.5vw,4.5rem);font-weight:300;line-height:1.15;letter-spacing:-0.02em;margin-bottom:2.25rem;">
+        The mission does not end<br>
+        <em style="color:var(--gold);">when the meetup ends.</em>
+      </h2>
+
+      <span class="rv d2 g-line" style="margin:2rem auto;"></span>
+
+      <p class="rv d3" style="font-size:1rem;font-weight:300;line-height:1.85;color:var(--white-60);margin-bottom:1.75rem;">
+        After each meetup, students receive <strong style="color:var(--white);font-weight:500;">Mission Drops</strong> by text — real-life challenges designed to help them carry the mission into their everyday lives.
+      </p>
+
+      <p class="rv d4 f-display" style="font-size:1.35rem;font-style:italic;color:rgba(244,244,239,0.38);">
+        Not about points.<br>About follow-through, consistency, impact, and stories.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       6. FOR PARENTS
+  ══════════════════════════════════════════ -->
+  <section id="parents" class="sec" style="background:var(--surface);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 40% 60% at 92% 50%,rgba(196,149,42,0.04) 0%,transparent 70%);pointer-events:none;"></div>
+
+    <div style="max-width:800px;margin:0 auto;position:relative;z-index:1;">
+
+      <div style="text-align:center;margin-bottom:4.5rem;">
+        <div class="rv eyebrow">Trust &amp; Safety</div>
+        <h2 class="rv d1 f-display" style="font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;letter-spacing:-0.02em;">For Parents</h2>
+      </div>
+
+      <p class="rv d2" style="font-size:0.95rem;font-weight:300;line-height:1.85;color:var(--white-60);margin-bottom:3rem;text-align:center;">
+        Set Apart Movement is designed to be meaningful, organized, and safe. Students must RSVP before attending, and the RSVP form collects all necessary information.
+      </p>
+
+      <div class="rv d3 parent-grid">
+        <div class="parent-item">RSVP required to attend</div>
+        <div class="parent-item">Parent / guardian permission required</div>
+        <div class="parent-item">Emergency contact collected</div>
+        <div class="parent-item">Allergy &amp; food notes collected</div>
+        <div class="parent-item">Photo / video permission collected</div>
+        <div class="parent-item">Adult supervision present at all times</div>
+        <div class="parent-item" style="border-bottom:none;">Limited capacity for safety and planning — 50 students max</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       7. GET INVOLVED
+  ══════════════════════════════════════════ -->
+  <section id="involved" class="sec">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 65% at 50% 50%,rgba(196,149,42,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+
+    <div style="max-width:800px;margin:0 auto;text-align:center;position:relative;z-index:1;">
+      <div class="rv eyebrow">Join Us</div>
+
+      <h2 class="rv d1 f-display" style="font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;letter-spacing:-0.02em;margin-bottom:1.5rem;">
+        Want to help<br><em style="color:var(--gold);">build this?</em>
+      </h2>
+
+      <span class="rv d2 g-line" style="margin:2.25rem auto 4rem;"></span>
+
+      <div class="rv d3 inv-grid">
+        <a href="[GOHIGHLEVEL_RSVP_LINK]" class="btn-gold" style="text-align:center;">STUDENT RSVP</a>
+        <a href="[GOHIGHLEVEL_RSVP_LINK]" class="btn-ghost" style="text-align:center;">VOLUNTEER</a>
+        <a href="[GOHIGHLEVEL_RSVP_LINK]" class="btn-ghost" style="text-align:center;">PARTNER / SPONSOR</a>
+        <a href="[GOHIGHLEVEL_RSVP_LINK]" class="btn-ghost" style="text-align:center;">CHURCH &amp; YOUTH LEADER</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       8. FINAL CTA
+  ══════════════════════════════════════════ -->
+  <section id="cta" class="sec" style="background:var(--surface2);min-height:85vh;display:flex;align-items:center;justify-content:center;text-align:center;">
+    <div class="grid-bg"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 85% 85% at 50% 50%,rgba(196,149,42,0.09) 0%,transparent 70%);pointer-events:none;"></div>
+
+    <div style="max-width:720px;margin:0 auto;position:relative;z-index:1;">
+      <div class="rv eyebrow">The Call</div>
+
+      <h2 class="rv d1 f-display" style="font-size:clamp(2.8rem,9vw,8rem);font-weight:300;line-height:0.95;letter-spacing:-0.025em;margin-bottom:1.75rem;">
+        Very few have been<br>
+        <em style="color:var(--gold);">called this way.</em>
+      </h2>
+
+      <span class="rv d2 g-line" style="margin:2.25rem auto;"></span>
+
+      <p class="rv d3 f-display" style="font-size:2rem;font-style:italic;color:rgba(244,244,239,0.45);margin-bottom:3.5rem;">
+        Will you answer?
+      </p>
+
+      <div class="rv d4">
+        <a href="[GOHIGHLEVEL_RSVP_LINK]" class="btn-gold" style="font-size:0.78rem;padding:1rem 3.25rem;">RSVP FOR THE NEXT MEETUP</a>
+      </div>
+
+      <p class="rv d5" style="font-size:0.78rem;color:rgba(244,244,239,0.28);margin-top:1.75rem;letter-spacing:0.1em;">
+        Text MEETUP to [PHONE NUMBER]
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer style="background:#030303;padding:3.5rem 2rem;text-align:center;border-top:1px solid var(--white-10);">
+    <div class="f-display" style="font-size:1.6rem;font-weight:400;letter-spacing:0.1em;color:var(--white);margin-bottom:0.5rem;">
+      SET APART MOVEMENT
+    </div>
+    <div style="font-size:0.62rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:2rem;">
+      Gen Z Was Here
+    </div>
+    <div style="font-size:0.8rem;color:rgba(244,244,239,0.32);margin-bottom:0.4rem;">
+      Email: [EMAIL ADDRESS]
+    </div>
+    <div style="font-size:0.8rem;color:rgba(244,244,239,0.32);margin-bottom:2.5rem;">
+      Text MEETUP to [PHONE NUMBER]
+    </div>
+    <div style="width:40px;height:1px;background:rgba(196,149,42,0.3);margin:0 auto 2rem;"></div>
+    <div style="font-size:0.68rem;color:rgba(244,244,239,0.14);letter-spacing:0.05em;">
+      &copy; 2026 Set Apart Movement &nbsp;·&nbsp; setapartmovement.com
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+    // Trigger hero items immediately
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.rv').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.95) {
+          el.classList.add('on');
+        }
+      });
+    });
+
+    // Nav scroll state
+    const nav = document.getElementById('nav');
+    const onScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
