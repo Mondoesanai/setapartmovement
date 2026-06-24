@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- ── Social / iMessage / SMS preview ──────────────────────────── -->
-  <title>You've Been Personally Invited | Set Apart Movement</title>
+  <title>This Is Your Invite | Set Apart Movement</title>
   <meta name="description" content="Set Apart Movement · July 10 · 6–8 PM · Pack love boxes for single moms w/ Embrace Grace. Tap to RSVP.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://setapartmovement.com/">
-  <meta property="og:title" content="You've Been Personally Invited ✦">
-  <meta property="og:description" content="Set Apart Movement · July 10 · 6–8 PM · We're packing love boxes for single moms with Embrace Grace. Tap to see your invitation.">
+  <meta property="og:title" content="You've Been Selected. ✦">
+  <meta property="og:description" content="Set Apart Movement · July 10 · 6–8 PM · This is your invite. Tap to RSVP.">
   <meta property="og:image" content="https://setapartmovement.com/images/card.png">
   <meta property="og:image:width" content="940">
   <meta property="og:image:height" content="530">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="You've Been Personally Invited ✦">
-  <meta name="twitter:description" content="Set Apart Movement · July 10 · 6–8 PM · Tap to see your invitation.">
+  <meta name="twitter:title" content="You've Been Selected. ✦">
+  <meta name="twitter:description" content="Set Apart Movement · July 10 · 6–8 PM · This is your invite. Tap to open.">
   <meta name="twitter:image" content="https://setapartmovement.com/images/card.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,76 +54,75 @@
       position: fixed;
       inset: 0;
       z-index: 200;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 44px;
       background: var(--ink);
       transition: opacity 0.9s ease;
     }
     #intro.out { opacity: 0; pointer-events: none; }
 
-    /* ambient glow */
+    /* Ambient glow */
     #intro::before {
       content: '';
       position: absolute;
       inset: 0;
       pointer-events: none;
       background:
-        radial-gradient(ellipse 80% 50% at 50% 115%, rgba(196,149,42,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 30% at 50% 60%, rgba(196,149,42,0.05) 0%, transparent 50%);
+        radial-gradient(ellipse 80% 50% at 50% 110%, rgba(196,149,42,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 50% 60%,  rgba(196,149,42,0.05) 0%, transparent 50%);
     }
 
-    /* Stage holds envelope + card together */
+    /* ── Phase 1: Envelope stage ───────────────── */
+    #phase1 {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease;
+    }
+    #phase1.out { opacity: 0; pointer-events: none; }
+
     .stage {
       position: relative;
-      width: min(300px, 82vw);
+      width: min(290px, 80vw);
     }
 
-    /* Business card – starts hidden inside envelope, rises above */
-    #card {
+    /* Small card (rises from envelope, then hands off to full card) */
+    #cardSmall {
       position: absolute;
       bottom: -8px;
       left: 50%;
-      width: 90%;
+      width: 88%;
       transform: translateX(-50%) translateY(8px);
       opacity: 0;
       z-index: 10;
-      border-radius: 5px;
-      box-shadow:
-        0 8px 24px rgba(0,0,0,0.7),
-        0 24px 70px rgba(0,0,0,0.5),
-        0 0 0 1px rgba(196,149,42,0.3);
+      border-radius: 4px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7), 0 0 0 1px rgba(196,149,42,0.25);
       transition:
-        transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
-        opacity   0.55s ease;
+        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.45s ease;
     }
-    #card img { width: 100%; display: block; border-radius: 5px; }
-
-    #card.risen {
-      transform: translateX(-50%) translateY(-210%);
+    #cardSmall img { width: 100%; display: block; border-radius: 4px; }
+    #cardSmall.risen {
+      transform: translateX(-50%) translateY(-220%);
       opacity: 1;
     }
+    #cardSmall.hide { opacity: 0; }
 
-    /* Envelope body */
+    /* Envelope */
     #envelope {
       position: relative;
       width: 100%;
       padding-bottom: 62%;
       background: var(--env);
       border-radius: 4px;
-      box-shadow:
-        0 4px 10px rgba(0,0,0,0.35),
-        0 20px 60px rgba(0,0,0,0.72),
-        0 0 0 1px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.35), 0 20px 60px rgba(0,0,0,0.72), 0 0 0 1px rgba(0,0,0,0.1);
       z-index: 5;
       overflow: hidden;
-      transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+      transition: opacity 0.45s ease, transform 0.45s ease;
     }
-    #envelope.opened { opacity: 0; transform: translateY(18px) scale(0.96); }
+    #envelope.opened { opacity: 0; transform: translateY(16px) scale(0.96); }
 
-    /* Left + right interior fold triangles */
+    /* Interior fold triangles */
     #envelope::before {
       content: '';
       position: absolute;
@@ -136,7 +135,6 @@
       background-repeat: no-repeat;
     }
 
-    /* Bottom triangle fold */
     .env-bot {
       position: absolute;
       bottom: 0; left: 0; right: 0;
@@ -146,59 +144,80 @@
       z-index: 2;
     }
 
-    /* Envelope flap (triangle on top) */
+    /* Flap */
     #flap {
       position: absolute;
       top: 0; left: 0;
-      width: 100%;
-      height: 56%;
+      width: 100%; height: 56%;
       background: linear-gradient(155deg, #DDD6CB 25%, #C8BFB1 100%);
       clip-path: polygon(0 0, 100% 0, 50% 100%);
       transform-origin: top center;
       z-index: 4;
-      transition: transform 0.85s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease;
+      transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
     }
     #flap.open {
       transform: perspective(700px) rotateX(-180deg);
       opacity: 0;
     }
 
-    /* Gold wax seal */
+    /* Wax seal */
     #seal {
       position: absolute;
-      top: 30%;
-      left: 50%;
+      top: 30%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 34px;
-      height: 34px;
+      width: 32px; height: 32px;
       background: radial-gradient(circle at 38% 32%, #F0C862, #C4952A 55%, #9A7020);
       border-radius: 50%;
       box-shadow: 0 2px 10px rgba(0,0,0,0.45), 0 0 0 2px rgba(196,149,42,0.28);
       z-index: 6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: rgba(0,0,0,0.5);
-      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: rgba(0,0,0,0.5); font-weight: 700;
       user-select: none;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.35s ease;
     }
     #seal.open { opacity: 0; }
 
-    /* Bottom UI: hint + button */
-    .intro-ui {
+    /* ── Phase 2: Full card centered ──────────── */
+    #phase2 {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      justify-content: center;
+      gap: 28px;
+      padding: 24px;
       opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      pointer-events: none;
+      transition: opacity 0.55s ease;
     }
-    .intro-ui.show { opacity: 1; transform: translateY(0); }
+    #phase2.show { opacity: 1; pointer-events: auto; cursor: pointer; }
 
-    .intro-hint {
+    #cardFull {
+      width: min(92vw, 460px);
+      border-radius: 6px;
+      display: block;
+      box-shadow:
+        0 20px 80px rgba(0,0,0,0.85),
+        0 0 0 1px rgba(196,149,42,0.3),
+        0 0 60px rgba(196,149,42,0.12);
+      transform: scale(0.88);
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #phase2.show #cardFull { transform: scale(1); }
+
+    .p2-ui {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+    }
+    #phase2.show .p2-ui { opacity: 1; transform: translateY(0); }
+
+    .p2-hint {
       font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -221,10 +240,7 @@
       box-shadow: 0 4px 28px rgba(196,149,42,0.5);
       transition: box-shadow 0.25s ease, background-position 0.4s ease, transform 0.15s ease;
     }
-    .open-btn:hover {
-      box-shadow: 0 6px 44px rgba(196,149,42,0.7);
-      background-position: 100% 0;
-    }
+    .open-btn:hover { box-shadow: 0 6px 44px rgba(196,149,42,0.7); background-position: 100% 0; }
     .open-btn:active { transform: scale(0.98); }
 
     .skip-label {
@@ -236,9 +252,10 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: transparent;
+      pointer-events: none;
       transition: color 0.6s ease;
     }
-    .skip-label.show { color: rgba(240,237,230,0.2); }
+    .skip-label.show { color: rgba(240,237,230,0.18); }
 
 
     /* ─────────────────────────────────────────────
@@ -247,18 +264,14 @@
     #invite { min-height: 100vh; position: relative; }
 
     .page-glow {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
         radial-gradient(ellipse 80% 40% at 50% -5%, rgba(196,149,42,0.12) 0%, transparent 60%),
         radial-gradient(ellipse 50% 30% at 10% 80%, rgba(196,149,42,0.04) 0%, transparent 50%);
     }
 
     .invite-inner {
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
       max-width: 460px;
       margin: 0 auto;
       padding: 56px 24px 88px;
@@ -268,18 +281,12 @@
       text-align: center;
     }
 
-    .inv-logo {
-      width: min(130px, 36vw);
-      margin-bottom: 28px;
-    }
+    .inv-logo { width: min(130px, 36vw); margin-bottom: 28px; }
 
     .inv-pre {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 18px;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 18px;
     }
 
     .inv-headline {
@@ -296,16 +303,12 @@
     .inv-sub {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(17px, 5vw, 22px);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--dim);
-      margin-bottom: 40px;
-      line-height: 1.4;
+      font-weight: 300; font-style: italic;
+      color: var(--dim); margin-bottom: 40px; line-height: 1.4;
     }
 
     .rule {
-      width: 56px;
-      height: 1px;
+      width: 56px; height: 1px;
       background: linear-gradient(to right, transparent, var(--gold), transparent);
       margin: 0 auto 40px;
     }
@@ -318,119 +321,95 @@
       padding: 28px 22px 24px;
       margin-bottom: 28px;
       background: rgba(240,237,230,0.025);
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
     .event-card::before {
       content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
       background: linear-gradient(to right, transparent, var(--gold), transparent);
     }
-
     .ev-tag {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 12px;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
     }
     .ev-date {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(36px, 10vw, 52px);
-      font-weight: 400;
-      line-height: 1;
-      color: var(--cream);
-      margin-bottom: 6px;
+      font-weight: 400; line-height: 1;
+      color: var(--cream); margin-bottom: 6px;
     }
-    .ev-time {
-      font-size: 14px;
-      color: var(--dim);
-      letter-spacing: 0.1em;
-      margin-bottom: 22px;
-    }
+    .ev-time { font-size: 14px; color: var(--dim); letter-spacing: 0.1em; margin-bottom: 22px; }
     .ev-rule { width: 100%; height: 1px; background: rgba(196,149,42,0.1); margin-bottom: 18px; }
-
-    .ev-desc {
-      font-size: 15px;
-      line-height: 1.72;
-      color: rgba(240,237,230,0.74);
-      text-align: left;
-    }
+    .ev-desc { font-size: 15px; line-height: 1.72; color: rgba(240,237,230,0.74); text-align: left; }
     .ev-desc strong { color: var(--cream); font-weight: 500; }
 
     .food-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 18px;
-      padding: 8px 16px;
+      display: inline-flex; align-items: center; gap: 7px;
+      margin-top: 18px; padding: 8px 16px;
       background: rgba(196,149,42,0.1);
       border: 1px solid rgba(196,149,42,0.22);
       border-radius: 20px;
-      font-size: 13px;
-      color: var(--gold2);
-      font-weight: 500;
+      font-size: 13px; color: var(--gold2); font-weight: 500;
     }
 
     /* RSVP */
     .rsvp-btn {
-      display: block;
-      width: 100%;
+      display: block; width: 100%;
       padding: 22px 20px;
       background: linear-gradient(120deg, #C4952A 0%, #E8B94B 50%, #C4952A 100%);
       background-size: 200% 100%;
       color: #060504;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      text-align: center;
-      margin-bottom: 36px;
+      font-size: 14px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      border: none; border-radius: 4px; cursor: pointer;
+      text-decoration: none; text-align: center;
+      margin-bottom: 40px;
       box-shadow: 0 4px 22px rgba(196,149,42,0.45), 0 0 60px rgba(196,149,42,0.1);
       transition: box-shadow 0.3s ease, background-position 0.45s ease, transform 0.15s ease;
     }
     .rsvp-btn:hover {
       box-shadow: 0 6px 38px rgba(196,149,42,0.65), 0 0 80px rgba(196,149,42,0.2);
-      background-position: 100% 0;
-      transform: translateY(-2px);
+      background-position: 100% 0; transform: translateY(-2px);
     }
     .rsvp-btn:active { transform: translateY(0); }
 
+    /* About SAM section */
+    .about-section {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 36px;
+      padding: 28px 22px;
+      background: rgba(240,237,230,0.02);
+      border: 1px solid rgba(240,237,230,0.06);
+      border-radius: 6px;
+    }
+    .about-section .section-label { margin-bottom: 14px; }
+    .about-text {
+      font-size: 15px;
+      line-height: 1.72;
+      color: rgba(240,237,230,0.72);
+    }
+    .about-text + .about-text { margin-top: 12px; }
+    .about-text strong { color: var(--cream); font-weight: 500; }
+
     /* Expect */
     .expect { width: 100%; text-align: left; margin-bottom: 32px; }
-
     .section-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
     }
-
     .expect-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .expect-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 14px;
-      line-height: 1.55;
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px; line-height: 1.55;
       color: rgba(240,237,230,0.7);
     }
     .expect-list li::before {
-      content: '✦';
-      color: var(--gold);
-      font-size: 9px;
-      margin-top: 4px;
-      flex-shrink: 0;
+      content: '✦'; color: var(--gold); font-size: 9px;
+      margin-top: 4px; flex-shrink: 0;
     }
 
     /* Note */
@@ -440,83 +419,58 @@
       border-left: 2px solid var(--gold);
       background: rgba(196,149,42,0.05);
       border-radius: 0 4px 4px 0;
-      text-align: left;
-      margin-bottom: 32px;
+      text-align: left; margin-bottom: 32px;
     }
     .note p {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(18px, 5vw, 22px);
-      font-weight: 400;
-      font-style: italic;
-      line-height: 1.6;
-      color: rgba(240,237,230,0.82);
+      font-weight: 400; font-style: italic;
+      line-height: 1.6; color: rgba(240,237,230,0.82);
     }
     .note cite {
-      display: block;
-      margin-top: 10px;
+      display: block; margin-top: 10px;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 11px;
-      font-style: normal;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
+      font-size: 11px; font-style: normal;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
     }
 
     /* SMS */
     .sms-cta {
-      width: 100%;
-      padding: 28px 22px;
+      width: 100%; padding: 28px 22px;
       border: 1px solid rgba(240,237,230,0.07);
-      border-radius: 6px;
-      text-align: center;
-      margin-bottom: 56px;
+      border-radius: 6px; text-align: center; margin-bottom: 56px;
     }
-    .sms-label {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-bottom: 14px;
-    }
+    .sms-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 14px; }
     .sms-action {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(24px, 7vw, 34px);
-      font-weight: 400;
-      color: var(--cream);
-      line-height: 1.2;
-      margin-bottom: 6px;
+      font-size: clamp(24px, 7vw, 34px); font-weight: 400;
+      color: var(--cream); line-height: 1.2; margin-bottom: 6px;
     }
     .sms-action em { font-style: italic; color: var(--gold2); }
     .sms-sub { font-size: 13px; color: var(--dim); letter-spacing: 0.04em; }
     .sms-tel {
-      display: inline-block;
-      margin-top: 14px;
+      display: inline-block; margin-top: 14px;
       padding: 10px 20px;
-      border: 1px solid rgba(196,149,42,0.25);
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--gold2);
-      text-decoration: none;
-      letter-spacing: 0.06em;
+      border: 1px solid rgba(196,149,42,0.25); border-radius: 20px;
+      font-size: 13px; font-weight: 500; color: var(--gold2);
+      text-decoration: none; letter-spacing: 0.06em;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .sms-tel:hover { background: rgba(196,149,42,0.1); border-color: rgba(196,149,42,0.5); }
 
     /* Footer */
-    .inv-footer { text-align: center; }
+    .inv-footer { text-align: center; width: 100%; }
     .footer-logo { width: 48px; opacity: 0.3; margin: 0 auto 10px; display: block; }
     .footer-name {
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
+      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
       color: rgba(240,237,230,0.2);
+      text-align: center;
+      padding-left: 0.28em; /* compensate for letter-spacing on last char */
     }
 
     /* ── Scroll reveal ── */
     .rv {
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 0; transform: translateY(20px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
     .rv.on, .rv.in { opacity: 1; transform: translateY(0); }
@@ -531,22 +485,27 @@
 <!-- ── INTRO OVERLAY ──────────────────────────────────────────────── -->
 <div id="intro">
 
-  <div class="stage">
-    <!-- Card (rises from inside envelope) -->
-    <div id="card">
-      <img src="images/card.png" alt="You Have Been Selected — Set Apart Movement">
-    </div>
-    <!-- Envelope -->
-    <div id="envelope">
-      <div id="flap"></div>
-      <div id="seal">✦</div>
-      <div class="env-bot"></div>
+  <!-- Phase 1: Envelope animation -->
+  <div id="phase1">
+    <div class="stage">
+      <div id="cardSmall">
+        <img src="images/card.png" alt="You Have Been Selected — Set Apart Movement">
+      </div>
+      <div id="envelope">
+        <div id="flap"></div>
+        <div id="seal">✦</div>
+        <div class="env-bot"></div>
+      </div>
     </div>
   </div>
 
-  <div class="intro-ui" id="introUI">
-    <p class="intro-hint">Your invitation is ready</p>
-    <button class="open-btn" id="openBtn">Open My Invitation &nbsp;→</button>
+  <!-- Phase 2: Full centered card + open button -->
+  <div id="phase2">
+    <img id="cardFull" src="images/card.png" alt="You Have Been Selected — Set Apart Movement">
+    <div class="p2-ui">
+      <p class="p2-hint">Your invitation is ready</p>
+      <button class="open-btn" id="openBtn">Open My Invitation &nbsp;→</button>
+    </div>
   </div>
 
   <p class="skip-label" id="skipLabel">Tap anywhere to open</p>
@@ -561,7 +520,7 @@
 
     <img class="inv-logo rv" src="images/logo.png" alt="Set Apart Movement">
 
-    <p class="inv-pre rv">You have been personally invited</p>
+    <p class="inv-pre rv">This is your invite.</p>
 
     <h1 class="inv-headline rv">You've been<br><em>selected.</em></h1>
 
@@ -576,26 +535,44 @@
       <p class="ev-time">6:00 – 8:00 PM</p>
       <div class="ev-rule"></div>
       <p class="ev-desc">
-        We're partnering with <strong>Embrace Grace</strong> to pack
-        <strong>love boxes for single mothers.</strong> Come show up for
-        someone who needs it — and experience real community while you do.
+        We're partnering with <strong>Embrace Grace</strong> — a nonprofit that
+        walks alongside single mothers who are choosing life. We'll be
+        <strong>hand-packing love boxes</strong> filled with gifts, encouragement,
+        and real love for these mamas. It's hands-on, it's meaningful, and
+        you'll leave knowing you made a real difference for someone who needed it.
+        And yes — <strong>food will be there.</strong>
       </p>
       <div class="food-badge">🍕&nbsp; Food is included</div>
     </div>
 
-    <!-- RSVP CTA -->
+    <!-- RSVP -->
     <a href="https://tally.so/r/zxgbMk" class="rsvp-btn rv" target="_blank" rel="noopener">
       RSVP — I'm Coming
     </a>
+
+    <!-- About Set Apart Movement -->
+    <div class="about-section rv">
+      <p class="section-label">What Is Set Apart Movement?</p>
+      <p class="about-text">
+        Set Apart Movement is a <strong>Gen Z community built around mission</strong> —
+        not just talking about making a difference, but actually going out and making one.
+        We believe you were made for more than average, and we get together to prove it.
+      </p>
+      <p class="about-text">
+        Each meetup, we gather around a real cause, serve together, build genuine
+        friendships, and go home knowing we actually did something. This is what
+        <strong>community on purpose</strong> looks like.
+      </p>
+    </div>
 
     <!-- What to expect -->
     <div class="expect rv">
       <p class="section-label">What to Expect</p>
       <ul class="expect-list">
-        <li>Real mission — hands-on packing love boxes for single moms</li>
+        <li>Hands-on mission — packing love boxes for single moms with Embrace Grace</li>
         <li>Good food — come hungry, leave full</li>
-        <li>Real community — people your age, on purpose</li>
-        <li>No pressure — just show up as you are</li>
+        <li>Real community — people your age, on purpose together</li>
+        <li>No pressure, no performance — just show up as you are</li>
       </ul>
     </div>
 
@@ -625,75 +602,85 @@
 
 <script>
 (function () {
-  const intro    = document.getElementById('intro');
-  const envelope = document.getElementById('envelope');
-  const flap     = document.getElementById('flap');
-  const seal     = document.getElementById('seal');
-  const card     = document.getElementById('card');
-  const introUI  = document.getElementById('introUI');
-  const skipLabel= document.getElementById('skipLabel');
-  const openBtn  = document.getElementById('openBtn');
+  const intro     = document.getElementById('intro');
+  const phase1    = document.getElementById('phase1');
+  const phase2    = document.getElementById('phase2');
+  const envelope  = document.getElementById('envelope');
+  const flap      = document.getElementById('flap');
+  const seal      = document.getElementById('seal');
+  const cardSmall = document.getElementById('cardSmall');
+  const openBtn   = document.getElementById('openBtn');
+  const skipLabel = document.getElementById('skipLabel');
 
   let opened = false;
+  let phase2Active = false;
 
-  /* ── Animation sequence ───────────────── */
-  function runSequence () {
-    // Open flap
+  /* ── Animation sequence (faster) ──────────── */
+  function runSequence() {
+    // Open flap faster
     setTimeout(() => {
       flap.classList.add('open');
       seal.classList.add('open');
-    }, 1300);
+    }, 700);
 
-    // Rise card
-    setTimeout(() => card.classList.add('risen'), 1900);
+    // Small card rises
+    setTimeout(() => cardSmall.classList.add('risen'), 1200);
 
-    // Fade envelope
-    setTimeout(() => envelope.classList.add('opened'), 2500);
+    // Envelope fades
+    setTimeout(() => envelope.classList.add('opened'), 1750);
 
-    // Show CTA UI
+    // Hand off to Phase 2: big centered card
     setTimeout(() => {
-      introUI.classList.add('show');
+      cardSmall.classList.add('hide');
+      phase1.classList.add('out');
+      phase2.classList.add('show');
+      phase2Active = true;
       skipLabel.classList.add('show');
-    }, 3100);
+    }, 2100);
 
-    // Auto-advance safety net
-    setTimeout(() => { if (!opened) revealInvite(); }, 11000);
+    // Auto-advance after 10s of showing
+    setTimeout(() => { if (!opened) revealInvite(); }, 12000);
   }
 
-  /* ── Reveal the invite ────────────────── */
-  function revealInvite () {
+  /* ── Reveal the invite ─────────────────────── */
+  function revealInvite() {
     if (opened) return;
     opened = true;
 
     intro.classList.add('out');
     document.body.classList.remove('locked');
 
-    // Staggered scroll-reveal on all .rv elements
-    const rvEls = document.querySelectorAll('#invite .rv');
-    rvEls.forEach((el, i) => {
+    // Staggered reveal on all .rv elements
+    document.querySelectorAll('#invite .rv').forEach((el, i) => {
       setTimeout(() => el.classList.add('on'), 120 + i * 85);
     });
 
     setTimeout(() => intro.remove(), 950);
   }
 
+  // Button click
   openBtn.addEventListener('click', revealInvite);
 
-  // Tap anywhere on intro (after card appears) to open
+  // Tap anywhere on phase2 to open
+  phase2.addEventListener('click', (e) => {
+    if (e.target === openBtn) return;
+    revealInvite();
+  });
+
+  // Tap anywhere on intro (after phase2 shows)
   intro.addEventListener('click', (e) => {
     if (e.target === openBtn) return;
-    if (introUI.classList.contains('show')) revealInvite();
+    if (phase2Active) revealInvite();
   });
 
   window.addEventListener('DOMContentLoaded', runSequence);
 
-  /* ── Scroll reveal for invite page ───── */
+  /* ── Scroll reveal for invite page ──────── */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
     });
-  }, { threshold: 0.12 });
-
+  }, { threshold: 0.1 });
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
 })();
 </script>
