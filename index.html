@@ -375,24 +375,74 @@
     }
     .rsvp-btn:active { transform: translateY(0); }
 
-    /* About SAM section */
-    .about-section {
+    /* Three pillars */
+    .pillars-label {
       width: 100%;
       text-align: left;
+      margin-bottom: 16px;
+    }
+    .pillars {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       margin-bottom: 36px;
-      padding: 28px 22px;
-      background: rgba(240,237,230,0.02);
-      border: 1px solid rgba(240,237,230,0.06);
+    }
+    .pillar-card {
+      padding: 20px 20px 18px;
+      border: 1px solid rgba(196,149,42,0.15);
       border-radius: 6px;
+      background: rgba(240,237,230,0.02);
+      text-align: left;
+      position: relative;
+      overflow: hidden;
     }
-    .about-section .section-label { margin-bottom: 14px; }
-    .about-text {
-      font-size: 15px;
-      line-height: 1.72;
-      color: rgba(240,237,230,0.72);
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
     }
-    .about-text + .about-text { margin-top: 12px; }
-    .about-text strong { color: var(--cream); font-weight: 500; }
+    .pillar-num {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 6px;
+    }
+    .pillar-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 400;
+      line-height: 1.1; color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .pillar-desc {
+      font-size: 13px; line-height: 1.65;
+      color: rgba(240,237,230,0.62);
+    }
+
+    /* Event bullet list */
+    .ev-bullets {
+      list-style: none;
+      width: 100%;
+      text-align: left;
+    }
+    .ev-bullets li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 0;
+      font-size: 14px;
+      color: rgba(240,237,230,0.78);
+      border-bottom: 1px solid rgba(196,149,42,0.08);
+    }
+    .ev-bullets li:last-child { border-bottom: none; }
+    .ev-icon {
+      width: 30px; height: 30px; flex-shrink: 0;
+      background: rgba(196,149,42,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+    }
+    .ev-bullets li strong { color: var(--cream); font-weight: 500; }
 
     /* Expect */
     .expect { width: 100%; text-align: left; margin-bottom: 32px; }
@@ -528,27 +578,26 @@
 
     <div class="rule rv"></div>
 
-    <!-- About Set Apart Movement -->
-    <div class="about-section rv">
+    <!-- About Set Apart Movement — Three Pillars -->
+    <div class="pillars-label rv">
       <p class="section-label">What Is Set Apart Movement?</p>
-      <p class="about-text">
-        Set Apart Movement is a <strong>Gen Z community built around mission</strong> —
-        not just talking about making a difference, but actually going out and making one.
-        We believe you were made for more than average, and every time we get together,
-        we prove it.
-      </p>
-      <p class="about-text">
-        Most communities gather to consume. We gather to <strong>contribute.</strong>
-        Every meetup is built around a real cause that matters to real people in the real world.
-        We show up, we serve, and we leave as more than we were when we walked in.
-        That's what <strong>community on purpose</strong> looks like.
-      </p>
-      <p class="about-text">
-        This isn't for everybody — it's for the ones who feel like they were made for something
-        more. The ones who want to be around people who are done being average.
-        If you felt something when you got this invite, <strong>that's not a coincidence.
-        You belong here.</strong>
-      </p>
+    </div>
+    <div class="pillars">
+      <div class="pillar-card rv">
+        <p class="pillar-num">01 &nbsp;·&nbsp; Mission</p>
+        <p class="pillar-name">We Move.</p>
+        <p class="pillar-desc">We're not a sit-and-talk club. Every meetup is built around real, hands-on mission — showing up for people who need it and making a difference you can actually feel.</p>
+      </div>
+      <div class="pillar-card rv">
+        <p class="pillar-num">02 &nbsp;·&nbsp; Community</p>
+        <p class="pillar-name">We Build.</p>
+        <p class="pillar-desc">Real friendships formed through shared purpose hit different. When you serve alongside someone, you leave as more than strangers — you leave as people who did something together.</p>
+      </div>
+      <div class="pillar-card rv">
+        <p class="pillar-num">03 &nbsp;·&nbsp; Identity</p>
+        <p class="pillar-name">We're Set Apart.</p>
+        <p class="pillar-desc">We believe you were made for more than average. That belief shapes who we invite, how we show up, and everything we do. If this invite found you — it wasn't by accident.</p>
+      </div>
     </div>
 
     <!-- Event card -->
@@ -557,12 +606,12 @@
       <p class="ev-date">July 10</p>
       <p class="ev-time">6:00 – 8:00 PM</p>
       <div class="ev-rule"></div>
-      <p class="ev-desc">
-        Partnering with <strong>Embrace Grace</strong> to pack
-        <strong>love boxes for single mothers.</strong>
-        Hands-on. Meaningful. Come ready to make a real difference.
-      </p>
-      <div class="food-badge">🍕&nbsp; Food is included</div>
+      <ul class="ev-bullets">
+        <li><span class="ev-icon">⏰</span> 6:00 – 8:00 PM</li>
+        <li><span class="ev-icon">🤝</span> <span>Partnering with <strong>Embrace Grace</strong></span></li>
+        <li><span class="ev-icon">💛</span> <span>Packing <strong>love boxes</strong> for single mothers</span></li>
+        <li><span class="ev-icon">🍕</span> <strong>Food included</strong></li>
+      </ul>
     </div>
 
     <!-- RSVP (first) -->
@@ -581,11 +630,6 @@
       </ul>
     </div>
 
-    <!-- RSVP (second) -->
-    <a href="https://tally.so/r/zxgbMk" class="rsvp-btn rv" target="_blank" rel="noopener">
-      RSVP — I'm Coming
-    </a>
-
     <!-- Personal note -->
     <div class="note rv">
       <p>"You weren't invited to fill a room. You were invited because we genuinely think you belong here."</p>
@@ -599,6 +643,11 @@
       <p class="sms-sub">to receive updates &amp; reminders</p>
       <a class="sms-tel" href="sms:+18173699532&body=SELECTED">📱&nbsp; 817-369-9532</a>
     </div>
+
+    <!-- RSVP (second — bottom) -->
+    <a href="https://tally.so/r/zxgbMk" class="rsvp-btn rv" target="_blank" rel="noopener">
+      RSVP — I'm Coming
+    </a>
 
     <!-- Footer -->
     <footer class="inv-footer rv">
