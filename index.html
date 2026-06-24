@@ -394,13 +394,13 @@
     .pillars-intro em { font-style: italic; color: var(--gold2); }
     .pillars {
       width: 100%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       margin-bottom: 52px;
     }
     .pillar-card {
-      padding: 16px 12px 14px;
+      padding: 20px 20px 18px;
       border: 1px solid rgba(196,149,42,0.15);
       border-radius: 6px;
       background: rgba(240,237,230,0.02);
@@ -415,19 +415,19 @@
       background: linear-gradient(to right, var(--gold), transparent);
     }
     .pillar-num {
-      font-size: 9px; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 7px;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 6px;
     }
     .pillar-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 20px; font-weight: 400;
+      font-size: 24px; font-weight: 400;
       line-height: 1.1; color: var(--cream);
-      margin-bottom: 7px;
+      margin-bottom: 8px;
     }
     .pillar-desc {
-      font-size: 11.5px; line-height: 1.6;
-      color: rgba(240,237,230,0.58);
+      font-size: 13px; line-height: 1.65;
+      color: rgba(240,237,230,0.62);
     }
 
     /* Event bullet list */
@@ -600,19 +600,19 @@
     </p>
     <div class="pillars">
       <div class="pillar-card rv">
-        <p class="pillar-num">01 · Mission</p>
+        <p class="pillar-num">01 &nbsp;·&nbsp; Mission</p>
         <p class="pillar-name">We Move.</p>
-        <p class="pillar-desc">Hands-on mission every meetup. Show up. Serve. Make it real.</p>
+        <p class="pillar-desc">We're not a sit-and-talk club. Every meetup is built around real, hands-on mission — showing up for people who need it and making a difference you can actually feel.</p>
       </div>
       <div class="pillar-card rv">
-        <p class="pillar-num">02 · Community</p>
+        <p class="pillar-num">02 &nbsp;·&nbsp; Community</p>
         <p class="pillar-name">We Build.</p>
-        <p class="pillar-desc">Real bonds formed through doing something that matters together.</p>
+        <p class="pillar-desc">Real friendships formed through shared purpose hit different. When you serve alongside someone, you leave as more than strangers — you leave as people who did something together.</p>
       </div>
       <div class="pillar-card rv">
-        <p class="pillar-num">03 · Identity</p>
-        <p class="pillar-name">Set Apart.</p>
-        <p class="pillar-desc">Made for more than average. If this found you — it wasn't random.</p>
+        <p class="pillar-num">03 &nbsp;·&nbsp; Identity</p>
+        <p class="pillar-name">We're Set Apart.</p>
+        <p class="pillar-desc">We believe you were made for more than average. That belief shapes who we invite, how we show up, and everything we do. If this invite found you — it wasn't by accident.</p>
       </div>
     </div>
 
