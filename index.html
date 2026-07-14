@@ -6,15 +6,15 @@
 
   <!-- ── Social / iMessage / SMS preview ──────────────────────────── -->
   <title>You've Been Invited | Set Apart Movement</title>
-  <meta name="description" content="Set Apart Movement · July 10 · 6–8 PM · This is your personal invite. Tap to open.">
+  <meta name="description" content="Set Apart Movement · July 25 · 4–6 PM · Denton Town Square · This is your personal invite. Tap to open.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://setapartmovement.com/">
   <meta property="og:title" content="You've Been Invited ✦">
-  <meta property="og:description" content="Set Apart Movement · July 10 · 6–8 PM · This is your personal invite. Tap to open.">
+  <meta property="og:description" content="Set Apart Movement · July 25 · 4–6 PM · Denton Town Square · This is your personal invite. Tap to open.">
   <meta property="og:image" content="https://setapartmovement.com/images/logo-dark.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="You've Been Invited ✦">
-  <meta name="twitter:description" content="Set Apart Movement · July 10 · 6–8 PM · This is your personal invite. Tap to open.">
+  <meta name="twitter:description" content="Set Apart Movement · July 25 · 4–6 PM · Denton Town Square · This is your personal invite. Tap to open.">
   <meta name="twitter:image" content="https://setapartmovement.com/images/logo-dark.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,6 @@
     }
     #intro.out { opacity: 0; pointer-events: none; }
 
-    /* Ambient glow */
     #intro::before {
       content: '';
       position: absolute;
@@ -84,7 +83,6 @@
       width: min(290px, 80vw);
     }
 
-    /* Small card (rises from envelope, then hands off to full card) */
     #cardSmall {
       position: absolute;
       bottom: -8px;
@@ -106,7 +104,6 @@
     }
     #cardSmall.hide { opacity: 0; }
 
-    /* Envelope */
     #envelope {
       position: relative;
       width: 100%;
@@ -120,7 +117,6 @@
     }
     #envelope.opened { opacity: 0; transform: translateY(16px) scale(0.96); }
 
-    /* Interior fold triangles */
     #envelope::before {
       content: '';
       position: absolute;
@@ -142,7 +138,6 @@
       z-index: 2;
     }
 
-    /* Flap */
     #flap {
       position: absolute;
       top: 0; left: 0;
@@ -158,7 +153,6 @@
       opacity: 0;
     }
 
-    /* Wax seal */
     #seal {
       position: absolute;
       top: 30%; left: 50%;
@@ -311,69 +305,7 @@
       margin: 0 auto 64px;
     }
 
-    /* Event card */
-    .event-card {
-      width: 100%;
-      border: 1px solid rgba(196,149,42,0.2);
-      border-radius: 6px;
-      padding: 28px 22px 24px;
-      margin-bottom: 40px;
-      background: rgba(240,237,230,0.025);
-      position: relative; overflow: hidden;
-    }
-    .event-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-    }
-    .ev-tag {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.26em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 12px;
-    }
-    .ev-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 10vw, 52px);
-      font-weight: 400; line-height: 1;
-      color: var(--cream); margin-bottom: 6px;
-    }
-    .ev-time { font-size: 14px; color: var(--dim); letter-spacing: 0.1em; margin-bottom: 22px; }
-    .ev-rule { width: 100%; height: 1px; background: rgba(196,149,42,0.1); margin-bottom: 18px; }
-    .ev-desc { font-size: 15px; line-height: 1.72; color: rgba(240,237,230,0.74); text-align: left; }
-    .ev-desc strong { color: var(--cream); font-weight: 500; }
-
-    .food-badge {
-      display: inline-flex; align-items: center; gap: 7px;
-      margin-top: 18px; padding: 8px 16px;
-      background: rgba(196,149,42,0.1);
-      border: 1px solid rgba(196,149,42,0.22);
-      border-radius: 20px;
-      font-size: 13px; color: var(--gold2); font-weight: 500;
-    }
-
-    /* RSVP */
-    .rsvp-btn {
-      display: block; width: 100%;
-      padding: 22px 20px;
-      background: linear-gradient(120deg, #C4952A 0%, #E8B94B 50%, #C4952A 100%);
-      background-size: 200% 100%;
-      color: #060504;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 14px; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      border: none; border-radius: 4px; cursor: pointer;
-      text-decoration: none; text-align: center;
-      margin-bottom: 72px;
-      box-shadow: 0 4px 22px rgba(196,149,42,0.45), 0 0 60px rgba(196,149,42,0.1);
-      transition: box-shadow 0.3s ease, background-position 0.45s ease, transform 0.15s ease;
-    }
-    .rsvp-btn:hover {
-      box-shadow: 0 6px 38px rgba(196,149,42,0.65), 0 0 80px rgba(196,149,42,0.2);
-      background-position: 100% 0; transform: translateY(-2px);
-    }
-    .rsvp-btn:active { transform: translateY(0); }
-
-    /* Three pillars */
+    /* ── About / Pillars ── */
     .pillars-label {
       width: 100%;
       text-align: left;
@@ -382,7 +314,7 @@
     .pillars-intro {
       width: 100%;
       text-align: left;
-      margin-bottom: 32px;
+      margin-bottom: 20px;
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(19px, 5.5vw, 24px);
       font-weight: 500;
@@ -390,12 +322,26 @@
       color: var(--cream);
     }
     .pillars-intro em { font-style: italic; color: var(--gold2); }
+
+    .about-body {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+    .about-body p {
+      font-size: 14px;
+      line-height: 1.78;
+      color: rgba(240,237,230,0.68);
+      margin-bottom: 12px;
+    }
+    .about-body p:last-child { margin-bottom: 0; }
+
     .pillars {
       width: 100%;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin-bottom: 72px;
+      margin-bottom: 64px;
     }
     .pillar-card {
       padding: 20px 20px 18px;
@@ -428,6 +374,124 @@
       color: rgba(240,237,230,0.62);
     }
 
+    /* ── Video section ── */
+    .video-section {
+      width: 100%;
+      margin-bottom: 64px;
+    }
+    .video-section-label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--gold);
+      text-align: left;
+      margin-bottom: 14px;
+    }
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 6px;
+      overflow: hidden;
+      background: rgba(240,237,230,0.03);
+      border: 1px solid rgba(196,149,42,0.18);
+      margin-bottom: 16px;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .video-placeholder .play-ring {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,149,42,0.35);
+      background: rgba(196,149,42,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .video-placeholder p {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(240,237,230,0.3);
+    }
+    .video-caption {
+      font-size: 13px;
+      line-height: 1.72;
+      color: rgba(240,237,230,0.5);
+      text-align: left;
+    }
+
+    /* ── Event card ── */
+    .event-card {
+      width: 100%;
+      border: 1px solid rgba(196,149,42,0.2);
+      border-radius: 6px;
+      padding: 28px 22px 24px;
+      margin-bottom: 40px;
+      background: rgba(240,237,230,0.025);
+      position: relative; overflow: hidden;
+    }
+    .event-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .ev-tag {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
+    }
+    .ev-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 10vw, 52px);
+      font-weight: 400; line-height: 1;
+      color: var(--cream); margin-bottom: 6px;
+    }
+    .ev-time { font-size: 14px; color: var(--dim); letter-spacing: 0.1em; margin-bottom: 22px; }
+    .ev-rule { width: 100%; height: 1px; background: rgba(196,149,42,0.1); margin-bottom: 20px; }
+
+    /* Theme block inside event card */
+    .ev-theme { margin-bottom: 22px; text-align: left; }
+    .theme-label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .theme-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 12vw, 56px);
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .theme-q {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 4.5vw, 20px);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold2);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .theme-desc {
+      font-size: 13px;
+      line-height: 1.72;
+      color: rgba(240,237,230,0.6);
+    }
+
     /* Event bullet list */
     .ev-bullets {
       list-style: none;
@@ -453,14 +517,42 @@
     }
     .ev-bullets li strong { color: var(--cream); font-weight: 500; }
 
-    /* Expect */
-    .expect { width: 100%; text-align: left; margin-bottom: 72px; }
+    /* RSVP */
+    .rsvp-btn {
+      display: block; width: 100%;
+      padding: 22px 20px;
+      background: linear-gradient(120deg, #C4952A 0%, #E8B94B 50%, #C4952A 100%);
+      background-size: 200% 100%;
+      color: #060504;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      border: none; border-radius: 4px; cursor: pointer;
+      text-decoration: none; text-align: center;
+      margin-bottom: 64px;
+      box-shadow: 0 4px 22px rgba(196,149,42,0.45), 0 0 60px rgba(196,149,42,0.1);
+      transition: box-shadow 0.3s ease, background-position 0.45s ease, transform 0.15s ease;
+    }
+    .rsvp-btn:hover {
+      box-shadow: 0 6px 38px rgba(196,149,42,0.65), 0 0 80px rgba(196,149,42,0.2);
+      background-position: 100% 0; transform: translateY(-2px);
+    }
+    .rsvp-btn:active { transform: translateY(0); }
+
+    /* What to Expect */
+    .expect { width: 100%; text-align: left; margin-bottom: 56px; }
     .section-label {
       font-size: 10px; font-weight: 600;
       letter-spacing: 0.26em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 16px;
+      color: var(--gold); margin-bottom: 12px;
     }
-    .expect-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .expect-intro {
+      font-size: 14px;
+      line-height: 1.68;
+      color: rgba(240,237,230,0.65);
+      margin-bottom: 14px;
+    }
+    .expect-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .expect-list li {
       display: flex; align-items: flex-start; gap: 12px;
       font-size: 14px; line-height: 1.55;
@@ -471,18 +563,78 @@
       margin-top: 4px; flex-shrink: 0;
     }
 
-    /* Note */
+    /* What to Bring */
+    .bring-section { width: 100%; text-align: left; margin-bottom: 56px; }
+    .bring-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .bring-list li {
+      font-size: 14px;
+      color: rgba(240,237,230,0.72);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .bring-list li .bi {
+      width: 28px; height: 28px; flex-shrink: 0;
+      background: rgba(196,149,42,0.08);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+    }
+
+    /* Who Can Come */
+    .who-section { width: 100%; text-align: left; margin-bottom: 56px; }
+    .who-desc { font-size: 14px; color: var(--dim); margin-top: 10px; margin-bottom: 14px; }
+    .who-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .who-list li {
+      font-size: 14px;
+      color: rgba(240,237,230,0.72);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .who-list li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 8px;
+      flex-shrink: 0;
+    }
+    .who-note {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--gold2);
+      margin-top: 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+    }
+
+    /* Mission Challenge note */
     .note {
       width: 100%;
       padding: 22px 22px 22px 20px;
       border-left: 2px solid var(--gold);
       background: rgba(196,149,42,0.05);
       border-radius: 0 4px 4px 0;
-      text-align: left; margin-bottom: 72px;
+      text-align: left; margin-bottom: 64px;
+    }
+    .note-label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
     }
     .note p {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(18px, 5vw, 22px);
+      font-size: clamp(17px, 4.5vw, 21px);
       font-weight: 400; font-style: italic;
       line-height: 1.6; color: rgba(240,237,230,0.82);
     }
@@ -491,6 +643,48 @@
       font-family: 'Space Grotesk', sans-serif;
       font-size: 11px; font-style: normal;
       letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+    }
+
+    /* Our Vision */
+    .vision-section {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 72px;
+      padding: 28px 22px;
+      border: 1px solid rgba(196,149,42,0.12);
+      border-radius: 6px;
+      background: rgba(240,237,230,0.018);
+      position: relative;
+      overflow: hidden;
+    }
+    .vision-section::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+    }
+    .vision-body {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(240,237,230,0.68);
+      margin-top: 12px;
+    }
+    .vision-body + .vision-body { margin-top: 14px; }
+    .vision-cta {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(17px, 5vw, 21px);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.55;
+      margin-top: 22px;
+    }
+    .vision-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 20px;
     }
 
     /* SMS */
@@ -524,7 +718,7 @@
       font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
       color: rgba(240,237,230,0.2);
       text-align: center;
-      padding-left: 0.28em; /* compensate for letter-spacing on last char */
+      padding-left: 0.28em;
     }
 
     /* ── Scroll reveal ── */
@@ -587,69 +781,134 @@
 
     <div class="rule rv"></div>
 
-    <!-- About Set Apart Movement — Three Pillars -->
+    <!-- ── About Set Apart Movement ── -->
     <div class="pillars-label rv">
-      <p class="section-label">What Is Set Apart Movement?</p>
+      <p class="section-label">About Set Apart Movement</p>
     </div>
+
     <p class="pillars-intro rv">
-      We're a Gen Z community that gathers around <em>real mission</em> —
-      not to talk about changing the world, but to actually go do it.
-      Every meetup. Every time.
+      A <em>student-led movement</em> built around faith, community, leadership, service, and real impact.
     </p>
+
+    <div class="about-body rv">
+      <p>Our mission is to help students discover who God created them to be, build authentic friendships, serve others, and live lives that are truly set apart. We believe students don't have to wait until they're older to make a difference. Every student has influence, purpose, and the ability to impact the people around them right now.</p>
+      <p>Every meetup is centered around a different mission or challenge. Some meetups focus on serving the community, others focus on leadership, generosity, prayer, or outreach. No matter the theme, every meetup is designed to push students out of their comfort zones, help them grow in their faith, and remind them that following Jesus is something we live — not just something we talk about.</p>
+      <p>Our goal isn't simply to host events. Our goal is to build a genuine community of students who encourage one another, challenge one another, serve together, and become the generation God has called them to be.</p>
+    </div>
+
     <div class="pillars">
       <div class="pillar-card rv">
-        <p class="pillar-num">01 &nbsp;·&nbsp; Mission</p>
-        <p class="pillar-name">We Move.</p>
-        <p class="pillar-desc">We're not a sit-and-talk club. Every meetup is built around real, hands-on mission — showing up for people who need it and making a difference you can actually feel.</p>
+        <p class="pillar-num">01 &nbsp;·&nbsp; Faith</p>
+        <p class="pillar-name">Discover who you are.</p>
+        <p class="pillar-desc">Every meetup is rooted in the belief that you were created on purpose, for a purpose. We help students grow in their faith and discover who God made them to be — not in performance, popularity, or pressure.</p>
       </div>
       <div class="pillar-card rv">
         <p class="pillar-num">02 &nbsp;·&nbsp; Community</p>
-        <p class="pillar-name">We Build.</p>
-        <p class="pillar-desc">Real friendships formed through shared purpose hit different. When you serve alongside someone, you leave as more than strangers — you leave as people who did something together.</p>
+        <p class="pillar-name">Build real friendships.</p>
+        <p class="pillar-desc">Real community forms when people pursue something greater than themselves together. When you serve alongside someone, you leave as more than strangers — you leave as people who did something that mattered.</p>
       </div>
       <div class="pillar-card rv">
-        <p class="pillar-num">03 &nbsp;·&nbsp; Identity</p>
-        <p class="pillar-name">We're Set Apart.</p>
-        <p class="pillar-desc">We believe you were made for more than average. That belief shapes who we invite, how we show up, and everything we do. If this invite found you — it wasn't by accident.</p>
+        <p class="pillar-num">03 &nbsp;·&nbsp; Impact</p>
+        <p class="pillar-name">Go make a difference.</p>
+        <p class="pillar-desc">Students don't have to wait. Every student has influence and the ability to impact the people around them right now. We show up, we serve, and we leave every place better than we found it.</p>
       </div>
     </div>
 
-    <!-- Event card -->
+    <!-- ── Video Section ── -->
+    <div class="video-section rv">
+      <p class="video-section-label">Watch the Video</p>
+      <div class="video-wrap">
+        <!-- SWAP: replace VIDEO_ID below with your YouTube video ID when ready -->
+        <div class="video-placeholder">
+          <div class="play-ring">▶</div>
+          <p>Video dropping soon</p>
+        </div>
+      </div>
+      <p class="video-caption">Watch the video above to learn more about Set Apart Movement and see what our meetups are all about. The video shares the heart behind the movement, highlights previous moments, and gives you a glimpse into what you can expect when you come.</p>
+    </div>
+
+    <!-- ── July 25 IMPACT Meetup ── -->
     <div class="event-card rv">
       <p class="ev-tag">Next Meetup</p>
-      <p class="ev-date">July 10</p>
-      <p class="ev-time">6:00 – 8:00 PM</p>
+      <p class="ev-date">July 25</p>
+      <p class="ev-time">4:00 – 6:00 PM</p>
+      <div class="ev-rule"></div>
+
+      <div class="ev-theme">
+        <p class="theme-label">Theme</p>
+        <p class="theme-name">IMPACT</p>
+        <p class="theme-q">How much impact can you make with what God has already placed in your hands?</p>
+        <p class="theme-desc">We often think we need more money, more influence, more followers, or more resources before we can make a difference. This meetup is designed to challenge that mindset. You'll discover that impact isn't determined by how much you have — it's determined by what you choose to do with what you've already been given.</p>
+      </div>
+
       <div class="ev-rule"></div>
       <ul class="ev-bullets">
-        <li><span class="ev-icon">📅</span> <span>July 10, 2025</span></li>
-        <li><span class="ev-icon">⏰</span> <span>6:00 – 8:00 PM</span></li>
-        <li><span class="ev-icon">📍</span> <span>700 W Bedford Euless Rd, Suite G<br><span style="font-size:12px;color:var(--dim)">Hurst, TX 76053</span></span></li>
-        <li><span class="ev-icon">🤝</span> <span>Partnering with <strong>Embrace Grace</strong></span></li>
-        <li><span class="ev-icon">💛</span> <span>Packing <strong>love boxes</strong> for single mothers</span></li>
-        <li><span class="ev-icon">🍕</span> <strong>Food included</strong></li>
+        <li><span class="ev-icon">📅</span> <span>Saturday, July 25</span></li>
+        <li><span class="ev-icon">⏰</span> <span>4:00 – 6:00 PM</span></li>
+        <li><span class="ev-icon">📍</span> <span>Denton Town Square<br><span style="font-size:12px;color:var(--dim)">110 W Hickory St, Denton, TX 76201</span></span></li>
+        <li><span class="ev-icon">🍕</span> <strong>Food &amp; drinks provided after the challenge</strong></li>
       </ul>
     </div>
 
-    <!-- RSVP (first) -->
+    <!-- RSVP -->
     <a href="https://tally.so/r/zxgbMk" class="rsvp-btn rv" target="_blank" rel="noopener">
       RSVP — I'm Coming
     </a>
 
-    <!-- What to expect -->
+    <!-- What to Expect -->
     <div class="expect rv">
       <p class="section-label">What to Expect</p>
+      <p class="expect-intro">The meetup begins with student check-in and a short welcome where we'll explain the mission for the day.</p>
       <ul class="expect-list">
-        <li>Hands-on mission — packing love boxes for single moms with Embrace Grace</li>
-        <li>Good food — come hungry, leave full</li>
+        <li>Check-in &amp; welcome — we'll break down exactly what the mission is</li>
+        <li>Active hands-on mission challenge — not just sitting in a room</li>
+        <li>Food and drinks provided after the challenge</li>
         <li>Real community — people your age, on purpose together</li>
         <li>No pressure, no performance — just show up as you are</li>
       </ul>
     </div>
 
-    <!-- Personal note -->
+    <!-- What to Bring -->
+    <div class="bring-section rv">
+      <p class="section-label">What to Bring</p>
+      <ul class="bring-list">
+        <li><span class="bi">👕</span> Comfortable clothes</li>
+        <li><span class="bi">👟</span> Comfortable walking shoes</li>
+        <li><span class="bi">📱</span> Charged phone</li>
+        <li><span class="bi">😊</span> Positive attitude</li>
+        <li><span class="bi">🤝</span> Willingness to serve</li>
+      </ul>
+    </div>
+
+    <!-- Who Can Come -->
+    <div class="who-section rv">
+      <p class="section-label">Who Can Come?</p>
+      <p class="who-desc">13–18 year old students who want to:</p>
+      <ul class="who-list">
+        <li>Build real friendships</li>
+        <li>Grow in their faith</li>
+        <li>Serve others</li>
+        <li>Become stronger leaders</li>
+        <li>Discover purpose</li>
+        <li>Make a positive impact</li>
+      </ul>
+      <p class="who-note">No matter where you are in your faith journey, you are welcome.</p>
+    </div>
+
+    <!-- Mission Challenge -->
     <div class="note rv">
-      <p>"You weren't invited to fill a room. You were invited because we genuinely think you belong here."</p>
+      <p class="note-label">Mission Challenge</p>
+      <p>"Every meetup includes a mission — designed to help students continue living out what they experienced instead of leaving it behind when the event ends."</p>
       <cite>— Set Apart Movement</cite>
+    </div>
+
+    <!-- Our Vision -->
+    <div class="vision-section rv">
+      <p class="section-label">Our Vision</p>
+      <p class="vision-body">We believe this generation has incredible potential. Instead of blending in with culture, we want to challenge students to live differently — to become young men and women of integrity, courage, compassion, leadership, and faith.</p>
+      <p class="vision-body">Our hope is that every meetup inspires students to take what they learn and live it out in their homes, schools, churches, teams, workplaces, and communities.</p>
+      <p class="vision-cta">This isn't just about attending an event. It's about becoming the kind of person who leaves every place better than they found it.</p>
+      <p class="vision-tag">Live set apart.</p>
     </div>
 
     <!-- SMS CTA -->
@@ -685,21 +944,15 @@
   let opened = false;
   let phase2Active = false;
 
-  /* ── Animation sequence (faster) ──────────── */
   function runSequence() {
-    // Open flap faster
     setTimeout(() => {
       flap.classList.add('open');
       seal.classList.add('open');
     }, 700);
 
-    // Small card rises
     setTimeout(() => cardSmall.classList.add('risen'), 1200);
-
-    // Envelope fades
     setTimeout(() => envelope.classList.add('opened'), 1750);
 
-    // Hand off to Phase 2: big centered card
     setTimeout(() => {
       cardSmall.classList.add('hide');
       phase1.classList.add('out');
@@ -708,11 +961,9 @@
       skipLabel.classList.add('show');
     }, 2100);
 
-    // Auto-advance after 10s of showing
     setTimeout(() => { if (!opened) revealInvite(); }, 12000);
   }
 
-  /* ── Reveal the invite ─────────────────────── */
   function revealInvite() {
     if (opened) return;
     opened = true;
@@ -720,7 +971,6 @@
     intro.classList.add('out');
     document.body.classList.remove('locked');
 
-    // Staggered reveal on all .rv elements
     document.querySelectorAll('#invite .rv').forEach((el, i) => {
       setTimeout(() => el.classList.add('on'), 120 + i * 85);
     });
@@ -728,16 +978,13 @@
     setTimeout(() => intro.remove(), 950);
   }
 
-  // Button click
   openBtn.addEventListener('click', revealInvite);
 
-  // Tap anywhere on phase2 to open
   phase2.addEventListener('click', (e) => {
     if (e.target === openBtn) return;
     revealInvite();
   });
 
-  // Tap anywhere on intro (after phase2 shows)
   intro.addEventListener('click', (e) => {
     if (e.target === openBtn) return;
     if (phase2Active) revealInvite();
@@ -745,7 +992,6 @@
 
   window.addEventListener('DOMContentLoaded', runSequence);
 
-  /* ── Scroll reveal for invite page ──────── */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
