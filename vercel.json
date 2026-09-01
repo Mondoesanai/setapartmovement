@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/c/:id", "destination": "/c.html" },
+    { "source": "/rankings", "destination": "/rankings.html" }
+  ]
+}
