@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works &mdash; Set Apart Movement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&display=swap"></noscript>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --gold:#D4A84A;--gold-l:#E8C060;--gold-d:rgba(212,168,74,.2);
+      --green:#3D9B5A;--green-d:rgba(61,155,90,.2);
+      --ink:#060504;--ink2:#100e09;--ink3:#181510;
+      --text:#F2EEE6;--dim:rgba(242,238,230,.52);--dimmer:rgba(242,238,230,.26);
+    }
+    html,body{width:100%;min-height:100vh;background:var(--ink);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+
+    /* EMBERS */
+    #ember-c{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.55}
+
+    /* BACK */
+    .back-bar{position:relative;z-index:10;display:flex;justify-content:center;padding:max(env(safe-area-inset-top,0px),28px) 24px 0}
+    .back-bar a{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;border:1px solid rgba(212,168,74,.25);border-radius:6px;color:var(--dimmer);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;transition:color .2s,border-color .2s}
+    .back-bar a:hover{color:var(--gold-l);border-color:rgba(212,168,74,.5)}
+
+    /* HERO */
+    .hero{position:relative;z-index:5;text-align:center;padding:44px 24px 52px}
+    .hero-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:16px}
+    .hero-title{font-family:'Bebas Neue',impact,sans-serif;font-size:clamp(60px,16vw,100px);letter-spacing:.04em;line-height:.92;color:var(--text)}
+    .hero-title span{color:var(--gold);display:block}
+    .hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,5vw,24px);font-weight:300;font-style:italic;color:var(--dim);margin-top:18px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.5}
+
+    /* STEPS */
+    .steps-wrap{position:relative;z-index:5;max-width:560px;margin:0 auto;padding:0 24px 100px}
+    .steps-divider{height:1px;background:linear-gradient(to right,transparent,rgba(212,168,74,.2),transparent);margin-bottom:52px}
+    .step{display:flex;gap:24px;position:relative;margin-bottom:52px}
+    .step:last-child{margin-bottom:0}
+    .step-line{position:absolute;left:23px;top:48px;bottom:-52px;width:1px;background:linear-gradient(to bottom,rgba(212,168,74,.25),rgba(212,168,74,.04))}
+    .step:last-child .step-line{display:none}
+    .step-left{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+    .step-dot{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--gold-d);background:var(--ink2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',impact,sans-serif;font-size:18px;color:var(--gold);letter-spacing:.02em}
+    .step-dot.milestone{border-color:rgba(61,155,90,.4);background:rgba(61,155,90,.06)}
+    .step-dot.milestone .step-dot-inner{color:var(--green)}
+    .step-body{padding-top:10px;flex:1}
+    .step-tag{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+    .step-tag.green{color:var(--green)}
+    .step-title{font-size:clamp(22px,6vw,28px);font-weight:700;margin-bottom:8px;line-height:1.15}
+    .step-desc{font-size:14px;color:var(--dim);line-height:1.72;margin-bottom:0}
+    .reward-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+    .pill{display:inline-block;padding:5px 14px;background:var(--ink2);border:1px solid rgba(212,168,74,.2);border-radius:20px;font-size:11px;color:var(--gold-l);letter-spacing:.06em}
+    .pill.green{border-color:rgba(61,155,90,.3);color:rgba(100,200,130,.9)}
+
+    /* BRACELET SECTION */
+    .brclt{background:linear-gradient(135deg,rgba(212,168,74,.05),rgba(212,168,74,.02));border:1px solid rgba(212,168,74,.18);border-radius:14px;padding:28px 24px;text-align:center;margin-bottom:36px;position:relative;overflow:hidden}
+    .brclt::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,168,74,.08),transparent 65%)}
+    .brclt-icon{font-size:36px;margin-bottom:12px;display:block}
+    .brclt-title{font-family:'Bebas Neue',impact,sans-serif;font-size:32px;letter-spacing:.05em;color:var(--gold);margin-bottom:8px}
+    .brclt-desc{font-size:13px;color:var(--dim);line-height:1.7;max-width:320px;margin:0 auto}
+
+    /* TAPS EXPLAINER */
+    .taps-box{background:var(--ink2);border:1px solid rgba(212,168,74,.12);border-left:3px solid var(--gold);border-radius:10px;padding:20px 22px;margin-bottom:20px}
+    .taps-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+    .taps-text{font-size:14px;color:var(--dim);line-height:1.68}
+
+    /* CTA */
+    .cta-area{text-align:center;padding-top:52px}
+    .cta-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dimmer);margin-bottom:16px}
+    .cta-btn{display:inline-block;padding:16px 48px;background:linear-gradient(135deg,#1a1000,#4a3010,#1a1000);border:1.5px solid rgba(212,168,74,.35);border-radius:6px;color:var(--gold-l);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;transition:border-color .2s,box-shadow .2s}
+    .cta-btn:hover{border-color:var(--gold);box-shadow:0 0 28px rgba(212,168,74,.25)}
+    .cta-sub{font-size:11px;color:var(--dimmer);margin-top:14px}
+  </style>
+</head>
+<body>
+<canvas id="ember-c"></canvas>
+
+<div class="back-bar">
+  <a href="/">&#8592; Back to Home</a>
+</div>
+
+<div class="hero">
+  <div class="hero-label">Set Apart Movement</div>
+  <div class="hero-title">HOW IT<span>WORKS.</span></div>
+  <div class="hero-sub">Show up consistently. Earn your place. The rewards are real and so is the work.</div>
+</div>
+
+<div class="steps-wrap">
+  <div class="steps-divider"></div>
+
+  <div class="step">
+    <div class="step-line"></div>
+    <div class="step-left"><div class="step-dot">1</div></div>
+    <div class="step-body">
+      <div class="step-tag">First Step</div>
+      <div class="step-title">Show up to your first meetup.</div>
+      <div class="step-desc">Every Set Apart meetup is a mission. Come ready to move, to serve, and to meet people who are actually trying to do something with their life. No spectators. No sitting around. You&rsquo;re here to go.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-line"></div>
+    <div class="step-left"><div class="step-dot milestone"><span style="color:var(--green)">2&ndash;3</span></div></div>
+    <div class="step-body">
+      <div class="step-tag green">Milestone</div>
+      <div class="step-title">Earn your bracelet and your number.</div>
+      <div class="step-desc">After attending two to three meetups, you&rsquo;re recognized as part of the core. You receive your Set Apart bracelet and your permanent number &mdash; one of only 100 in existence. No one else will ever hold your number.</div>
+      <div style="margin-top:18px"><div class="brclt">
+        <span class="brclt-icon" style="font-size:28px;color:var(--gold);letter-spacing:.04em;font-family:'Bebas Neue',impact,sans-serif">NFC</span>
+        <div class="brclt-title">The Bracelet</div>
+        <div class="brclt-desc">Your bracelet is NFC-enabled. When anyone taps it with their phone, it opens your personal link. Every tap counts toward your ranking. Wear it. Let people tap it.</div>
+      </div></div>
+      <div class="reward-pills">
+        <div class="pill green">&#9679; Your bracelet &amp; your number. Forever.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-line"></div>
+    <div class="step-left"><div class="step-dot">5</div></div>
+    <div class="step-body">
+      <div class="step-tag">Milestone</div>
+      <div class="step-title">Claim your shirt. Unlock The Circle.</div>
+      <div class="step-desc">Five meetups means you&rsquo;re not just attending &mdash; you&rsquo;re built into the fabric of this thing. At five meetups you earn your official Set Apart shirt and become eligible for an invitation into The Circle, the inner Set Apart community.</div>
+      <div class="reward-pills">
+        <div class="pill">&#9679; Official Set Apart shirt</div>
+        <div class="pill green">&#9679; Eligible for The Circle</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-left"><div class="step-dot" style="font-size:22px;letter-spacing:0">&#8734;</div></div>
+    <div class="step-body">
+      <div class="step-tag">Always</div>
+      <div class="step-title">Invite others. Climb the rankings.</div>
+      <div class="step-desc">Every time someone taps your bracelet, your tap count goes up. Rankings are tracked publicly and updated in real time. The top members are the ones who are actually growing this thing. Be the reason someone shows up.</div>
+      <div class="reward-pills">
+        <div class="pill">&#9679; Live ranking on the leaderboard</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="taps-box" style="margin-top:52px">
+    <div class="taps-label">How Rankings Work</div>
+    <div class="taps-text">Your rank is based on your <strong style="color:var(--gold-l)">total tap count</strong> &mdash; how many times people have tapped your bracelet. After each meetup, RSVP conversions are updated manually by the movement leader. Rankings refresh live.</div>
+  </div>
+
+  <div class="cta-area">
+    <div class="cta-label">Ready?</div>
+    <a class="cta-btn" href="/">See the Next Meetup &rarr;</a>
+    <div class="cta-sub"><a href="/rankings" style="color:var(--dimmer);text-decoration:none;transition:color .2s" onmouseover="this.style.color='rgba(212,168,74,.7)'" onmouseout="this.style.color='rgba(242,238,230,.26)'">View Current Rankings &rarr;</a></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var canvas=document.getElementById('ember-c');
+  var ctx=canvas.getContext('2d');
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  var embers=[];
+  for(var i=0;i<45;i++)embers.push({x:Math.random()*window.innerWidth,y:window.innerHeight+Math.random()*200,vx:(Math.random()-.5)*.45,vy:-.35-Math.random()*.7,r:.6+Math.random()*1.6,life:Math.random(),gold:Math.random()>.3});
+  (function draw(){
+    var W=canvas.width,H=canvas.height;ctx.clearRect(0,0,W,H);
+    embers.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.life-=.003;if(p.life<=0){p.x=Math.random()*W;p.y=H+10;p.life=.85+Math.random()*.15;p.vx=(Math.random()-.5)*.45;p.vy=-.35-Math.random()*.7;}ctx.globalAlpha=Math.min(p.life,.55)*Math.sin(p.life*Math.PI);ctx.fillStyle=p.gold?'#D4A84A':'rgba(242,238,230,.5)';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();});ctx.globalAlpha=1;requestAnimationFrame(draw);
+  })();
+})();
+</script>
+<script defer src="https://agency-dashboard-omega-red.vercel.app/t.js"></script>
+</body>
+</html>
