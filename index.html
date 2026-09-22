@@ -1023,7 +1023,7 @@
     <img id="cardFull" src="images/card.png" alt="You Have Been Selected - Set Apart Movement">
     <div class="p2-ui">
       <p class="p2-hint">Your invitation is ready</p>
-      <button class="open-btn" id="openBtn">Open My Invitation &nbsp;&rarr;</button>
+      <button data-track="open-invitation" class="open-btn" id="openBtn">Open My Invitation &nbsp;&rarr;</button>
     </div>
   </div>
 
@@ -1060,7 +1060,7 @@
           <div class="wl-count-dot"></div>
           <div class="wl-count-text"><strong id="wl-count">153</strong> people already in line &middot; limited spots</div>
         </div>
-        <button class="wl-join-btn" id="wl-join-btn" onclick="openWaitlistModal()">JOIN THE WAITLIST &rarr;</button>
+        <button data-track="join-waitlist" class="wl-join-btn" id="wl-join-btn" onclick="openWaitlistModal()">JOIN THE WAITLIST &rarr;</button>
         <div class="wl-fine">No spam. Just the drop when the next meetup is locked in.</div>
         <div class="wl-corners">
           <button class="wl-corner-btn wl-plus" id="wl-admin-btn" onclick="openWlAdmin()" title="Admin">+</button>
@@ -1092,12 +1092,12 @@
           <div class="cd-unit"><span class="cd-num" id="cd-secs">--</span><span class="cd-lbl">Secs</span></div>
         </div>
       </div>
-      <a id="ev-rsvp-btn" href="https://tally.so/r/zx9581" class="rsvp-btn rv" target="_blank" rel="noopener">
+      <a data-track="rsvp" id="ev-rsvp-btn" href="https://tally.so/r/zx9581" class="rsvp-btn rv" target="_blank" rel="noopener">
         RSVP &mdash; I&rsquo;m Coming
       </a>
       <div class="cant-make-it rv" id="cant-make-it-card">
         <div class="cmi-label">Can&rsquo;t make it to this one?</div>
-        <button class="cmi-btn" onclick="openWaitlistModal()">Join the Waitlist for the Next Meetup &rarr;</button>
+        <button data-track="join-waitlist" class="cmi-btn" onclick="openWaitlistModal()">Join the Waitlist for the Next Meetup &rarr;</button>
       </div>
     </div>
 
@@ -2087,10 +2087,10 @@ window._samDb = (function(){
 
 <!-- Small waitlist bubble — bottom right, above FAB -->
 <!-- Waitlist bubble — bottom right, above bracelet FAB -->
-<button id="wl-bubble" onclick="openWaitlistModal()" style="position:fixed;bottom:calc(max(env(safe-area-inset-bottom,0px),28px) + 72px);right:18px;z-index:8900;background:linear-gradient(135deg,#2a1800,#6a4010);border:1.5px solid rgba(212,168,74,.5);border-radius:28px;padding:8px 16px;color:#D4A84A;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.6),0 0 16px rgba(212,168,74,.15);white-space:nowrap;display:none">JOIN WAITLIST</button>
+<button data-track="join-waitlist" id="wl-bubble" onclick="openWaitlistModal()" style="position:fixed;bottom:calc(max(env(safe-area-inset-bottom,0px),28px) + 72px);right:18px;z-index:8900;background:linear-gradient(135deg,#2a1800,#6a4010);border:1.5px solid rgba(212,168,74,.5);border-radius:28px;padding:8px 16px;color:#D4A84A;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.6),0 0 16px rgba(212,168,74,.15);white-space:nowrap;display:none">JOIN WAITLIST</button>
 
 <!-- Admin pill — bottom left, only visible to admin -->
-<button id="sam-admin-pill" onclick="openWlAdmin()" style="position:fixed;bottom:max(env(safe-area-inset-bottom,0px),28px);left:18px;z-index:8900;background:rgba(212,168,74,.06);border:1px solid rgba(212,168,74,.28);border-radius:28px;padding:8px 16px;color:rgba(212,168,74,.7);font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;display:none">WAITLIST ★</button>
+<button data-track="join-waitlist" id="sam-admin-pill" onclick="openWlAdmin()" style="position:fixed;bottom:max(env(safe-area-inset-bottom,0px),28px);left:18px;z-index:8900;background:rgba(212,168,74,.06);border:1px solid rgba(212,168,74,.28);border-radius:28px;padding:8px 16px;color:rgba(212,168,74,.7);font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;display:none">WAITLIST ★</button>
 
 <!-- Waitlist modal -->
 <div id="wl-modal">
@@ -2108,7 +2108,7 @@ window._samDb = (function(){
         <input type="tel" id="wlm-phone" placeholder="Phone number" autocomplete="tel" inputmode="tel" />
         <div class="wlm-err" id="wlm-err">Please fill in both fields.</div>
       </div>
-      <button class="wlm-submit" onclick="submitWaitlist()">LOCK IN MY SPOT &rarr;</button>
+      <button data-track="lock-in-spot" class="wlm-submit" onclick="submitWaitlist()">LOCK IN MY SPOT &rarr;</button>
     </div>
 
     <div class="wlm-success" id="wlm-success-view">
@@ -2149,7 +2149,7 @@ window._samDb = (function(){
       <div id="tab-waitlist" class="sdp-tab-pane"><div class="sdp-loading">Loading&hellip;</div></div>
     </div>
     <div class="sdp-links">
-      <a href="javascript:void(0)" class="sdp-link" onclick="closeSamDrawer();openWaitlistModal()">Join the Waitlist &rarr;</a>
+      <a data-track="join-waitlist" href="javascript:void(0)" class="sdp-link" onclick="closeSamDrawer();openWaitlistModal()">Join the Waitlist &rarr;</a>
       <a href="/rankings" class="sdp-link">Full Rankings &rarr;</a>
       <a href="/how-it-works" class="sdp-link">How It Works &rarr;</a>
     </div>
