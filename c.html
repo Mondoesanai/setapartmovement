@@ -655,7 +655,7 @@ function showErr(id,msg){var e=document.getElementById(id);if(!e)return;e.textCo
 document.getElementById('cin-cta').addEventListener('click',function(){getAudio();show('s-setup')});
 
 // ── PHOTO ──
-document.getElementById('photo-file').addEventListener('change',function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){shrinkImage(ev.target.result,220,function(data){var ring=document.getElementById('photo-ring');ring.innerHTML='<img src="'+data+'" alt="">';ring._photo=data})};reader.readAsDataURL(file)});
+document.getElementById('photo-file').addEventListener('change',function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){shrinkImage(ev.target.result,220,function(data){var ring=document.getElementById('photo-ring');ring.innerHTML='<img src="'+data+'" alt="New profile photo preview for Set Apart Movement bracelet setup">';ring._photo=data})};reader.readAsDataURL(file)});
 function shrinkImage(src,maxPx,cb){var img=new Image();img.onload=function(){var sc=Math.min(maxPx/img.width,maxPx/img.height,1);var c=document.createElement('canvas');c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);c.getContext('2d').drawImage(img,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.72))};img.src=src}
 
 // ── CLAIM ──
@@ -716,7 +716,7 @@ function loadProfile(data){
   var d=new Date(data.claimedAt||Date.now());
   setText('pf-since','Member since '+d.toLocaleString('en-US',{month:'short',year:'numeric'}));
   var ph=document.getElementById('pf-photo');
-  if(data.photo)ph.innerHTML='<img src="'+data.photo+'" alt="">';
+  if(data.photo)ph.innerHTML='<img src="'+data.photo+'" alt="'+(data.name?data.name+' profile photo, Set Apart Movement member':'Set Apart Movement member profile photo')+'">';
   document.getElementById('adm-fab').hidden=false;
   // Mark device as admin when bracelet 002 confirms identity
   if(braceletId==='002') try{localStorage.setItem('sam_is_admin','1');}catch(e){}
@@ -741,7 +741,7 @@ function goEditProfile(){
   document.getElementById('f-city').value=d.city||'';
   document.getElementById('f-bday').value=d.birthday||'';
   var ring=document.getElementById('photo-ring');
-  if(d.photo){ring.innerHTML='<img src="'+d.photo+'" alt=""><span class="pr-icon">📷</span><span class="pr-label">Change</span>';ring._photo=d.photo;}
+  if(d.photo){ring.innerHTML='<img src="'+d.photo+'" alt="'+(d.name?d.name+' profile photo':'Set Apart Movement member profile photo')+'"><span class="pr-icon">📷</span><span class="pr-label">Change</span>';ring._photo=d.photo;}
   document.getElementById('setup-btn').textContent='UPDATE PROFILE →';
   document.querySelector('.s-title').textContent='Edit Your Profile';
   document.querySelector('.s-sub').textContent='Update your name, city, or photo.';
