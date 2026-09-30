@@ -5,25 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
   <!-- Primary SEO -->
-  <title>Set Apart Movement | SENT. — Meetup 006 · September 19</title>
-  <meta name="description" content="Set Apart Movement Meetup 006: SENT. Saturday, September 19, 2026 · 4:00–6:00 PM · North East Mall, Hurst TX. You've been prepared. Now you're being sent. Ages 12–19. Free. RSVP required.">
-  <meta name="keywords" content="Set Apart Movement, student movement Hurst TX, youth faith community DFW, student ministry North East Mall, youth meetup Hurst Texas, Christian student community Texas, student leadership event DFW, youth event September 2026, faith community for students Texas, SENT meetup 006">
+  <title>Set Apart Movement | CONNECT. — Meetup 007 · October 3</title>
+  <meta name="description" content="Set Apart Movement Meetup 007: CONNECT. Saturday, October 3, 2026 · 7:00–9:00 PM · 2200 Driskell Drive, Corinth TX. Bible. Snack. Friend. Ages 12–19. Free. RSVP required.">
+  <meta name="keywords" content="Set Apart Movement, student movement Corinth TX, youth faith community DFW, student Bible study, youth meetup Corinth Texas, Christian student community Texas, student community event DFW, youth event October 2026, faith community for students Texas, CONNECT meetup 007">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="author" content="Set Apart Movement">
   <meta name="geo.region" content="US-TX">
-  <meta name="geo.placename" content="Hurst, Texas">
+  <meta name="geo.placename" content="Corinth, Texas">
   <link rel="canonical" href="https://setapartmovement.com/">
 
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://setapartmovement.com/">
   <meta property="og:site_name" content="Set Apart Movement">
-  <meta property="og:title" content="SENT. — Set Apart Movement Meetup 006">
-  <meta property="og:description" content="You've been prepared. Now you're being sent. Meetup 006 · September 19, 2026 · North East Mall, Hurst TX · Ages 12–19 · Free. Spots are limited.">
+  <meta property="og:title" content="CONNECT. — Set Apart Movement Meetup 007">
+  <meta property="og:description" content="A completely new kind of Set Apart meetup. Meetup 007 · October 3, 2026 · Corinth TX · Ages 12–19 · Free. Bring your Bible, a snack, and a friend.">
   <meta property="og:image" content="https://setapartmovement.com/images/card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Set Apart Movement — SENT. Meetup 006 invitation">
+  <meta property="og:image:alt" content="Set Apart Movement — CONNECT. Meetup 007 invitation">
   <meta property="og:locale" content="en_US">
 
   <!-- Twitter / X Card -->
@@ -997,33 +997,37 @@
 <!-- INTRO OVERLAY -->
 <div id="intro">
 
-  <!-- Phase 1: Envelope animation -->
+  <!-- Phase 1: Book / scripture opening animation -->
   <div id="phase1">
     <div class="stage">
-      <div id="cardSmall">
-        <img src="images/card.png" alt="You Have Been Selected - Set Apart Movement">
+      <!-- Scripture texture background -->
+      <div id="book-bg" aria-hidden="true">
+        <div id="book-scripture"></div>
       </div>
-      <div id="envelope">
-        <div id="flap"></div>
-        <div id="seal"></div>
-        <div class="env-bot"></div>
-        <!-- Gold fold seams -->
-        <svg class="env-seams" viewBox="0 0 100 62" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <line x1="0"   y1="0"  x2="50" y2="31" stroke="#C4952A" stroke-width="0.6" opacity="0.55"/>
-          <line x1="100" y1="0"  x2="50" y2="31" stroke="#C4952A" stroke-width="0.6" opacity="0.55"/>
-          <line x1="0"   y1="62" x2="50" y2="31" stroke="#C4952A" stroke-width="0.6" opacity="0.55"/>
-          <line x1="100" y1="62" x2="50" y2="31" stroke="#C4952A" stroke-width="0.6" opacity="0.55"/>
-        </svg>
+      <!-- Book container -->
+      <div id="book-container" role="presentation" aria-hidden="true">
+        <div id="book-page-l"></div>
+        <div id="book-page-r"></div>
+        <div id="book-spine"></div>
+        <div id="book-reveal">
+          <p id="book-sam">Set Apart Movement</p>
+          <p id="book-word">CONNECT.</p>
+        </div>
+      </div>
+      <!-- Stubs — kept for legacy JS null-checks; never visible -->
+      <div id="cardSmall" style="display:none" aria-hidden="true"></div>
+      <div id="envelope" style="display:none" aria-hidden="true">
+        <div id="flap"></div><div id="seal"></div>
       </div>
     </div>
   </div>
 
   <!-- Phase 2: Full centered card + open button -->
   <div id="phase2">
-    <img id="cardFull" src="images/card.png" alt="You Have Been Selected - Set Apart Movement">
+    <img id="cardFull" src="images/card.png" alt="Set Apart Movement — CONNECT. Meetup 007">
     <div class="p2-ui">
-      <p class="p2-hint">Your invitation is ready</p>
-      <button class="open-btn" id="openBtn">Open My Invitation &nbsp;&rarr;</button>
+      <p class="p2-hint">Your invitation is waiting</p>
+      <button class="open-btn" id="openBtn">ACCEPT MISSION &nbsp;&rarr;</button>
     </div>
   </div>
 
@@ -1118,46 +1122,68 @@
 
     <div class="rule rv"></div>
 
-    <!-- About -->
-    <div class="pillars-label rv">
-      <h2 class="section-label">What Is Set Apart Movement?</h2>
-    </div>
-    <p class="pillars-intro rv">
-      A <em>student-led movement</em> built around faith, community, and real impact. Every meetup is a mission.
-    </p>
-    <div class="pillars">
-      <div class="pillar-card rv">
-        <p class="pillar-num">01 &nbsp;&middot;&nbsp; Faith</p>
-        <p class="pillar-name">Discover who you are.</p>
-        <p class="pillar-desc">Every meetup is rooted in the belief that you were created on purpose, for a purpose.</p>
+    <!-- CONNECT: This One Is Different -->
+    <div class="conn-diff rv" id="conn-diff-sec">
+      <div class="conn-diff-eyebrow">Meetup 007 &nbsp;&middot;&nbsp; What to Know</div>
+      <div class="conn-diff-h">THIS ONE IS<br>DIFFERENT.</div>
+      <div class="conn-diff-body">
+        <p>Set Apart is doing something new.</p>
+        <p>CONNECT is a more intimate kind of meetup &mdash; built around getting in the Word together, asking real questions, and actually knowing the people next to you.</p>
+        <p>No performance. No pressure. Just come ready.</p>
       </div>
-      <div class="pillar-card rv">
-        <p class="pillar-num">02 &nbsp;&middot;&nbsp; Community</p>
-        <p class="pillar-name">Build real friendships.</p>
-        <p class="pillar-desc">Real community forms when people pursue something greater than themselves together.</p>
-      </div>
-      <div class="pillar-card rv">
-        <p class="pillar-num">03 &nbsp;&middot;&nbsp; Impact</p>
-        <p class="pillar-name">Go make a difference.</p>
-        <p class="pillar-desc">Every student has influence right now. We show up, serve, and leave every place better.</p>
-      </div>
-    </div>
-
-    <!-- What to Expect -->
-    <div class="expect rv">
-      <h2 class="section-label">What to Expect at Set Apart Movement</h2>
-      <ul class="expect-list">
-        <li>A hands-on mission challenge &mdash; active, not just sitting in a room</li>
-        <li>Real community &mdash; people your age, on purpose together</li>
-        <li>Food and drinks after the challenge</li>
-        <li>No pressure, no performance &mdash; just show up as you are</li>
+      <ul class="conn-bring">
+        <li>YOUR BIBLE.</li>
+        <li>A SNACK TO SHARE.</li>
+        <li>A FRIEND.</li>
       </ul>
     </div>
 
-    <!-- Quote -->
-    <div class="note rv">
-      <p>&ldquo;We&rsquo;re not building an audience. We&rsquo;re building a generation &mdash; students who live differently, serve boldly, and leave every place better than they found it.&rdquo;</p>
-      <cite>&mdash; Set Apart Movement</cite>
+    <!-- CONNECT: Experience section -->
+    <div class="conn-exp rv" id="conn-exp-sec">
+      <div class="conn-exp-eyebrow">What to Expect</div>
+      <div class="conn-exp-grid" id="conn-exp-grid">
+        <div class="conn-exp-word">THE WORD.</div>
+        <div class="conn-exp-line" aria-hidden="true"></div>
+        <div class="conn-exp-word">CONVERSATION.</div>
+        <div class="conn-exp-line" aria-hidden="true"></div>
+        <div class="conn-exp-word">COMMUNITY.</div>
+        <div class="conn-exp-line" aria-hidden="true"></div>
+        <div class="conn-exp-word">QUESTIONS.</div>
+        <div class="conn-exp-line" aria-hidden="true"></div>
+        <div class="conn-exp-word">FOOD.</div>
+        <div class="conn-exp-line" aria-hidden="true"></div>
+        <div class="conn-exp-word">FAITH.</div>
+        <div class="conn-exp-line" aria-hidden="true"></div>
+        <div class="conn-exp-word">REAL LIFE.</div>
+      </div>
+    </div>
+
+    <!-- CONNECT: Belong section -->
+    <div class="conn-belong rv" id="conn-belong-sec">
+      <div class="conn-eyebrow">There Is A Place For You Here</div>
+      <div class="conn-belong-h">YOU DON&rsquo;T HAVE TO<br>DO LIFE ALONE.</div>
+      <div class="conn-belong-body">
+        <p>There are a lot of places where you can show up.</p>
+        <p>We want Set Apart to become somewhere you actually belong &mdash; a place to ask the real questions, to grow, to know people and be known.</p>
+        <p>That&rsquo;s what CONNECT is about.</p>
+      </div>
+    </div>
+
+    <!-- CONNECT: Join the Movement CTA -->
+    <div class="conn-join rv" id="conn-join-sec">
+      <div class="conn-eyebrow">Be Part of What We&rsquo;re Building</div>
+      <div class="conn-join-h">JOIN THE<br>MOVEMENT.</div>
+      <div class="conn-join-sub">Stay connected to Set Apart. Be the first to hear about upcoming meetups and what&rsquo;s coming next.</div>
+      <button class="conn-join-btn" onclick="openWaitlistModal()">I&rsquo;M IN. &nbsp;&rarr;</button>
+      <div class="conn-join-fine">No spam. Just the movement.</div>
+    </div>
+
+    <!-- CONNECT: One Year moment -->
+    <div class="conn-year rv" id="conn-year-sec">
+      <div class="conn-year-bg" aria-hidden="true">1</div>
+      <div class="conn-year-label">One Year of Set Apart Movement</div>
+      <div class="conn-year-h">ONE YEAR.</div>
+      <div class="conn-year-tag">And we&rsquo;re just getting started.</div>
     </div>
 
     <!-- Community CTA -->
@@ -1212,9 +1238,10 @@
   const SWITCH_AT3  = new Date('2026-08-21T12:00:00Z'); // live now — after meetup ends
   const forceServe  = new URLSearchParams(location.search).get('preview') === 'serve';
   const showServe   = forceServe || Date.now() >= SWITCH_AT3.getTime();;
-  const SWITCH_AT_SENT = new Date('2026-09-09T00:00:00Z'); // Meetup 006 SENT. — activate now
+  const SWITCH_AT_SENT = new Date('2026-09-09T00:00:00Z');
+  const SENT_END      = new Date('2026-09-19T23:00:00Z'); // meetup over after 6 PM CDT
   const forceSent   = new URLSearchParams(location.search).get('preview') === 'sent';
-  const showSent    = forceSent || Date.now() >= SWITCH_AT_SENT.getTime();
+  const showSent    = forceSent || (Date.now() >= SWITCH_AT_SENT.getTime() && Date.now() < SENT_END.getTime() + 3600000);
 
   if (showAug) { try {
     /* Inject TEAR IT DOWN theme styles */
@@ -1893,6 +1920,187 @@
     }
 
   } catch(e) { console.error('showSent error:', e); } }
+
+  /* ── MEETUP 007: CONNECT ────────────────────────────────────── */
+  const SWITCH_AT_CONNECT = new Date('2026-09-29T00:00:00Z');
+  const CONNECT_END       = new Date('2026-10-04T02:00:00Z'); // Oct 3 9PM CDT = Oct 4 02:00Z
+  const forceConnect = new URLSearchParams(location.search).get('preview') === 'connect';
+  const showConnect  = forceConnect || (Date.now() >= SWITCH_AT_CONNECT.getTime() && Date.now() < CONNECT_END.getTime() + 3600000);
+
+  if (showConnect) { try {
+
+    /* ── 1. Design system CSS injection ── */
+    var sConn = document.createElement('style');
+    sConn.textContent = [
+      /* Book animation */
+      '#book-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;}',
+      '#book-scripture{position:absolute;inset:-8%;font-family:"Cormorant Garamond",serif;font-size:9px;line-height:2;color:rgba(196,149,42,.055);white-space:pre-wrap;word-break:break-word;padding:28px;user-select:none;pointer-events:none;overflow:hidden;}',
+      '#book-container{position:relative;width:min(290px,78vw);height:min(185px,50vw);transform-style:preserve-3d;}',
+      '#book-page-l,#book-page-r{position:absolute;top:0;height:100%;width:50%;background:linear-gradient(135deg,#1c1a14,#15130f);border:1px solid rgba(196,149,42,.16);backface-visibility:hidden;transition:transform 1.15s cubic-bezier(.65,0,.35,1);}',
+      '#book-page-l{left:0;border-right:none;transform-origin:right center;transform:rotateY(0deg);}',
+      '#book-page-r{right:0;border-left:none;transform-origin:left center;transform:rotateY(0deg);}',
+      '.book-open #book-page-l{transform:rotateY(-148deg);}',
+      '.book-open #book-page-r{transform:rotateY(148deg);}',
+      '#book-spine{position:absolute;left:50%;top:8%;bottom:8%;width:1px;background:linear-gradient(to bottom,transparent,rgba(196,149,42,.55),transparent);transform:translateX(-50%);}',
+      '#book-reveal{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;transition:opacity .85s ease .65s;pointer-events:none;}',
+      '.book-open #book-reveal{opacity:1;}',
+      '#book-sam{font-family:"Space Grotesk",sans-serif;font-size:clamp(8px,2.2vw,11px);letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.62);font-weight:600;margin:0;}',
+      '#book-word{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(68px,19vw,104px);letter-spacing:.04em;color:var(--cream);line-height:.82;margin:0;}',
+      /* Design overrides */
+      '.inv-pre{font-size:10px!important;letter-spacing:.28em!important;color:rgba(196,149,42,.7)!important;}',
+      '.inv-headline{font-family:"Bebas Neue",impact,sans-serif!important;font-size:clamp(88px,26vw,136px)!important;letter-spacing:.03em!important;line-height:.86!important;color:var(--cream)!important;font-style:normal!important;}',
+      '.inv-sub{font-family:"Cormorant Garamond",serif!important;font-size:clamp(15px,4.2vw,20px)!important;font-style:italic!important;color:rgba(240,237,230,.6)!important;letter-spacing:.01em!important;line-height:1.45!important;text-transform:none!important;}',
+      /* CONNECT section base */
+      '.conn-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.58);margin-bottom:12px;font-family:"Space Grotesk",sans-serif;font-weight:600;}',
+      /* This One Is Different */
+      '.conn-diff{width:100%;padding:32px 22px 28px;background:rgba(196,149,42,.025);border:1px solid rgba(196,149,42,.14);border-top:2px solid rgba(196,149,42,.42);border-radius:8px;text-align:left;margin-top:36px;}',
+      '.conn-diff-eyebrow{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(196,149,42,.52);margin-bottom:14px;font-family:"Space Grotesk",sans-serif;font-weight:600;}',
+      '.conn-diff-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(34px,10vw,50px);letter-spacing:.03em;color:var(--cream);margin-bottom:16px;line-height:.92;}',
+      '.conn-diff-body p{font-size:14px;line-height:1.82;color:rgba(240,237,230,.52);margin-bottom:8px;}',
+      '.conn-diff-body p:last-child{margin-bottom:18px;}',
+      '.conn-bring{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;}',
+      '.conn-bring li{display:flex;align-items:center;gap:14px;font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);}',
+      '.conn-bring li::before{content:"";width:22px;height:1px;background:rgba(196,149,42,.5);flex-shrink:0;}',
+      /* Experience section */
+      '.conn-exp{width:100%;padding:44px 0 36px;text-align:center;border-top:1px solid rgba(196,149,42,.07);}',
+      '.conn-exp-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.5);margin-bottom:20px;font-family:"Space Grotesk",sans-serif;font-weight:600;}',
+      '.conn-exp-grid{display:flex;flex-direction:column;gap:0;}',
+      '.conn-exp-word{font-family:"Cormorant Garamond",serif;font-size:clamp(30px,9vw,50px);font-weight:300;font-style:italic;color:rgba(240,237,230,.1);line-height:1.12;transition:color .35s ease;padding:2px 0;cursor:default;user-select:none;}',
+      '.conn-exp-word:hover,.conn-exp-word.lit{color:rgba(240,237,230,.8);}',
+      '.conn-exp-line{width:1px;height:18px;background:rgba(196,149,42,.15);margin:0 auto;}',
+      /* Belong section */
+      '.conn-belong{width:100%;padding:44px 0 36px;text-align:left;border-top:1px solid rgba(196,149,42,.07);}',
+      '.conn-belong-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(34px,10vw,52px);letter-spacing:.02em;color:var(--cream);line-height:.9;margin-bottom:20px;margin-top:6px;}',
+      '.conn-belong-body p{font-size:14px;line-height:1.85;color:rgba(240,237,230,.5);margin-bottom:8px;}',
+      '.conn-belong-body p:last-child{margin-bottom:0;color:rgba(196,149,42,.65);font-style:italic;}',
+      /* Join the Movement CTA */
+      '.conn-join{width:100%;padding:44px 0 36px;text-align:center;border-top:1px solid rgba(196,149,42,.07);}',
+      '.conn-join-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(42px,12vw,64px);letter-spacing:.02em;color:var(--cream);line-height:.88;margin-bottom:16px;margin-top:6px;}',
+      '.conn-join-sub{font-size:13px;line-height:1.8;color:rgba(240,237,230,.48);margin-bottom:24px;max-width:280px;margin-left:auto;margin-right:auto;}',
+      '.conn-join-btn{display:inline-block;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#080806;background:var(--gold);border:none;border-radius:4px;padding:14px 28px;cursor:pointer;transition:opacity .2s ease,transform .2s ease;}',
+      '.conn-join-btn:hover{opacity:.88;transform:translateY(-1px);}',
+      '.conn-join-btn:active{transform:translateY(0);opacity:.78;}',
+      '.conn-join-fine{font-size:10px;letter-spacing:.12em;color:rgba(240,237,230,.22);margin-top:12px;}',
+      /* One Year */
+      '.conn-year{width:100%;padding:52px 0 40px;text-align:center;position:relative;border-top:1px solid rgba(196,149,42,.07);overflow:hidden;}',
+      '.conn-year-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-size:clamp(200px,55vw,280px);font-weight:300;font-style:italic;color:rgba(196,149,42,.05);line-height:1;pointer-events:none;user-select:none;}',
+      '.conn-year-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.45);margin-bottom:8px;font-family:"Space Grotesk",sans-serif;font-weight:600;position:relative;}',
+      '.conn-year-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(52px,15vw,80px);letter-spacing:.03em;color:var(--cream);line-height:.88;margin-bottom:10px;position:relative;}',
+      '.conn-year-tag{font-family:"Cormorant Garamond",serif;font-size:clamp(15px,4vw,18px);font-style:italic;color:rgba(240,237,230,.38);letter-spacing:.02em;position:relative;}',
+    ].join('');
+    document.head.appendChild(sConn);
+
+    /* ── 2. Populate scripture background with passage text ── */
+    var scriptureEl = document.getElementById('book-scripture');
+    if (scriptureEl) {
+      var passage = 'Before I formed you in the womb I knew you, before you were born I set you apart.  — Jeremiah 1:5     And let us consider how we may spur one another on toward love and good deeds, not giving up meeting together, but encouraging one another — and all the more as you see the Day approaching.  — Hebrews 10:24-25     Therefore encourage one another and build each other up, just as in fact you are doing.  — 1 Thessalonians 5:11     My command is this: Love each other as I have loved you.  — John 15:12     For we are God\'s handiwork, created in Christ Jesus to do good works.  — Ephesians 2:10     ';
+      scriptureEl.textContent = (passage + passage + passage + passage);
+    }
+
+    /* ── 3. Override runSequence with book animation ── */
+    runSequence = function () {
+      setTimeout(function () {
+        var bc = document.getElementById('book-container');
+        if (bc) bc.classList.add('book-open');
+      }, 400);
+      setTimeout(function () {
+        if (phase1) phase1.classList.add('out');
+        if (phase2) phase2.classList.add('show');
+        phase2Active = true;
+        if (skipLabel) skipLabel.classList.add('show');
+      }, 2000);
+      setTimeout(function () { if (!opened) revealInvite(); }, 8500);
+    };
+
+    /* ── 4. Force meetup-mode ON immediately ── */
+    var mmConn = document.getElementById('meetup-mode');
+    if (mmConn) mmConn.hidden = false;
+    var wmConn = document.getElementById('waitlist-mode');
+    if (wmConn) wmConn.style.display = 'none';
+    var wlBubConn = document.getElementById('wl-bubble');
+    if (wlBubConn) wlBubConn.style.display = 'none';
+
+    /* ── 5. Hero text ── */
+    var preConn = document.querySelector('.inv-pre');
+    if (preConn) preConn.textContent = 'Set Apart Movement · Meetup 007';
+    var h1Conn = document.querySelector('.inv-headline');
+    if (h1Conn) { h1Conn.textContent = 'CONNECT.'; h1Conn.style.fontStyle = 'normal'; }
+    var subConn = document.querySelector('.inv-sub');
+    if (subConn) { subConn.innerHTML = 'A completely new kind<br>of Set Apart meetup.'; subConn.style.display = ''; }
+
+    /* ── 6. Event card ── */
+    var cardConn = document.querySelector('.event-card');
+    if (cardConn) {
+      var tagEl  = cardConn.querySelector('.ev-tag');   if (tagEl)  tagEl.textContent  = 'Set Apart Movement · Meetup 007';
+      var dateEl = cardConn.querySelector('.ev-date');  if (dateEl) dateEl.textContent = 'October 3';
+      var timeEl = cardConn.querySelector('.ev-time');  if (timeEl) timeEl.textContent = 'Saturday · 7:00 PM – 9:00 PM';
+      var limEl  = cardConn.querySelector('.ev-limit'); if (limEl)  limEl.textContent  = 'Ages 12–19 · FREE';
+      var blConn = cardConn.querySelector('.ev-bullets');
+      if (blConn) blConn.innerHTML = [
+        ['📍','<span>2200 Driskell Drive &middot; Corinth, TX<br><span style="font-size:12px;opacity:.5">Off I-35E &middot; Free parking</span></span>'],
+        ['📖','<strong>Bring your Bible</strong>'],
+        ['🥪','<span>Bring a snack to share</span>'],
+        ['👥','<strong>Bring a friend</strong>'],
+        ['✅','<span>Free &nbsp;·&nbsp; Ages 12–19</span>'],
+      ].map(function(r){return '<li><span class="ev-icon">'+r[0]+'</span> '+r[1]+'</li>';}).join('');
+    }
+
+    /* ── 7. RSVP button ── */
+    var rsvpConn = document.getElementById('ev-rsvp-btn');
+    if (rsvpConn) {
+      rsvpConn.innerHTML = "I'M COMING &nbsp;&rarr;";
+      rsvpConn.href = 'https://tally.so/r/3N2b1r';
+      rsvpConn.setAttribute('aria-label','RSVP for Set Apart Movement Meetup 007 CONNECT October 3 Corinth TX');
+    }
+
+    /* ── 8. Open button ── */
+    if (openBtn) openBtn.innerHTML = 'ACCEPT MISSION &nbsp;&rarr;';
+
+    /* ── 9. Countdown to Oct 3 7 PM CDT = Oct 4 00:00 UTC ── */
+    var connTarget = new Date('2026-10-04T00:00:00Z').getTime();
+    var connCdEls = {d:document.getElementById('cd-days'),h:document.getElementById('cd-hrs'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
+    function tickConn() {
+      var diff = connTarget - Date.now();
+      if (!connCdEls.d) return;
+      if (diff <= 0) { connCdEls.d.textContent = connCdEls.h.textContent = connCdEls.m.textContent = connCdEls.s.textContent = '00'; return; }
+      function pad(n){return String(Math.floor(n)).padStart(2,'0');}
+      connCdEls.d.textContent = pad(diff/86400000);
+      connCdEls.h.textContent = pad((diff%86400000)/3600000);
+      connCdEls.m.textContent = pad((diff%3600000)/60000);
+      connCdEls.s.textContent = pad((diff%60000)/1000);
+    }
+    tickConn(); setInterval(tickConn, 1000);
+
+    /* ── 10. Experience word hover/scroll animation ── */
+    (function() {
+      function initExpWords() {
+        var words = document.querySelectorAll('.conn-exp-word');
+        if (!words.length) return;
+        var idx = 0;
+        function cycleWord() { words.forEach(function(w,i){w.classList.toggle('lit',i===idx);}); idx=(idx+1)%words.length; }
+        setInterval(cycleWord, 900);
+        words.forEach(function(w){
+          w.addEventListener('mouseenter',function(){words.forEach(function(x){x.classList.remove('lit');}); w.classList.add('lit');});
+          w.addEventListener('mouseleave',function(){w.classList.remove('lit');});
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initExpWords); }
+      else { initExpWords(); }
+    })();
+
+    /* ── 11. Hidden citation update ── */
+    var citeConn = document.querySelector('[aria-hidden="true"]');
+    if (citeConn && (citeConn.textContent.includes('July 25') || citeConn.textContent.includes('September 19'))) {
+      citeConn.textContent = 'Set Apart Movement is a student-led faith community for students ages 12 to 19. Meetup 007 is titled CONNECT. and is on Saturday, October 3, 2026 from 7:00 PM to 9:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. RSVP required. Text 817-983-3004 for more information.';
+    }
+
+    /* ── 12. Remove leftover SENT elements ── */
+    var sentTeaser = document.getElementById('serve-teaser');
+    if (sentTeaser) sentTeaser.remove();
+    var challengeStrip = document.querySelector('.challenge-strip');
+    if (challengeStrip) challengeStrip.remove();
+
+  } catch(e) { console.error('showConnect error:', e); } }
 
   function runSequence() {
     setTimeout(function () {
