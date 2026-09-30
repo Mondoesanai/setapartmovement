@@ -2053,12 +2053,24 @@
       ].map(function(r){return '<li><span class="ev-icon">'+r[0]+'</span> '+r[1]+'</li>';}).join('');
     }
 
-    /* ── 6. RSVP button ── */
+    /* ── 6. RSVP button — in-page confirmation, no external form ── */
     var rsvpConn = document.getElementById('ev-rsvp-btn');
     if (rsvpConn) {
       rsvpConn.innerHTML = "I'M COMING &nbsp;&rarr;";
-      rsvpConn.href = 'https://tally.so/r/3N2b1r';
-      rsvpConn.setAttribute('aria-label','RSVP for Set Apart Movement Meetup 007 CONNECT October 3 Corinth TX');
+      rsvpConn.removeAttribute('href');
+      rsvpConn.setAttribute('role','button');
+      rsvpConn.setAttribute('aria-label','RSVP for CONNECT Meetup 007 — October 3, Corinth TX');
+      rsvpConn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (this.classList.contains('rsvp-confirmed')) return;
+        this.classList.add('rsvp-confirmed');
+        this.innerHTML = 'YOUR SPOT IS RESERVED &nbsp;✓';
+        this.style.cssText += ';background:rgba(196,149,42,.1)!important;border:1px solid rgba(196,149,42,.38)!important;color:var(--gold)!important;box-shadow:none!important;animation:none!important;cursor:default;pointer-events:none;';
+        var msg = document.createElement('div');
+        msg.style.cssText = 'text-align:center;margin-top:14px;font-size:12px;letter-spacing:.06em;line-height:1.7;color:rgba(240,237,230,.42);';
+        msg.innerHTML = 'We’ll see you <strong style="color:rgba(196,149,42,.7)">Saturday, October 3</strong><br>at 7 PM &middot; 2200 Driskell Dr, Corinth';
+        this.insertAdjacentElement('afterend', msg);
+      });
     }
 
     /* ── 7. Open button ── */
@@ -2614,7 +2626,7 @@ window._samDb = (function(){
         if(tagEl)tagEl.textContent='Next Meetup'+(meetup.title?' · '+meetup.title:'');
         if(dateEl)dateEl.textContent=dateStr;
         if(timeEl)timeEl.textContent=timeStr+' – '+endStr;
-        if(meetup.rsvpUrl){var rsvpBtn=document.getElementById('ev-rsvp-btn');if(rsvpBtn)rsvpBtn.href=meetup.rsvpUrl;}
+        /* rsvpUrl intentionally not applied — CONNECT uses in-page confirmation */
         document.getElementById('meetup-mode').hidden=false;
         document.getElementById('waitlist-mode').style.display='none';
         var st=document.getElementById('wl-sticky');if(st)st.style.display='none';
