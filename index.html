@@ -999,27 +999,56 @@
 <!-- INTRO OVERLAY -->
 <div id="intro">
 
-  <!-- Phase 1: Book / scripture opening animation -->
+  <!-- Phase 1: Envelope animation + gold shink burst -->
   <div id="phase1">
     <div class="stage">
-      <!-- Scripture texture background -->
-      <div id="book-bg" aria-hidden="true">
-        <div id="book-scripture"></div>
+      <!-- Gold anime burst — sits behind everything, freezes when envelope opens -->
+      <svg id="gold-shink" viewBox="-300 -300 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="shink-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#C4952A" stop-opacity="0.28"/>
+            <stop offset="60%" stop-color="#C4952A" stop-opacity="0.06"/>
+            <stop offset="100%" stop-color="#C4952A" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Outer ring halos -->
+        <circle cx="0" cy="0" r="245" fill="none" stroke="rgba(196,149,42,0.07)" stroke-width="50"/>
+        <circle cx="0" cy="0" r="168" fill="none" stroke="rgba(196,149,42,0.10)" stroke-width="18"/>
+        <!-- Center glow -->
+        <circle cx="0" cy="0" r="85" fill="url(#shink-glow)"/>
+        <!-- 8 main rays -->
+        <line x1="0" y1="-258" x2="0" y2="-42" stroke="#C4952A" stroke-width="2.2" stroke-linecap="round" opacity="0.72"/>
+        <line x1="182" y1="-182" x2="30" y2="-30" stroke="#C4952A" stroke-width="1.8" stroke-linecap="round" opacity="0.52"/>
+        <line x1="258" y1="0" x2="42" y2="0" stroke="#C4952A" stroke-width="2.2" stroke-linecap="round" opacity="0.72"/>
+        <line x1="182" y1="182" x2="30" y2="30" stroke="#C4952A" stroke-width="1.8" stroke-linecap="round" opacity="0.52"/>
+        <line x1="0" y1="258" x2="0" y2="42" stroke="#C4952A" stroke-width="2.2" stroke-linecap="round" opacity="0.72"/>
+        <line x1="-182" y1="182" x2="-30" y2="30" stroke="#C4952A" stroke-width="1.8" stroke-linecap="round" opacity="0.52"/>
+        <line x1="-258" y1="0" x2="-42" y2="0" stroke="#C4952A" stroke-width="2.2" stroke-linecap="round" opacity="0.72"/>
+        <line x1="-182" y1="-182" x2="-30" y2="-30" stroke="#C4952A" stroke-width="1.8" stroke-linecap="round" opacity="0.52"/>
+        <!-- 8 thin intermediate rays -->
+        <line x1="97" y1="-230" x2="16" y2="-38" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
+        <line x1="230" y1="-97" x2="38" y2="-16" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
+        <line x1="230" y1="97" x2="38" y2="16" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
+        <line x1="97" y1="230" x2="16" y2="38" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
+        <line x1="-97" y1="230" x2="-16" y2="38" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
+        <line x1="-230" y1="97" x2="-38" y2="16" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
+        <line x1="-230" y1="-97" x2="-38" y2="-16" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
+        <line x1="-97" y1="-230" x2="-16" y2="-38" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
+      </svg>
+      <!-- Envelope card -->
+      <div id="cardSmall">
+        <img src="images/card.png" alt="Set Apart Movement invitation" fetchpriority="high" decoding="async">
       </div>
-      <!-- Book container -->
-      <div id="book-container" role="presentation" aria-hidden="true">
-        <div id="book-page-l"></div>
-        <div id="book-page-r"></div>
-        <div id="book-spine"></div>
-        <div id="book-reveal">
-          <p id="book-sam">Set Apart Movement</p>
-          <p id="book-word">CONNECT.</p>
-        </div>
-      </div>
-      <!-- Stubs — kept for legacy JS null-checks; never visible -->
-      <div id="cardSmall" style="display:none" aria-hidden="true"></div>
-      <div id="envelope" style="display:none" aria-hidden="true">
-        <div id="flap"></div><div id="seal"></div>
+      <div id="envelope">
+        <div id="flap"></div>
+        <div id="seal"></div>
+        <div class="env-bot"></div>
+        <svg class="env-seams" viewBox="0 0 100 62" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="0"   y1="0"  x2="50" y2="31" stroke="#C4952A" stroke-width="0.6" opacity="0.55"/>
+          <line x1="100" y1="0"  x2="50" y2="31" stroke="#C4952A" stroke-width="0.6" opacity="0.55"/>
+          <line x1="0"   y1="62" x2="50" y2="31" stroke="#C4952A" stroke-width="0.6" opacity="0.55"/>
+          <line x1="100" y1="62" x2="50" y2="31" stroke="#C4952A" stroke-width="0.6" opacity="0.55"/>
+        </svg>
       </div>
     </div>
   </div>
@@ -1931,90 +1960,92 @@
 
   if (showConnect) { try {
 
-    /* ── 1. Design system CSS injection ── */
+    /* ── 1. CONNECT design system + gold shink + visual elevation ── */
     var sConn = document.createElement('style');
     sConn.textContent = [
-      /* Book animation */
-      '#book-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;}',
-      '#book-scripture{position:absolute;inset:-8%;font-family:"Cormorant Garamond",serif;font-size:9px;line-height:2;color:rgba(196,149,42,.055);white-space:pre-wrap;word-break:break-word;padding:28px;user-select:none;pointer-events:none;overflow:hidden;}',
-      '#book-container{position:relative;width:min(290px,78vw);height:min(185px,50vw);transform-style:preserve-3d;}',
-      '#book-page-l,#book-page-r{position:absolute;top:0;height:100%;width:50%;background:linear-gradient(135deg,#1c1a14,#15130f);border:1px solid rgba(196,149,42,.16);backface-visibility:hidden;transition:transform 1.15s cubic-bezier(.65,0,.35,1);}',
-      '#book-page-l{left:0;border-right:none;transform-origin:right center;transform:rotateY(0deg);}',
-      '#book-page-r{right:0;border-left:none;transform-origin:left center;transform:rotateY(0deg);}',
-      '.book-open #book-page-l{transform:rotateY(-148deg);}',
-      '.book-open #book-page-r{transform:rotateY(148deg);}',
-      '#book-spine{position:absolute;left:50%;top:8%;bottom:8%;width:1px;background:linear-gradient(to bottom,transparent,rgba(196,149,42,.55),transparent);transform:translateX(-50%);}',
-      '#book-reveal{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;transition:opacity .85s ease .65s;pointer-events:none;}',
-      '.book-open #book-reveal{opacity:1;}',
-      '#book-sam{font-family:"Space Grotesk",sans-serif;font-size:clamp(8px,2.2vw,11px);letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.62);font-weight:600;margin:0;}',
-      '#book-word{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(68px,19vw,104px);letter-spacing:.04em;color:var(--cream);line-height:.82;margin:0;}',
-      /* Design overrides */
-      '.inv-pre{font-size:10px!important;letter-spacing:.28em!important;color:rgba(196,149,42,.7)!important;}',
-      '.inv-headline{font-family:"Bebas Neue",impact,sans-serif!important;font-size:clamp(88px,26vw,136px)!important;letter-spacing:.03em!important;line-height:.86!important;color:var(--cream)!important;font-style:normal!important;}',
-      '.inv-sub{font-family:"Cormorant Garamond",serif!important;font-size:clamp(15px,4.2vw,20px)!important;font-style:italic!important;color:rgba(240,237,230,.6)!important;letter-spacing:.01em!important;line-height:1.45!important;text-transform:none!important;}',
+      /* Gold shink burst */
+      '@keyframes shinkBurst{0%{opacity:0;transform:translate(-50%,-50%) scale(0) rotate(-14deg)}28%{opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(3deg)}55%{opacity:.82;transform:translate(-50%,-50%) scale(1) rotate(0deg)}100%{opacity:.58;transform:translate(-50%,-50%) scale(1) rotate(0deg)}}',
+      '#gold-shink{position:absolute;top:50%;left:50%;width:min(115vw,640px);height:min(115vw,640px);transform:translate(-50%,-50%) scale(0);opacity:0;pointer-events:none;z-index:0;}',
+      '#gold-shink.shink-on{animation:shinkBurst .48s cubic-bezier(.05,.9,.08,1) forwards;}',
+      /* Body grain texture */
+      'body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="200" height="200" filter="url(%23n)" opacity=".028"/></svg>\');background-repeat:repeat;opacity:1;}',
+      /* Hero upgrades */
+      '.inv-pre{font-size:10px!important;letter-spacing:.28em!important;color:rgba(196,149,42,.68)!important;}',
+      '@keyframes headlineGlow{0%,100%{text-shadow:0 0 0 transparent}50%{text-shadow:0 0 48px rgba(196,149,42,.08),0 0 96px rgba(196,149,42,.04)}}',
+      '.inv-headline{font-family:"Bebas Neue",impact,sans-serif!important;font-size:clamp(92px,27vw,142px)!important;letter-spacing:.03em!important;line-height:.86!important;color:var(--cream)!important;font-style:normal!important;animation:headlineGlow 5s ease-in-out infinite;}',
+      '.inv-sub{font-family:"Cormorant Garamond",serif!important;font-size:clamp(16px,4.5vw,21px)!important;font-style:italic!important;color:rgba(240,237,230,.58)!important;letter-spacing:.01em!important;line-height:1.45!important;text-transform:none!important;}',
+      /* Event card upgrades */
+      '.event-card{background:rgba(240,237,230,.018)!important;border-color:rgba(196,149,42,.18)!important;box-shadow:0 1px 0 0 rgba(196,149,42,.06),inset 0 1px 0 0 rgba(240,237,230,.025)!important;}',
+      '.ev-tag{letter-spacing:.22em!important;font-size:8.5px!important;}',
+      '.ev-date{font-family:"Bebas Neue",impact,sans-serif!important;font-size:clamp(40px,11vw,52px)!important;letter-spacing:.02em!important;line-height:.9!important;color:var(--cream)!important;}',
+      '.ev-time{font-size:13px!important;color:rgba(240,237,230,.5)!important;letter-spacing:.04em!important;}',
+      /* Countdown upgrades */
+      '.cd-num{font-size:clamp(32px,9vw,44px)!important;letter-spacing:.02em!important;}',
+      '.cd-lbl{font-size:9px!important;letter-spacing:.18em!important;}',
+      /* RSVP button glow */
+      '@keyframes btnPulse{0%,100%{box-shadow:0 0 0 0 rgba(196,149,42,0)}60%{box-shadow:0 0 0 8px rgba(196,149,42,.12)}}',
+      '.rsvp-btn{animation:btnPulse 3.5s ease-in-out infinite!important;letter-spacing:.22em!important;font-size:13px!important;}',
+      /* Waitlist card — big prominent count */
+      '@keyframes countPop{0%{transform:scale(.85);opacity:.4}100%{transform:scale(1);opacity:1}}',
+      '#wl-count{font-family:"Bebas Neue",impact,sans-serif!important;font-size:56px!important;color:var(--gold)!important;line-height:1!important;display:block!important;letter-spacing:.03em!important;animation:countPop .6s cubic-bezier(.34,1.56,.64,1) both;}',
+      '.wl-count-row{display:flex!important;flex-direction:column!important;align-items:center!important;padding:16px 0!important;border-top:1px solid rgba(196,149,42,.1)!important;border-bottom:1px solid rgba(196,149,42,.1)!important;margin:16px 0!important;gap:4px!important;}',
+      '.wl-count-dot{display:none!important;}',
+      '.wl-count-text{font-size:9px!important;letter-spacing:.2em!important;text-transform:uppercase!important;color:rgba(240,237,230,.32)!important;text-align:center!important;}',
       /* CONNECT section base */
-      '.conn-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.58);margin-bottom:12px;font-family:"Space Grotesk",sans-serif;font-weight:600;}',
+      '.conn-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.55);margin-bottom:12px;font-family:"Space Grotesk",sans-serif;font-weight:600;}',
       /* This One Is Different */
-      '.conn-diff{width:100%;padding:32px 22px 28px;background:rgba(196,149,42,.025);border:1px solid rgba(196,149,42,.14);border-top:2px solid rgba(196,149,42,.42);border-radius:8px;text-align:left;margin-top:36px;}',
-      '.conn-diff-eyebrow{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(196,149,42,.52);margin-bottom:14px;font-family:"Space Grotesk",sans-serif;font-weight:600;}',
-      '.conn-diff-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(34px,10vw,50px);letter-spacing:.03em;color:var(--cream);margin-bottom:16px;line-height:.92;}',
-      '.conn-diff-body p{font-size:14px;line-height:1.82;color:rgba(240,237,230,.52);margin-bottom:8px;}',
-      '.conn-diff-body p:last-child{margin-bottom:18px;}',
-      '.conn-bring{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;}',
+      '.conn-diff{width:100%;padding:32px 22px 28px;background:rgba(196,149,42,.022);border:1px solid rgba(196,149,42,.14);border-top:2px solid rgba(196,149,42,.5);border-radius:8px;text-align:left;margin-top:36px;position:relative;overflow:hidden;}',
+      '.conn-diff::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,rgba(196,149,42,.8),transparent);pointer-events:none;}',
+      '.conn-diff-eyebrow{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(196,149,42,.5);margin-bottom:14px;font-family:"Space Grotesk",sans-serif;font-weight:600;}',
+      '.conn-diff-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(36px,10vw,52px);letter-spacing:.03em;color:var(--cream);margin-bottom:16px;line-height:.9;}',
+      '.conn-diff-body p{font-size:14px;line-height:1.85;color:rgba(240,237,230,.5);margin-bottom:8px;}',
+      '.conn-diff-body p:last-child{margin-bottom:20px;}',
+      '.conn-bring{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;}',
       '.conn-bring li{display:flex;align-items:center;gap:14px;font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);}',
-      '.conn-bring li::before{content:"";width:22px;height:1px;background:rgba(196,149,42,.5);flex-shrink:0;}',
+      '.conn-bring li::before{content:"";width:22px;height:1px;background:linear-gradient(to right,rgba(196,149,42,.7),transparent);flex-shrink:0;}',
       /* Experience section */
-      '.conn-exp{width:100%;padding:44px 0 36px;text-align:center;border-top:1px solid rgba(196,149,42,.07);}',
-      '.conn-exp-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.5);margin-bottom:20px;font-family:"Space Grotesk",sans-serif;font-weight:600;}',
+      '.conn-exp{width:100%;padding:52px 0 44px;text-align:center;border-top:1px solid rgba(196,149,42,.07);}',
+      '.conn-exp-eyebrow{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.48);margin-bottom:24px;font-family:"Space Grotesk",sans-serif;font-weight:600;}',
       '.conn-exp-grid{display:flex;flex-direction:column;gap:0;}',
-      '.conn-exp-word{font-family:"Cormorant Garamond",serif;font-size:clamp(30px,9vw,50px);font-weight:300;font-style:italic;color:rgba(240,237,230,.1);line-height:1.12;transition:color .35s ease;padding:2px 0;cursor:default;user-select:none;}',
-      '.conn-exp-word:hover,.conn-exp-word.lit{color:rgba(240,237,230,.8);}',
-      '.conn-exp-line{width:1px;height:18px;background:rgba(196,149,42,.15);margin:0 auto;}',
+      '.conn-exp-word{font-family:"Cormorant Garamond",serif;font-size:clamp(34px,10vw,56px);font-weight:300;font-style:italic;color:rgba(240,237,230,.09);line-height:1.1;transition:color .4s ease,transform .3s ease;padding:3px 0;cursor:default;user-select:none;}',
+      '.conn-exp-word:hover,.conn-exp-word.lit{color:rgba(240,237,230,.82);transform:translateX(4px);}',
+      '.conn-exp-line{width:1px;height:20px;background:linear-gradient(to bottom,transparent,rgba(196,149,42,.2),transparent);margin:0 auto;}',
       /* Belong section */
-      '.conn-belong{width:100%;padding:44px 0 36px;text-align:left;border-top:1px solid rgba(196,149,42,.07);}',
-      '.conn-belong-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(34px,10vw,52px);letter-spacing:.02em;color:var(--cream);line-height:.9;margin-bottom:20px;margin-top:6px;}',
-      '.conn-belong-body p{font-size:14px;line-height:1.85;color:rgba(240,237,230,.5);margin-bottom:8px;}',
-      '.conn-belong-body p:last-child{margin-bottom:0;color:rgba(196,149,42,.65);font-style:italic;}',
+      '.conn-belong{width:100%;padding:48px 0 40px;text-align:left;border-top:1px solid rgba(196,149,42,.07);}',
+      '.conn-belong-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(36px,11vw,56px);letter-spacing:.02em;color:var(--cream);line-height:.88;margin-bottom:22px;margin-top:6px;}',
+      '.conn-belong-body p{font-size:14px;line-height:1.88;color:rgba(240,237,230,.48);margin-bottom:8px;}',
+      '.conn-belong-body p:last-child{margin-bottom:0;color:rgba(196,149,42,.6);font-style:italic;font-family:"Cormorant Garamond",serif;font-size:15px;}',
       /* Join the Movement CTA */
-      '.conn-join{width:100%;padding:44px 0 36px;text-align:center;border-top:1px solid rgba(196,149,42,.07);}',
-      '.conn-join-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(42px,12vw,64px);letter-spacing:.02em;color:var(--cream);line-height:.88;margin-bottom:16px;margin-top:6px;}',
-      '.conn-join-sub{font-size:13px;line-height:1.8;color:rgba(240,237,230,.48);margin-bottom:24px;max-width:280px;margin-left:auto;margin-right:auto;}',
-      '.conn-join-btn{display:inline-block;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#080806;background:var(--gold);border:none;border-radius:4px;padding:14px 28px;cursor:pointer;transition:opacity .2s ease,transform .2s ease;}',
-      '.conn-join-btn:hover{opacity:.88;transform:translateY(-1px);}',
-      '.conn-join-btn:active{transform:translateY(0);opacity:.78;}',
-      '.conn-join-fine{font-size:10px;letter-spacing:.12em;color:rgba(240,237,230,.22);margin-top:12px;}',
-      /* One Year */
-      '.conn-year{width:100%;padding:52px 0 40px;text-align:center;position:relative;border-top:1px solid rgba(196,149,42,.07);overflow:hidden;}',
-      '.conn-year-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-size:clamp(200px,55vw,280px);font-weight:300;font-style:italic;color:rgba(196,149,42,.05);line-height:1;pointer-events:none;user-select:none;}',
-      '.conn-year-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(196,149,42,.45);margin-bottom:8px;font-family:"Space Grotesk",sans-serif;font-weight:600;position:relative;}',
-      '.conn-year-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(52px,15vw,80px);letter-spacing:.03em;color:var(--cream);line-height:.88;margin-bottom:10px;position:relative;}',
-      '.conn-year-tag{font-family:"Cormorant Garamond",serif;font-size:clamp(15px,4vw,18px);font-style:italic;color:rgba(240,237,230,.38);letter-spacing:.02em;position:relative;}',
+      '.conn-join{width:100%;padding:48px 0 40px;text-align:center;border-top:1px solid rgba(196,149,42,.07);}',
+      '.conn-join-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(44px,13vw,68px);letter-spacing:.02em;color:var(--cream);line-height:.86;margin-bottom:16px;margin-top:6px;}',
+      '.conn-join-sub{font-size:13px;line-height:1.82;color:rgba(240,237,230,.45);margin-bottom:26px;max-width:272px;margin-left:auto;margin-right:auto;}',
+      '.conn-join-btn{display:inline-block;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#080806;background:var(--gold);border:none;border-radius:4px;padding:15px 30px;cursor:pointer;transition:opacity .18s ease,transform .18s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 24px rgba(196,149,42,.22);}',
+      '.conn-join-btn:active{transform:scale(.96);}',
+      '.conn-join-fine{font-size:10px;letter-spacing:.12em;color:rgba(240,237,230,.2);margin-top:12px;}',
     ].join('');
     document.head.appendChild(sConn);
 
-    /* ── 2. Populate scripture background with passage text ── */
-    var scriptureEl = document.getElementById('book-scripture');
-    if (scriptureEl) {
-      var passage = 'Before I formed you in the womb I knew you, before you were born I set you apart.  — Jeremiah 1:5     And let us consider how we may spur one another on toward love and good deeds, not giving up meeting together, but encouraging one another — and all the more as you see the Day approaching.  — Hebrews 10:24-25     Therefore encourage one another and build each other up, just as in fact you are doing.  — 1 Thessalonians 5:11     My command is this: Love each other as I have loved you.  — John 15:12     For we are God\'s handiwork, created in Christ Jesus to do good works.  — Ephesians 2:10     ';
-      scriptureEl.textContent = (passage + passage + passage + passage);
-    }
-
-    /* ── 3. Override runSequence with book animation ── */
+    /* ── 2. Override runSequence — envelope + gold shink trigger ── */
     runSequence = function () {
       setTimeout(function () {
-        var bc = document.getElementById('book-container');
-        if (bc) bc.classList.add('book-open');
-      }, 400);
+        if (flap) flap.classList.add('open');
+        if (seal) seal.classList.add('open');
+        var shink = document.getElementById('gold-shink');
+        if (shink) shink.classList.add('shink-on');
+      }, 350);
+      setTimeout(function () { if (cardSmall) cardSmall.classList.add('risen'); }, 700);
+      setTimeout(function () { if (envelope) envelope.classList.add('opened'); }, 1050);
       setTimeout(function () {
+        if (cardSmall) cardSmall.classList.add('hide');
         if (phase1) phase1.classList.add('out');
         if (phase2) phase2.classList.add('show');
         phase2Active = true;
         if (skipLabel) skipLabel.classList.add('show');
-      }, 2000);
-      setTimeout(function () { if (!opened) revealInvite(); }, 8500);
+      }, 1300);
+      setTimeout(function () { if (!opened) revealInvite(); }, 7000);
     };
 
-    /* ── 4. Force meetup-mode ON immediately ── */
+    /* ── 3. Force meetup-mode ON immediately ── */
     var mmConn = document.getElementById('meetup-mode');
     if (mmConn) mmConn.hidden = false;
     var wmConn = document.getElementById('waitlist-mode');
@@ -2022,7 +2053,7 @@
     var wlBubConn = document.getElementById('wl-bubble');
     if (wlBubConn) wlBubConn.style.display = 'none';
 
-    /* ── 5. Hero text ── */
+    /* ── 4. Hero text ── */
     var preConn = document.querySelector('.inv-pre');
     if (preConn) preConn.textContent = 'Set Apart Movement · Meetup 007';
     var h1Conn = document.querySelector('.inv-headline');
@@ -2030,7 +2061,7 @@
     var subConn = document.querySelector('.inv-sub');
     if (subConn) { subConn.innerHTML = 'A completely new kind<br>of Set Apart meetup.'; subConn.style.display = ''; }
 
-    /* ── 6. Event card ── */
+    /* ── 5. Event card — food NOT included ── */
     var cardConn = document.querySelector('.event-card');
     if (cardConn) {
       var tagEl  = cardConn.querySelector('.ev-tag');   if (tagEl)  tagEl.textContent  = 'Set Apart Movement · Meetup 007';
@@ -2039,15 +2070,16 @@
       var limEl  = cardConn.querySelector('.ev-limit'); if (limEl)  limEl.textContent  = 'Ages 12–19 · FREE';
       var blConn = cardConn.querySelector('.ev-bullets');
       if (blConn) blConn.innerHTML = [
-        ['📍','<span>2200 Driskell Drive &middot; Corinth, TX<br><span style="font-size:12px;opacity:.5">Off I-35E &middot; Free parking</span></span>'],
+        ['📍','<span>2200 Driskell Drive &middot; Corinth, TX<br><span style="font-size:12px;opacity:.45">Off I-35E &middot; Free parking</span></span>'],
+        ['🕰️','<strong>Saturday &middot; 7:00&ndash;9:00 PM</strong>'],
         ['📖','<strong>Bring your Bible</strong>'],
         ['🥪','<span>Bring a snack to share</span>'],
+        ['🚫','<span style="color:rgba(240,237,230,.5)">Food not included &mdash; bring your own</span>'],
         ['👥','<strong>Bring a friend</strong>'],
-        ['✅','<span>Free &nbsp;·&nbsp; Ages 12–19</span>'],
       ].map(function(r){return '<li><span class="ev-icon">'+r[0]+'</span> '+r[1]+'</li>';}).join('');
     }
 
-    /* ── 7. RSVP button ── */
+    /* ── 6. RSVP button ── */
     var rsvpConn = document.getElementById('ev-rsvp-btn');
     if (rsvpConn) {
       rsvpConn.innerHTML = "I'M COMING &nbsp;&rarr;";
@@ -2055,10 +2087,10 @@
       rsvpConn.setAttribute('aria-label','RSVP for Set Apart Movement Meetup 007 CONNECT October 3 Corinth TX');
     }
 
-    /* ── 8. Open button ── */
+    /* ── 7. Open button ── */
     if (openBtn) openBtn.innerHTML = 'ACCEPT MISSION &nbsp;&rarr;';
 
-    /* ── 9. Countdown to Oct 3 7 PM CDT = Oct 4 00:00 UTC ── */
+    /* ── 8. Countdown to Oct 3 7 PM CDT = Oct 4 00:00 UTC ── */
     var connTarget = new Date('2026-10-04T00:00:00Z').getTime();
     var connCdEls = {d:document.getElementById('cd-days'),h:document.getElementById('cd-hrs'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
     function tickConn() {
@@ -2073,14 +2105,27 @@
     }
     tickConn(); setInterval(tickConn, 1000);
 
-    /* ── 10. Experience word hover/scroll animation ── */
+    /* ── 9. Make waitlist count text clearly say "PEOPLE IN LINE" ── */
+    var wlCountText = document.querySelector('.wl-count-text');
+    if (wlCountText) {
+      var curId = document.getElementById('wl-count');
+      var curVal = curId ? curId.textContent : '--';
+      wlCountText.innerHTML = '<strong id="wl-count">' + curVal + '</strong>';
+      wlCountText.insertAdjacentHTML('afterend','<div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,237,230,.3);text-align:center">People in Line &middot; Limited Spots</div>');
+    }
+
+    /* ── 10. Remove One Year section ── */
+    var yrEl = document.getElementById('conn-year-sec');
+    if (yrEl) yrEl.style.display = 'none';
+
+    /* ── 11. Experience word cycling animation ── */
     (function() {
       function initExpWords() {
         var words = document.querySelectorAll('.conn-exp-word');
         if (!words.length) return;
         var idx = 0;
         function cycleWord() { words.forEach(function(w,i){w.classList.toggle('lit',i===idx);}); idx=(idx+1)%words.length; }
-        setInterval(cycleWord, 900);
+        setInterval(cycleWord, 1100);
         words.forEach(function(w){
           w.addEventListener('mouseenter',function(){words.forEach(function(x){x.classList.remove('lit');}); w.classList.add('lit');});
           w.addEventListener('mouseleave',function(){w.classList.remove('lit');});
@@ -2090,13 +2135,11 @@
       else { initExpWords(); }
     })();
 
-    /* ── 11. Hidden citation update ── */
+    /* ── 12. Citation + cleanup ── */
     var citeConn = document.querySelector('[aria-hidden="true"]');
     if (citeConn && (citeConn.textContent.includes('July 25') || citeConn.textContent.includes('September 19'))) {
-      citeConn.textContent = 'Set Apart Movement is a student-led faith community for students ages 12 to 19. Meetup 007 is titled CONNECT. and is on Saturday, October 3, 2026 from 7:00 PM to 9:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. RSVP required. Text 817-983-3004 for more information.';
+      citeConn.textContent = 'Set Apart Movement is a student-led faith community for students ages 12 to 19. Meetup 007 is titled CONNECT. and is on Saturday, October 3, 2026 from 7:00 PM to 9:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. Food not included — bring a snack to share. RSVP required. Text 817-983-3004 for more information.';
     }
-
-    /* ── 12. Remove leftover SENT elements ── */
     var sentTeaser = document.getElementById('serve-teaser');
     if (sentTeaser) sentTeaser.remove();
     var challengeStrip = document.querySelector('.challenge-strip');
@@ -2323,8 +2366,10 @@ window._samDb = (function(){
 
     <div class="wlm-success" id="wlm-success-view">
       <div class="wlm-success-icon">🔥</div>
+      <div id="wlm-success-rank" style="font-family:'Bebas Neue',impact,sans-serif;font-size:72px;color:#C4952A;line-height:1;letter-spacing:.04em;margin:10px 0 2px">#--</div>
+      <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,237,230,.28);margin-bottom:18px">Your spot in line</div>
       <div class="wlm-success-title">YOU&rsquo;RE IN LINE.</div>
-      <div class="wlm-success-sub">We got you. You&rsquo;ll hear from us before anyone else even knows it&rsquo;s happening.<br><br>In the meantime &mdash; tell someone who needs to be there.</div>
+      <div class="wlm-success-sub">We got you. You&rsquo;ll hear from us before anyone else knows it&rsquo;s happening.<br><br>In the meantime &mdash; tell one person who needs to be there.</div>
     </div>
   </div>
 </div>
@@ -2645,9 +2690,14 @@ function submitWaitlist(){
   var btn=document.querySelector('.wlm-submit');
   if(btn){btn.disabled=true;btn.textContent='LOCKING IN...';}
   var ctx=window._samCtx||{};
+  /* Capture rank before push — current count + 1 = user's spot */
+  var countEl=document.getElementById('wl-count');
+  var myRank=(countEl?parseInt(String(countEl.textContent).replace(/[^0-9]/g,''))||0:0)+1;
   var entry={name:name,phone:phone,createdAt:Date.now()};
   if(ctx.refId)entry.ref=ctx.refId;
   d.ref('waitlist').push(entry).then(function(){
+    var rankEl=document.getElementById('wlm-success-rank');
+    if(rankEl)rankEl.textContent='#'+myRank;
     var fv=document.getElementById('wlm-form-view');
     var sv=document.getElementById('wlm-success-view');
     if(fv)fv.style.display='none';
