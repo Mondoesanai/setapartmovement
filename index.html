@@ -920,6 +920,18 @@
     .wla-num { font-size: 11px; color: rgba(212,168,74,.35); min-width: 22px; text-align: right; }
     .wla-name { font-size: 14px; font-weight: 600; color: #F0ECE4; }
     .wla-phone { font-size: 12px; color: rgba(240,236,228,.38); margin-top: 1px; }
+    .wla-tabs { display: flex; gap: 8px; padding: 12px 20px 4px; }
+    .wla-tabbtn { font-family: 'Space Grotesk', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,236,228,.4); background: rgba(212,168,74,.05); border: 1px solid rgba(212,168,74,.14); border-radius: 20px; padding: 7px 14px; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
+    .wla-tabbtn.active { color: var(--gold); border-color: rgba(212,168,74,.45); background: rgba(212,168,74,.1); }
+    .wla-meetup { border-bottom: 1px solid rgba(212,168,74,.07); }
+    .wla-meetup:last-child { border-bottom: none; }
+    .wla-meetup-hd { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; cursor: pointer; }
+    .wla-meetup-hd span:first-child { font-size: 14px; font-weight: 600; color: #F0ECE4; }
+    .wla-meetup-count { font-size: 12px; color: var(--gold); font-weight: 700; }
+    .wla-meetup-detail { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .wla-meetup.open .wla-meetup-detail { max-height: 1000px; padding-bottom: 10px; }
+    .wla-meetup-hd::after { content: '\25be'; color: rgba(212,168,74,.4); font-size: 12px; margin-left: 8px; transition: transform .2s; }
+    .wla-meetup.open .wla-meetup-hd::after { transform: rotate(-180deg); }
 
     /* Waitlist Modal */
     #wl-modal {
@@ -1233,11 +1245,12 @@
   const SWITCH_AT2 = new Date('2026-08-07T22:00:00Z'); // 5:00 PM CDT = 22:00 UTC
   const forceNext  = new URLSearchParams(location.search).get('preview') === 'next';
   const forceRA    = new URLSearchParams(location.search).get('preview') === 'ra';
-  const showAug    = forceNext || forceRA || Date.now() >= SWITCH_AT.getTime();
-  const showRA     = forceRA   || Date.now() >= SWITCH_AT2.getTime()
+  const LEGACY_CUTOFF = new Date('2026-09-09T00:00:00Z').getTime(); // showAug/showRA/showServe are retired once a later meetup takes over
+  const showAug    = forceNext || forceRA || (Date.now() >= SWITCH_AT.getTime() && Date.now() < LEGACY_CUTOFF);
+  const showRA     = forceRA   || (Date.now() >= SWITCH_AT2.getTime() && Date.now() < LEGACY_CUTOFF)
   const SWITCH_AT3  = new Date('2026-08-21T12:00:00Z'); // live now — after meetup ends
   const forceServe  = new URLSearchParams(location.search).get('preview') === 'serve';
-  const showServe   = forceServe || Date.now() >= SWITCH_AT3.getTime();;
+  const showServe   = forceServe || (Date.now() >= SWITCH_AT3.getTime() && Date.now() < LEGACY_CUTOFF);
   const SWITCH_AT_SENT = new Date('2026-09-09T00:00:00Z');
   const SENT_END      = new Date('2026-09-19T23:00:00Z'); // meetup over after 6 PM CDT
   const forceSent   = new URLSearchParams(location.search).get('preview') === 'sent';
@@ -1929,6 +1942,8 @@
 
   if (showConnect) { try {
 
+    window.SAM_CURRENT_MEETUP_ID = '007';
+
     /* ── 1. CONNECT design system + gold shink + visual elevation ── */
     var sConn = document.createElement('style');
     sConn.textContent = [
@@ -1947,11 +1962,13 @@
       '@keyframes headlineGlow{0%,100%{text-shadow:0 0 0 transparent}50%{text-shadow:0 0 48px rgba(196,149,42,.08),0 0 96px rgba(196,149,42,.04)}}',
       '.inv-headline{font-family:"Bebas Neue",impact,sans-serif!important;font-size:clamp(92px,27vw,142px)!important;letter-spacing:.03em!important;line-height:.86!important;color:var(--cream)!important;font-style:normal!important;animation:headlineGlow 5s ease-in-out infinite;}',
       '.inv-sub{font-family:"Cormorant Garamond",serif!important;font-size:clamp(16px,4.5vw,21px)!important;font-style:italic!important;color:rgba(240,237,230,.58)!important;letter-spacing:.01em!important;line-height:1.45!important;text-transform:none!important;}',
-      /* Event card upgrades */
-      '.event-card{background:rgba(240,237,230,.042)!important;border:1px solid rgba(196,149,42,.28)!important;border-top:2px solid rgba(196,149,42,.55)!important;box-shadow:0 2px 32px rgba(0,0,0,.38),0 1px 0 0 rgba(196,149,42,.08),inset 0 1px 0 0 rgba(240,237,230,.04)!important;}',
-      '.ev-tag{letter-spacing:.22em!important;font-size:8.5px!important;}',
-      '.ev-date{font-family:"Bebas Neue",impact,sans-serif!important;font-size:clamp(40px,11vw,52px)!important;letter-spacing:.02em!important;line-height:.9!important;color:var(--cream)!important;}',
-      '.ev-time{font-size:13px!important;color:rgba(240,237,230,.5)!important;letter-spacing:.04em!important;}',
+      /* Event card upgrades — bigger, bolder gold top strip (no more muddy green line) */
+      '.event-card{padding:38px 28px 32px!important;background:rgba(240,237,230,.045)!important;border:1px solid rgba(196,149,42,.3)!important;border-top:none!important;border-radius:10px!important;box-shadow:0 10px 44px rgba(0,0,0,.45),0 1px 0 0 rgba(196,149,42,.1),inset 0 1px 0 0 rgba(240,237,230,.05)!important;}',
+      '.event-card::before{height:3px!important;background:linear-gradient(to right,transparent,#E8B84A 15%,#C4952A 50%,#E8B84A 85%,transparent)!important;box-shadow:0 0 20px 1px rgba(196,149,42,.55)!important;}',
+      '.ev-tag{letter-spacing:.22em!important;font-size:9px!important;}',
+      '.ev-date{font-family:"Bebas Neue",impact,sans-serif!important;font-size:clamp(52px,15vw,72px)!important;letter-spacing:.02em!important;line-height:.88!important;color:var(--cream)!important;margin-top:4px!important;}',
+      '.ev-time{font-size:14px!important;color:rgba(240,237,230,.5)!important;letter-spacing:.04em!important;}',
+      '.ev-bullets li{font-size:15px!important;padding:13px 0!important;}',
       /* Countdown upgrades */
       '.cd-num{font-size:clamp(32px,9vw,44px)!important;letter-spacing:.02em!important;}',
       '.cd-lbl{font-size:9px!important;letter-spacing:.18em!important;}',
@@ -2027,6 +2044,12 @@
     var wlBubConn = document.getElementById('wl-bubble');
     if (wlBubConn) wlBubConn.style.display = 'none';
 
+    /* ── 3b. Strip any leftover styling from earlier retired meetup blocks ── */
+    var cardCleanup = document.querySelector('.event-card');
+    if (cardCleanup) cardCleanup.classList.remove('challenge');
+    var stripCleanup = document.querySelector('.challenge-strip');
+    if (stripCleanup) stripCleanup.remove();
+
     /* ── 4. Hero text ── */
     var preConn = document.querySelector('.inv-pre');
     if (preConn) preConn.textContent = 'Set Apart Movement · Meetup 007';
@@ -2047,8 +2070,7 @@
         ['📍','<span>2200 Driskell Drive &middot; Corinth, TX<br><span style="font-size:12px;opacity:.45">Off I-35E &middot; Free parking</span></span>'],
         ['🕰️','<strong>Saturday &middot; 7:00&ndash;9:00 PM</strong>'],
         ['📖','<strong>Bring your Bible</strong>'],
-        ['🥪','<span>Bring a snack to share</span>'],
-        ['🚫','<span style="color:rgba(240,237,230,.5)">Food not included &mdash; bring your own</span>'],
+        ['🥪','<strong style="color:var(--gold)">Food not included &mdash; bring a snack to share!</strong>'],
         ['👥','<strong>Bring a friend</strong>'],
       ].map(function(r){return '<li><span class="ev-icon">'+r[0]+'</span> '+r[1]+'</li>';}).join('');
     }
@@ -2070,6 +2092,14 @@
         msg.style.cssText = 'text-align:center;margin-top:14px;font-size:12px;letter-spacing:.06em;line-height:1.7;color:rgba(240,237,230,.42);';
         msg.innerHTML = 'We’ll see you <strong style="color:rgba(196,149,42,.7)">Saturday, October 3</strong><br>at 7 PM &middot; 2200 Driskell Dr, Corinth';
         this.insertAdjacentElement('afterend', msg);
+        /* Record RSVP so Sam can see who's coming per meetup (admin panel → RSVPs by Meetup) */
+        try {
+          var already = localStorage.getItem('sam_rsvp_' + window.SAM_CURRENT_MEETUP_ID) === '1';
+          if (!already && window._samDb) {
+            window._samDb.ref('rsvps/' + window.SAM_CURRENT_MEETUP_ID).push({ ts: Date.now() });
+            localStorage.setItem('sam_rsvp_' + window.SAM_CURRENT_MEETUP_ID, '1');
+          }
+        } catch (err) {}
       });
     }
 
@@ -2334,8 +2364,12 @@ window._samDb = (function(){
   <div id="wl-admin-overlay" onclick="closeWlAdmin()"></div>
   <div id="wl-admin-sheet">
     <div class="wla-bar">
-      <div class="wla-title">WAITLIST</div>
+      <div class="wla-title">ADMIN</div>
       <button class="wla-close" onclick="closeWlAdmin()">&times;</button>
+    </div>
+    <div class="wla-tabs">
+      <button class="wla-tabbtn active" data-tab="waitlist" onclick="switchWlaTab('waitlist')">Waitlist</button>
+      <button class="wla-tabbtn" data-tab="rsvps" onclick="switchWlaTab('rsvps')">RSVPs by Meetup</button>
     </div>
     <div class="wla-body" id="wla-body"><div class="sdp-loading">Loading&hellip;</div></div>
   </div>
@@ -2427,7 +2461,7 @@ window._samDb = (function(){
   var samName = localStorage.getItem('sam_name');
   var params = new URLSearchParams(location.search);
   var refId = params.get('ref');
-  var isAdmin = (function(){ try{ return localStorage.getItem('sam_is_admin')==='1'||samId==='002'; }catch(e){ return samId==='002'; } })();
+  var isAdmin = (samId==='002') || adminUnlockValid();
   var fabMode = 'default';
   var refPadded = null;
 
@@ -2715,21 +2749,52 @@ function dismissWlCard(){
   if(card)card.style.display='none';
   try{sessionStorage.setItem('wl_dismissed','1');}catch(e){}
 }
-function openWlAdmin(){
+/* Admin unlock: expires 14 days after unlock, or immediately when a new meetup replaces the one it was unlocked for */
+function adminUnlockValid(){
+  try{
+    if(localStorage.getItem('sam_is_admin')!=='1') return false;
+    var exp=parseInt(localStorage.getItem('sam_admin_expiry')||'0',10);
+    if(exp && Date.now()>exp){ clearAdminUnlock(); return false; }
+    var storedMeetup=localStorage.getItem('sam_admin_meetup');
+    if(storedMeetup && window.SAM_CURRENT_MEETUP_ID && storedMeetup!==window.SAM_CURRENT_MEETUP_ID){ clearAdminUnlock(); return false; }
+    return true;
+  }catch(e){ return false; }
+}
+function clearAdminUnlock(){
+  try{
+    localStorage.removeItem('sam_is_admin');
+    localStorage.removeItem('sam_admin_expiry');
+    localStorage.removeItem('sam_admin_meetup');
+  }catch(e){}
+  var pill=document.getElementById('sam-admin-pill');
+  if(pill)pill.style.display='none';
   var ctx=window._samCtx||{};
-  var adminOk=ctx.isAdmin||(function(){try{return localStorage.getItem('sam_is_admin')==='1';}catch(e){return false;}})();
+  ctx.isAdmin=false;
+}
+var wlaCurrentTab='waitlist';
+function switchWlaTab(tab){
+  wlaCurrentTab=tab;
+  document.querySelectorAll('.wla-tabbtn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===tab);});
+  if(tab==='rsvps') renderWlaRsvps(); else renderWlaWaitlist();
+}
+function openWlAdmin(){
+  var adminOk=adminUnlockValid();
   if(!adminOk)return;
   var panel=document.getElementById('wl-admin-panel');
   if(!panel)return;
   panel.classList.add('open');
   document.body.style.overflow='hidden';
+  switchWlaTab(wlaCurrentTab);
+}
+function renderWlaWaitlist(){
+  var body=document.getElementById('wla-body');
+  if(body)body.innerHTML='<div class="sdp-loading">Loading&hellip;</div>';
   var d=window._samDb;
-  if(!d)return;
+  if(!d){ if(body)body.innerHTML='<div class="sdp-loading">Could not load.</div>'; return; }
   d.ref('waitlist').get().then(function(snap){
     var entries=[];
     snap.forEach(function(c){entries.push(c.val());});
     entries.sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
-    var ctx2=window._samCtx||{};
     var offset=0;
     d.ref('config/waitlistOffset').get().then(function(os){offset=os.val()||0;render();}).catch(function(){render();});
     function render(){
@@ -2746,6 +2811,45 @@ function openWlAdmin(){
     if(body)body.innerHTML='<div class="sdp-loading">Could not load.</div>';
   });
 }
+function renderWlaRsvps(){
+  var body=document.getElementById('wla-body');
+  if(body)body.innerHTML='<div class="sdp-loading">Loading&hellip;</div>';
+  var d=window._samDb;
+  if(!d){ if(body)body.innerHTML='<div class="sdp-loading">Could not load.</div>'; return; }
+  d.ref('rsvps').get().then(function(snap){
+    var meetups=[];
+    snap.forEach(function(c){
+      var entries=[];
+      c.forEach(function(e){entries.push(e.val());});
+      entries.sort(function(a,b){return(a.ts||0)-(b.ts||0);});
+      meetups.push({id:c.key,entries:entries});
+    });
+    meetups.sort(function(a,b){return b.id.localeCompare(a.id);});
+    var html='';
+    if(!meetups.length){
+      html='<div class="sdp-loading">No RSVPs yet.</div>';
+    } else {
+      meetups.forEach(function(m){
+        html+='<div class="wla-meetup" onclick="toggleWlaMeetup(this)">';
+        html+='<div class="wla-meetup-hd"><span>Meetup '+m.id+'</span><span class="wla-meetup-count">'+m.entries.length+' RSVP'+(m.entries.length===1?'':'s')+'</span></div>';
+        html+='<div class="wla-meetup-detail">';
+        m.entries.forEach(function(e,i){
+          var dt=e.ts?new Date(e.ts).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'—';
+          html+='<div class="wla-row"><div class="wla-num">'+(i+1)+'</div><div><div class="wla-name">RSVP</div><div class="wla-phone">'+dt+'</div></div></div>';
+        });
+        html+='</div></div>';
+      });
+    }
+    var body=document.getElementById('wla-body');
+    if(body)body.innerHTML=html;
+  }).catch(function(){
+    var body=document.getElementById('wla-body');
+    if(body)body.innerHTML='<div class="sdp-loading">Could not load.</div>';
+  });
+}
+function toggleWlaMeetup(el){
+  el.classList.toggle('open');
+}
 function closeWlAdmin(){
   var panel=document.getElementById('wl-admin-panel');
   if(panel)panel.classList.remove('open');
@@ -2761,7 +2865,7 @@ function _hideWlBubble(){
   if(b)b.style.display='none';
 }
 
-// ── SECRET ADMIN: tap logo 7× within 4 seconds ──
+// ── SECRET ADMIN: tap logo 5× within 4 seconds. Unlock lasts 14 days or until the next meetup replaces this one ──
 (function(){
   var taps=0,timer=null;
   document.addEventListener('DOMContentLoaded',function(){
@@ -2770,9 +2874,13 @@ function _hideWlBubble(){
     logo.addEventListener('click',function(){
       taps++;
       clearTimeout(timer);
-      if(taps>=7){
+      if(taps>=5){
         taps=0;
-        try{localStorage.setItem('sam_is_admin','1');}catch(e){}
+        try{
+          localStorage.setItem('sam_is_admin','1');
+          localStorage.setItem('sam_admin_expiry',String(Date.now()+14*24*60*60*1000));
+          localStorage.setItem('sam_admin_meetup',window.SAM_CURRENT_MEETUP_ID||'');
+        }catch(e){}
         var ctx=window._samCtx||{};
         ctx.isAdmin=true;
         // Show admin pill
@@ -2793,15 +2901,13 @@ function _hideWlBubble(){
 
 document.addEventListener('DOMContentLoaded',function(){
   try{if(sessionStorage.getItem('wl_dismissed')){var wm=document.getElementById('waitlist-mode');if(wm)wm.style.display='none';}}catch(e){}
-  // Show admin pill if already unlocked on this device
-  try{
-    if(localStorage.getItem('sam_is_admin')==='1'){
-      var pill=document.getElementById('sam-admin-pill');
-      if(pill)pill.style.display='block';
-      var ctx=window._samCtx||{};
-      ctx.isAdmin=true;
-    }
-  }catch(e){}
+  // Show admin pill if already unlocked on this device (expires 14 days after unlock or when the meetup rotates)
+  if(adminUnlockValid()){
+    var pill=document.getElementById('sam-admin-pill');
+    if(pill)pill.style.display='block';
+    var ctx=window._samCtx||{};
+    ctx.isAdmin=true;
+  }
 });
 </script>
 
