@@ -1002,39 +1002,8 @@
   <!-- Phase 1: Envelope animation + gold shink burst -->
   <div id="phase1">
     <div class="stage">
-      <!-- Gold anime burst — sits behind everything, freezes when envelope opens -->
-      <svg id="gold-shink" viewBox="-300 -300 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <radialGradient id="shink-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#C4952A" stop-opacity="0.28"/>
-            <stop offset="60%" stop-color="#C4952A" stop-opacity="0.06"/>
-            <stop offset="100%" stop-color="#C4952A" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <!-- Outer ring halos -->
-        <circle cx="0" cy="0" r="245" fill="none" stroke="rgba(196,149,42,0.07)" stroke-width="50"/>
-        <circle cx="0" cy="0" r="168" fill="none" stroke="rgba(196,149,42,0.10)" stroke-width="18"/>
-        <!-- Center glow -->
-        <circle cx="0" cy="0" r="85" fill="url(#shink-glow)"/>
-        <!-- 8 main rays -->
-        <line x1="0" y1="-258" x2="0" y2="-42" stroke="#C4952A" stroke-width="2.2" stroke-linecap="round" opacity="0.72"/>
-        <line x1="182" y1="-182" x2="30" y2="-30" stroke="#C4952A" stroke-width="1.8" stroke-linecap="round" opacity="0.52"/>
-        <line x1="258" y1="0" x2="42" y2="0" stroke="#C4952A" stroke-width="2.2" stroke-linecap="round" opacity="0.72"/>
-        <line x1="182" y1="182" x2="30" y2="30" stroke="#C4952A" stroke-width="1.8" stroke-linecap="round" opacity="0.52"/>
-        <line x1="0" y1="258" x2="0" y2="42" stroke="#C4952A" stroke-width="2.2" stroke-linecap="round" opacity="0.72"/>
-        <line x1="-182" y1="182" x2="-30" y2="30" stroke="#C4952A" stroke-width="1.8" stroke-linecap="round" opacity="0.52"/>
-        <line x1="-258" y1="0" x2="-42" y2="0" stroke="#C4952A" stroke-width="2.2" stroke-linecap="round" opacity="0.72"/>
-        <line x1="-182" y1="-182" x2="-30" y2="-30" stroke="#C4952A" stroke-width="1.8" stroke-linecap="round" opacity="0.52"/>
-        <!-- 8 thin intermediate rays -->
-        <line x1="97" y1="-230" x2="16" y2="-38" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
-        <line x1="230" y1="-97" x2="38" y2="-16" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
-        <line x1="230" y1="97" x2="38" y2="16" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
-        <line x1="97" y1="230" x2="16" y2="38" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
-        <line x1="-97" y1="230" x2="-16" y2="38" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
-        <line x1="-230" y1="97" x2="-38" y2="16" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
-        <line x1="-230" y1="-97" x2="-38" y2="-16" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
-        <line x1="-97" y1="-230" x2="-16" y2="-38" stroke="#C4952A" stroke-width="0.9" stroke-linecap="round" opacity="0.28"/>
-      </svg>
+      <!-- Premium light-ray: two-pass sweep, freezes behind the card -->
+      <div id="light-ray" aria-hidden="true"></div>
       <!-- Envelope card -->
       <div id="cardSmall">
         <img src="images/card.png" alt="Set Apart Movement invitation" fetchpriority="high" decoding="async">
@@ -1106,7 +1075,7 @@
 
     <!-- MEETUP MODE (shown when a meetup is upcoming) -->
     <div id="meetup-mode" hidden>
-      <div class="event-card rv" style="margin-top:8px;">
+      <div class="event-card" style="margin-top:8px;opacity:1;">
         <p class="ev-tag" id="ev-tag-txt">Next Meetup</p>
         <p class="ev-date" id="ev-date-txt"></p>
         <p class="ev-time" id="ev-time-txt"></p>
@@ -1963,10 +1932,14 @@
     /* ── 1. CONNECT design system + gold shink + visual elevation ── */
     var sConn = document.createElement('style');
     sConn.textContent = [
-      /* Gold shink burst */
-      '@keyframes shinkBurst{0%{opacity:0;transform:translate(-50%,-50%) scale(0) rotate(-14deg)}28%{opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(3deg)}55%{opacity:.82;transform:translate(-50%,-50%) scale(1) rotate(0deg)}100%{opacity:.58;transform:translate(-50%,-50%) scale(1) rotate(0deg)}}',
-      '#gold-shink{position:absolute;top:50%;left:50%;width:min(115vw,640px);height:min(115vw,640px);transform:translate(-50%,-50%) scale(0);opacity:0;pointer-events:none;z-index:0;}',
-      '#gold-shink.shink-on{animation:shinkBurst .48s cubic-bezier(.05,.9,.08,1) forwards;}',
+      /* Premium light-ray — two-pass sweep, second pass freezes */
+      '@keyframes lightRayPass{0%{transform:translateX(-160px) skewX(-12deg);opacity:0}3%{opacity:1}30%{transform:translateX(calc(100vw + 160px)) skewX(-12deg);opacity:.9}32%{transform:translateX(-160px) skewX(-12deg);opacity:0}36%{opacity:0}39%{opacity:.8}82%{transform:translateX(calc(42vw - 60px)) skewX(-12deg);opacity:.65}100%{transform:translateX(calc(42vw - 60px)) skewX(-12deg);opacity:.18}}',
+      '#light-ray{position:absolute;top:-15%;left:0;width:90px;height:130%;background:linear-gradient(90deg,transparent 0%,rgba(255,250,235,.03) 15%,rgba(255,255,255,.13) 42%,rgba(255,252,240,.16) 50%,rgba(255,255,255,.13) 58%,rgba(255,250,235,.03) 85%,transparent 100%);transform:translateX(-160px) skewX(-12deg);pointer-events:none;z-index:2;opacity:0;will-change:transform,opacity;filter:blur(1.5px);}',
+      '#light-ray.ray-on{animation:lightRayPass 2.6s cubic-bezier(.16,1,.3,1) .1s both;}',
+      /* Force event card + bullets visible instantly (no rv delay) */
+      '#meetup-mode .rv,#meetup-mode .event-card,#ev-rsvp-btn,#cant-make-it-card{opacity:1!important;transform:translateY(0)!important;transition:none!important;}',
+      '#meetup-mode{display:block!important;}',
+      '#meetup-mode .event-card{display:block!important;}',
       /* Body grain texture */
       'body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="200" height="200" filter="url(%23n)" opacity=".028"/></svg>\');background-repeat:repeat;opacity:1;}',
       /* Hero upgrades */
@@ -1975,7 +1948,7 @@
       '.inv-headline{font-family:"Bebas Neue",impact,sans-serif!important;font-size:clamp(92px,27vw,142px)!important;letter-spacing:.03em!important;line-height:.86!important;color:var(--cream)!important;font-style:normal!important;animation:headlineGlow 5s ease-in-out infinite;}',
       '.inv-sub{font-family:"Cormorant Garamond",serif!important;font-size:clamp(16px,4.5vw,21px)!important;font-style:italic!important;color:rgba(240,237,230,.58)!important;letter-spacing:.01em!important;line-height:1.45!important;text-transform:none!important;}',
       /* Event card upgrades */
-      '.event-card{background:rgba(240,237,230,.018)!important;border-color:rgba(196,149,42,.18)!important;box-shadow:0 1px 0 0 rgba(196,149,42,.06),inset 0 1px 0 0 rgba(240,237,230,.025)!important;}',
+      '.event-card{background:rgba(240,237,230,.042)!important;border:1px solid rgba(196,149,42,.28)!important;border-top:2px solid rgba(196,149,42,.55)!important;box-shadow:0 2px 32px rgba(0,0,0,.38),0 1px 0 0 rgba(196,149,42,.08),inset 0 1px 0 0 rgba(240,237,230,.04)!important;}',
       '.ev-tag{letter-spacing:.22em!important;font-size:8.5px!important;}',
       '.ev-date{font-family:"Bebas Neue",impact,sans-serif!important;font-size:clamp(40px,11vw,52px)!important;letter-spacing:.02em!important;line-height:.9!important;color:var(--cream)!important;}',
       '.ev-time{font-size:13px!important;color:rgba(240,237,230,.5)!important;letter-spacing:.04em!important;}',
@@ -2009,7 +1982,8 @@
       '.conn-exp-grid{display:flex;flex-direction:column;gap:0;}',
       '.conn-exp-word{font-family:"Cormorant Garamond",serif;font-size:clamp(34px,10vw,56px);font-weight:300;font-style:italic;color:rgba(240,237,230,.09);line-height:1.1;transition:color .4s ease,transform .3s ease;padding:3px 0;cursor:default;user-select:none;}',
       '.conn-exp-word:hover,.conn-exp-word.lit{color:rgba(240,237,230,.82);transform:translateX(4px);}',
-      '.conn-exp-line{width:1px;height:20px;background:linear-gradient(to bottom,transparent,rgba(196,149,42,.2),transparent);margin:0 auto;}',
+      '.conn-exp-arrow{display:flex;align-items:center;justify-content:center;height:28px;color:rgba(196,149,42,.32);font-size:18px;line-height:1;pointer-events:none;transition:color .3s ease;letter-spacing:0;}',
+      '.conn-exp-word:hover~.conn-exp-arrow,.conn-exp-word.lit~.conn-exp-arrow{color:rgba(196,149,42,.7);}',
       /* Belong section */
       '.conn-belong{width:100%;padding:48px 0 40px;text-align:left;border-top:1px solid rgba(196,149,42,.07);}',
       '.conn-belong-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(36px,11vw,56px);letter-spacing:.02em;color:var(--cream);line-height:.88;margin-bottom:22px;margin-top:6px;}',
@@ -2025,13 +1999,13 @@
     ].join('');
     document.head.appendChild(sConn);
 
-    /* ── 2. Override runSequence — envelope + gold shink trigger ── */
+    /* ── 2. Override runSequence — envelope + premium light-ray ── */
     runSequence = function () {
       setTimeout(function () {
         if (flap) flap.classList.add('open');
         if (seal) seal.classList.add('open');
-        var shink = document.getElementById('gold-shink');
-        if (shink) shink.classList.add('shink-on');
+        var ray = document.getElementById('light-ray');
+        if (ray) ray.classList.add('ray-on');
       }, 350);
       setTimeout(function () { if (cardSmall) cardSmall.classList.add('risen'); }, 700);
       setTimeout(function () { if (envelope) envelope.classList.add('opened'); }, 1050);
@@ -2114,9 +2088,26 @@
       wlCountText.insertAdjacentHTML('afterend','<div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,237,230,.3);text-align:center">People in Line &middot; Limited Spots</div>');
     }
 
-    /* ── 10. Remove One Year section ── */
+    /* ── 10. Remove One Year section + THIS ONE IS DIFFERENT ── */
     var yrEl = document.getElementById('conn-year-sec');
     if (yrEl) yrEl.style.display = 'none';
+    var diffEl = document.getElementById('conn-diff-sec');
+    if (diffEl) diffEl.style.display = 'none';
+
+    /* ── 10b. Replace conn-exp-line dividers with downward arrows ── */
+    document.querySelectorAll('.conn-exp-line').forEach(function(l) {
+      l.classList.remove('conn-exp-line');
+      l.classList.add('conn-exp-arrow');
+      l.textContent = '↓';
+    });
+
+    /* ── 10c. Force event card + RSVP visible (bypass rv delay) ── */
+    var cardEl = document.querySelector('.event-card');
+    if (cardEl) { cardEl.classList.add('on'); }
+    var rsvpEl = document.getElementById('ev-rsvp-btn');
+    if (rsvpEl) { rsvpEl.classList.add('on'); }
+    var cantEl = document.getElementById('cant-make-it-card');
+    if (cantEl) { cantEl.classList.add('on'); }
 
     /* ── 11. Experience word cycling animation ── */
     (function() {
