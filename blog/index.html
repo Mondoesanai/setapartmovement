@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Primary SEO -->
+  <title>Blog | Set Apart Movement</title>
+  <meta name="description" content="Read stories, insights, and updates from Set Apart Movement, a student-led faith community in Denton, Texas.">
+  <meta name="keywords" content="Set Apart Movement blog, student faith community, Denton Texas, youth leadership, Christian students">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="author" content="Set Apart Movement">
+  <meta name="geo.region" content="US-TX">
+  <meta name="geo.placename" content="Denton, Texas">
+  <link rel="canonical" href="https://setapartmovement.com/blog/">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://setapartmovement.com/blog/">
+  <meta property="og:site_name" content="Set Apart Movement">
+  <meta property="og:title" content="Blog | Set Apart Movement">
+  <meta property="og:description" content="Stories, insights, and updates from Set Apart Movement.">
+  <meta property="og:image" content="https://setapartmovement.com/images/card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog | Set Apart Movement">
+  <meta name="twitter:description" content="Stories, insights, and updates from Set Apart Movement.">
+  <meta name="twitter:image" content="https://setapartmovement.com/images/card.png">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Set Apart Movement Blog",
+    "url": "https://setapartmovement.com/blog/",
+    "description": "Stories, insights, and updates from Set Apart Movement, a student-led faith community in Denton, Texas.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Set Apart Movement",
+      "url": "https://setapartmovement.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://setapartmovement.com/images/logo-dark.png",
+        "width": 512,
+        "height": 512
+      }
+    },
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Set Apart Movement",
+      "url": "https://setapartmovement.com"
+    }
+  }
+  </script>
+
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Great+Vibes&family=Space+Grotesk:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Great+Vibes&family=Space+Grotesk:wght@400;500;600&display=swap"></noscript>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:  #080806;
+      --cream:#F0EDE6;
+      --dim:  rgba(240,237,230,0.52);
+      --gold: #C4952A;
+      --gold2:#E8B94B;
+      --env:  #242420;
+      --env2: #1C1C18;
+      --seal-gold: #8B6318;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body.locked { overflow: hidden; }
+
+    /* PAGE GLOW */
+    .page-glow {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 40% at 50% -5%, rgba(196,149,42,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 30% at 10% 80%, rgba(196,149,42,0.04) 0%, transparent 50%);
+    }
+
+    .blog-inner {
+      position: relative; z-index: 1;
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 72px 24px 112px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .blog-logo { width: min(130px, 36vw); margin-bottom: 36px; animation: float 4s ease-in-out infinite; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-9px); }
+    }
+
+    .blog-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 13vw, 72px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--cream);
+      margin-bottom: 14px;
+    }
+
+    .blog-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(17px, 5vw, 22px);
+      font-weight: 300; font-style: italic;
+      color: var(--dim); margin-bottom: 48px; line-height: 1.4;
+    }
+
+    .rule {
+      width: 56px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0 auto 64px;
+    }
+
+    .posts-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .blog-post-card {
+      width: 100%;
+      border: 1px solid rgba(196,149,42,0.2);
+      border-radius: 6px;
+      padding: 24px;
+      background: rgba(240,237,230,0.025);
+      position: relative; overflow: hidden;
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+
+    .blog-post-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+    }
+
+    .blog-post-card:hover {
+      border-color: rgba(196,149,42,0.4);
+      box-shadow: 0 4px 16px rgba(196,149,42,0.1);
+    }
+
+    .blog-post-date {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+
+    .blog-post-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(20px, 5vw, 28px);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--cream);
+      margin-bottom: 10px;
+    }
+
+    .blog-post-teaser {
+      font-size: 14px;
+      line-height: 1.55;
+      color: rgba(240,237,230,0.68);
+      margin-bottom: 16px;
+    }
+
+    .blog-post-link {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .blog-post-link:hover {
+      color: var(--gold2);
+    }
+
+    .empty-state {
+      width: 100%;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 20px;
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      color: var(--dim);
+      line-height: 1.6;
+    }
+
+    .scroll-nudge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin: 32px auto 32px;
+      animation: nudge-bob 1.8s ease-in-out infinite;
+    }
+    .scroll-nudge span {
+      display: block;
+      width: 10px; height: 10px;
+      border-right: 1.5px solid var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      transform: rotate(45deg);
+      margin-top: -4px;
+    }
+    .scroll-nudge span:nth-child(1) { opacity: 0.9; }
+    .scroll-nudge span:nth-child(2) { opacity: 0.55; }
+    .scroll-nudge span:nth-child(3) { opacity: 0.25; }
+    @keyframes nudge-bob {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
+    .back-link {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--gold2);
+    }
+
+    @media (max-width: 480px) {
+      .blog-inner { padding: 48px 18px 80px; }
+      .blog-headline { font-size: clamp(44px, 16vw, 60px); }
+      .blog-post-card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-glow"></div>
+
+<!-- HEADER / NAV -->
+<header style="position: relative; z-index: 10;">
+  <nav style="padding: 20px 24px; display: flex; align-items: center; justify-content: center;">
+    <a href="../" style="text-decoration: none; display: flex; align-items: center;">
+      <img src="../images/logo.png" alt="Set Apart Movement" width="40" height="40" style="display: block;">
+    </a>
+  </nav>
+</header>
+
+<!-- BLOG MAIN CONTENT -->
+<!-- BLOG-MAIN-START -->
+<main class="blog-inner">
+  <h1 class="blog-headline">Blog</h1>
+  <p class="blog-intro">Stories and insights from Set Apart Movement, a student-led faith community in Denton, Texas.</p>
+
+  <div class="rule"></div>
+
+  <div class="posts-list">
+    <!-- NEW POSTS GO HERE -->
+    <div class="empty-state">
+      <p class="empty-state-text">More stories coming soon. Follow us for the latest updates.</p>
+    </div>
+  </div>
+
+  <!-- CARD-TEMPLATE: <article class="blog-post-card"><p class="blog-post-date">{{DATE}}</p><h2 class="blog-post-title"><a href="{{URL}}" style="color:inherit;text-decoration:none;">{{TITLE}}</a></h2><p class="blog-post-teaser">{{TEASER}}</p><a href="{{URL}}" class="blog-post-link">Read More &rarr;</a></article> -->
+
+  <!-- POST-SHELL: <article class="blog-post-card" style="border:1px solid rgba(196,149,42,0.2);border-radius:6px;padding:24px;background:rgba(240,237,230,0.025);position:relative;overflow:hidden;">{{CONTENT}}</article> -->
+</main>
+<!-- BLOG-MAIN-END -->
+
+<!-- FOOTER -->
+<footer style="position: relative; z-index: 10; padding: 40px 24px 32px; text-align: center; border-top: 1px solid rgba(196,149,42,0.1);">
+  <img src="../images/logo.png" alt="Set Apart Movement" width="48" height="48" style="display: block; margin: 0 auto 10px; opacity: 0.3;">
+  <p style="font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(240,237,230,0.2); text-align: center; padding-left: 0.28em;">Set Apart Movement</p>
+  <p style="font-size: 12px; color: rgba(240,237,230,0.4); margin-top: 20px; line-height: 1.6;">
+    <a href="../" style="color: var(--gold); text-decoration: none; transition: color 0.2s;">Home</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="../how-it-works.html" style="color: var(--gold); text-decoration: none; transition: color 0.2s;">How It Works</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="../rankings.html" style="color: var(--gold); text-decoration: none; transition: color 0.2s;">Rankings</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="./" style="color: var(--gold); text-decoration: none; transition: color 0.2s;">Blog</a>
+  </p>
+  <p style="font-size: 11px; color: rgba(240,237,230,0.25); margin-top: 16px;">
+    <a href="tel:+18179833004" style="color: inherit; text-decoration: none;">817-983-3004</a> &nbsp;&bull;&nbsp; Denton, TX
+  </p>
+</footer>
+
+</body>
+</html>
