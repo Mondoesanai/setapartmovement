@@ -1134,8 +1134,8 @@
 
     <div class="rule rv"></div>
 
-    <!-- CONNECT: This One Is Different -->
-    <div class="conn-diff rv" id="conn-diff-sec">
+    <!-- CONNECT: This One Is Different — hidden by default (Sam asked this removed); showConnect no longer needs to hide it, but still may while active -->
+    <div class="conn-diff rv" id="conn-diff-sec" style="display:none">
       <div class="conn-diff-eyebrow">Meetup 007 &nbsp;&middot;&nbsp; What to Know</div>
       <div class="conn-diff-h">THIS ONE IS<br>DIFFERENT.</div>
       <div class="conn-diff-body">
@@ -1190,8 +1190,8 @@
       <div class="conn-join-fine">No spam. Just the movement.</div>
     </div>
 
-    <!-- CONNECT: One Year moment -->
-    <div class="conn-year rv" id="conn-year-sec">
+    <!-- CONNECT: One Year moment — hidden by default (Sam asked this removed) -->
+    <div class="conn-year rv" id="conn-year-sec" style="display:none">
       <div class="conn-year-bg" aria-hidden="true">1</div>
       <div class="conn-year-label">One Year of Set Apart Movement</div>
       <div class="conn-year-h">ONE YEAR.</div>
@@ -1935,10 +1935,11 @@
   } catch(e) { console.error('showSent error:', e); } }
 
   /* ── MEETUP 007: CONNECT ────────────────────────────────────── */
-  const SWITCH_AT_CONNECT = new Date('2026-09-29T00:00:00Z');
-  const CONNECT_END       = new Date('2026-10-04T02:00:00Z'); // Oct 3 9PM CDT = Oct 4 02:00Z
+  const SWITCH_AT_CONNECT     = new Date('2026-09-29T00:00:00Z');
+  const CONNECT_END           = new Date('2026-10-04T02:00:00Z'); // true event end: Oct 3 9PM CDT = Oct 4 02:00Z (used for reference only)
+  const CONNECT_WAITLIST_AT   = new Date('2026-10-04T00:30:00Z'); // Oct 3 7:30 PM CDT — site auto-resets to "next meetup not announced" + waitlist here, per Sam's explicit request
   const forceConnect = new URLSearchParams(location.search).get('preview') === 'connect';
-  const showConnect  = forceConnect || (Date.now() >= SWITCH_AT_CONNECT.getTime() && Date.now() < CONNECT_END.getTime() + 3600000);
+  const showConnect  = forceConnect || (Date.now() >= SWITCH_AT_CONNECT.getTime() && Date.now() < CONNECT_WAITLIST_AT.getTime());
 
   if (showConnect) { try {
 
@@ -2641,7 +2642,10 @@ window._samDb = (function(){
 
       if(meetup&&meetup.endIso){
         var endMs=new Date(meetup.endIso).getTime();
-        if(now < endMs+3600000){ // still within 1 hour after end
+        /* waitlistAt lets a meetup set an explicit auto-reset moment (e.g. mid-event) instead of
+           the default "1 hour after the listed end time" grace window. */
+        var switchMs = meetup.waitlistAt ? new Date(meetup.waitlistAt).getTime() : (endMs+3600000);
+        if(now < switchMs){
           showMeetup=true;
           meetupTarget=new Date(meetup.startIso).getTime();
         }
@@ -2679,7 +2683,11 @@ window._samDb = (function(){
         }
         tick();setInterval(tick,1000);
       } else {
-        // Waitlist mode — live count + offset
+        // Waitlist mode — authoritative reset: force this regardless of what any synchronous
+        // per-meetup block already set, so the switch is guaranteed even if it ran before this
+        // Firebase check resolved.
+        var mmReset=document.getElementById('meetup-mode'); if(mmReset)mmReset.hidden=true;
+        var wmReset=document.getElementById('waitlist-mode'); if(wmReset)wmReset.style.display='';
         _showWlBubble();
         d.ref('config/waitlistOffset').get().then(function(os){
           var offset=os.val()||0;
