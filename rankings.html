@@ -40,6 +40,13 @@
     .search-input:focus{border-color:rgba(212,168,74,.45)}
     .search-input::placeholder{color:var(--dimmer)}
 
+    /* CITY BUBBLES */
+    .city-wrap{position:relative;z-index:5;max-width:520px;margin:14px auto 0;padding:0 20px;display:flex;flex-wrap:wrap;gap:8px}
+    .city-bubble{display:inline-flex;align-items:center;gap:6px;background:var(--ink2);border:1px solid rgba(212,168,74,.16);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;color:var(--dim);cursor:pointer;transition:border-color .2s,background .2s,color .2s;-webkit-tap-highlight-color:transparent}
+    .city-bubble:hover{border-color:rgba(212,168,74,.35)}
+    .city-bubble.active{background:rgba(212,168,74,.14);border-color:rgba(212,168,74,.5);color:var(--gold-l)}
+    .city-bubble-count{font-family:'Bebas Neue',impact,sans-serif;font-size:13px;color:var(--gold);letter-spacing:.02em}
+
     /* BOARD */
     .board-wrap{position:relative;z-index:5;max-width:520px;margin:16px auto 0;padding:0 20px 80px}
     .board-row{display:flex;align-items:center;gap:14px;background:var(--ink2);border:1px solid rgba(212,168,74,.1);border-radius:10px;padding:14px 16px;margin-bottom:7px;transition:border-color .2s,box-shadow .2s}
@@ -52,7 +59,9 @@
     .board-rank.gold{color:#FFD700;font-size:18px}
     .board-rank.silver{color:#C0C0C0;font-size:16px}
     .board-rank.bronze{color:#CD7F32;font-size:15px}
-    .board-num{font-family:'Bebas Neue',impact,sans-serif;font-size:15px;color:var(--gold);width:44px;flex-shrink:0;letter-spacing:.04em}
+    .board-num{font-family:'Bebas Neue',impact,sans-serif;font-size:15px;color:var(--gold);width:40px;flex-shrink:0;letter-spacing:.04em}
+    .board-photo{width:36px;height:36px;border-radius:50%;flex-shrink:0;background:var(--ink3);border:1px solid rgba(212,168,74,.18);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(212,168,74,.35)}
+    .board-photo img{width:100%;height:100%;object-fit:cover}
     .board-info{flex:1;min-width:0}
     .board-name{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .board-city{font-size:11px;color:var(--dimmer);margin-top:1px}
@@ -83,6 +92,8 @@
 <div class="search-wrap">
   <input class="search-input" id="search" type="text" placeholder="Search by name or number..." oninput="filterRows()">
 </div>
+
+<div class="city-wrap" id="city-wrap"></div>
 
 <div class="demo-notice" id="demo-note" hidden>
   Firebase not connected &mdash; showing placeholders. Add apiKey &amp; appId to c.html to see live data.
@@ -127,6 +138,21 @@ var FIREBASE_CONFIG = {
 
 var DEMO_MODE = FIREBASE_CONFIG.apiKey === 'REPLACE_ME';
 var allRows = [];
+var activeCity = null;
+
+/* Folds spelling/casing/state-suffix variants of the same city into one bucket:
+   "Corinth", "corinth", "CORINTH", "Corinth, TX", "Corinth Texas" all become
+   the same key ("corinth") with one clean display label ("Corinth"). */
+function cityKeyAndLabel(raw) {
+  if (!raw) return null;
+  var s = String(raw).trim();
+  if (!s) return null;
+  s = s.replace(/,?\s*(texas|tx)\.?\s*$/i, '').trim();
+  if (!s) return null;
+  var key = s.toLowerCase().replace(/\s+/g, ' ');
+  var label = s.replace(/\s+/g, ' ').replace(/\w\S*/g, function(w){ return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase(); });
+  return { key: key, label: label };
+}
 
 if (DEMO_MODE) {
   document.getElementById('demo-note').hidden = false;
@@ -154,6 +180,7 @@ function renderRows(map, demo) {
   var unclaimed = ids.filter(function(id){ return !map[id] || !map[id].name; });
   var sorted = claimed.concat(unclaimed);
 
+  var cityGroups = {};
   allRows = sorted.map(function(id, i) {
     var m = map[id];
     var rank = i + 1;
@@ -162,11 +189,20 @@ function renderRows(map, demo) {
     var rowClass = 'board-row'+(rank<=1?' top1':rank<=2?' top2':rank<=3?' top3':'')+(m&&m.name?'':' unlinked');
     var name = (m && m.name) ? m.name : 'Unclaimed';
     var city = m ? (m.city||'') : '';
+    var cityInfo = cityKeyAndLabel(city);
+    if (cityInfo) {
+      if (!cityGroups[cityInfo.key]) cityGroups[cityInfo.key] = { label: cityInfo.label, count: 0 };
+      cityGroups[cityInfo.key].count++;
+    }
     var taps = m ? (m.tapCount||0) : 0;
+    var photoHtml = (m && m.photo)
+      ? '<img src="'+m.photo+'" alt="'+name+' profile photo" loading="lazy">'
+      : '&#9818;';
     return {
-      id: id, name: name, html:
+      id: id, name: name, cityKey: cityInfo ? cityInfo.key : '', html:
         '<div class="'+rowClass+'" data-name="'+name.toLowerCase()+'">' +
         '<div class="board-rank '+rankClass+'">'+rankSymbol+'</div>' +
+        '<div class="board-photo">'+photoHtml+'</div>' +
         '<div class="board-num">#'+id+'</div>' +
         '<div class="board-info"><div class="board-name">'+name+'</div><div class="board-city">'+city+'</div></div>' +
         (m ? '<div class="board-score">'+taps+'<span>taps</span></div>' : '') +
@@ -174,16 +210,41 @@ function renderRows(map, demo) {
     };
   });
 
-  board.innerHTML = allRows.map(function(r){return r.html;}).join('');
+  lastCityGroups = cityGroups;
+  renderCityBubbles(cityGroups);
+  filterRows();
+}
+
+var lastCityGroups = {};
+
+function renderCityBubbles(cityGroups) {
+  var wrap = document.getElementById('city-wrap');
+  if (!wrap) return;
+  var keys = Object.keys(cityGroups).sort(function(a,b){ return cityGroups[b].count - cityGroups[a].count; });
+  if (!keys.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = keys.map(function(k){
+    var g = cityGroups[k];
+    return '<button type="button" class="city-bubble'+(activeCity===k?' active':'')+'" onclick="toggleCity(\''+k.replace(/'/g,"\\'")+'\')">'+g.label+' <span class="city-bubble-count">'+g.count+'</span></button>';
+  }).join('');
+}
+
+function toggleCity(key) {
+  activeCity = (activeCity === key) ? null : key;
+  renderCityBubbles(lastCityGroups);
+  filterRows();
 }
 
 function filterRows() {
   var q = document.getElementById('search').value.toLowerCase().trim();
   var board = document.getElementById('board');
-  if (!q) { board.innerHTML = allRows.map(function(r){return r.html;}).join(''); return; }
-  var filtered = allRows.filter(function(r){ return r.name.toLowerCase().includes(q) || r.id.includes(q); });
-  board.innerHTML = filtered.length ? filtered.map(function(r){return r.html;}).join('') :
-    '<div class="load-msg">No results for &ldquo;'+q+'&rdquo;</div>';
+  var rows = allRows;
+  if (activeCity) rows = rows.filter(function(r){ return r.cityKey === activeCity; });
+  if (q) rows = rows.filter(function(r){ return r.name.toLowerCase().includes(q) || r.id.includes(q); });
+  if (!rows.length) {
+    board.innerHTML = '<div class="load-msg">No results'+(q?' for &ldquo;'+q+'&rdquo;':'')+'.</div>';
+    return;
+  }
+  board.innerHTML = rows.map(function(r){return r.html;}).join('');
 }
 </script>
 <script defer src="https://agency-dashboard-omega-red.vercel.app/t.js"></script>

@@ -908,11 +908,11 @@
     #wl-admin-panel.open { pointer-events: auto; }
     #wl-admin-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.65); opacity: 0; transition: opacity .3s; backdrop-filter: blur(4px); }
     #wl-admin-panel.open #wl-admin-overlay { opacity: 1; }
-    #wl-admin-sheet { position: absolute; bottom: 0; left: 0; right: 0; max-height: 88vh; background: #0a0806; border-top: 1px solid rgba(196,146,58,.22); border-radius: 20px 20px 0 0; transform: translateY(100%); transition: transform .38s cubic-bezier(.32,1,.4,1); overflow-y: auto; padding: 0 0 max(env(safe-area-inset-bottom,0px),28px); font-family: 'Space Grotesk', sans-serif; color: #F0ECE4; }
+    #wl-admin-sheet { position: absolute; bottom: 0; left: 0; right: 0; max-height: 80vh; background: #0a0806; border-top: 1px solid rgba(196,146,58,.22); border-radius: 20px 20px 0 0; transform: translateY(100%); transition: transform .38s cubic-bezier(.32,1,.4,1); overflow-y: auto; padding: 0 0 max(env(safe-area-inset-bottom,0px),28px); font-family: 'Space Grotesk', sans-serif; color: #F0ECE4; }
     #wl-admin-panel.open #wl-admin-sheet { transform: translateY(0); }
     .wla-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px 8px; border-bottom: 1px solid rgba(212,168,74,.1); }
     .wla-title { font-family: 'Bebas Neue', impact, sans-serif; font-size: 22px; letter-spacing: .06em; color: var(--gold); }
-    .wla-close { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(196,146,58,.18); background: rgba(196,146,58,.06); display: flex; align-items: center; justify-content: center; color: rgba(240,236,228,.45); font-size: 18px; cursor: pointer; }
+    .wla-close { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(196,146,58,.35); background: rgba(196,146,58,.14); display: flex; align-items: center; justify-content: center; color: rgba(240,236,228,.85); font-size: 22px; cursor: pointer; }
     .wla-body { padding: 14px 20px; }
     .wla-count-hd { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(212,168,74,.7); margin-bottom: 14px; }
     .wla-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid rgba(212,168,74,.07); }
@@ -959,7 +959,7 @@
     }
     #wl-modal.open #wl-modal-sheet { transform: translateY(0); }
     .wlm-handle { width: 40px; height: 4px; border-radius: 2px; background: rgba(212,168,74,.25); margin: 0 auto 20px; }
-    .wlm-close { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(212,168,74,.18); background: rgba(212,168,74,.06); display: flex; align-items: center; justify-content: center; color: rgba(240,236,228,.45); font-size: 18px; cursor: pointer; }
+    .wlm-close { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(212,168,74,.35); background: rgba(212,168,74,.14); display: flex; align-items: center; justify-content: center; color: rgba(240,236,228,.85); font-size: 22px; cursor: pointer; }
     .wlm-eyebrow { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
     .wlm-headline { font-family: 'Bebas Neue', impact, sans-serif; font-size: 36px; letter-spacing: .04em; color: #F0ECE4; line-height: 1; margin-bottom: 6px; }
     .wlm-sub { font-size: 13px; color: rgba(240,236,228,.5); line-height: 1.6; margin-bottom: 22px; }
@@ -1066,6 +1066,8 @@
     .conn-rank-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(196,149,42,.08);text-align:left;}
     .conn-rank-row:last-child{border-bottom:none;}
     .conn-rank-medal{font-size:18px;min-width:26px;text-align:center;}
+    .conn-rank-row-photo{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:rgba(0,0,0,.3);border:1px solid rgba(196,149,42,.22);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(196,149,42,.35);}
+    .conn-rank-row-photo img{width:100%;height:100%;object-fit:cover;}
     .conn-rank-row-name{font-size:13px;font-weight:700;color:var(--cream);font-family:"Space Grotesk",sans-serif;}
     .conn-rank-row-city{font-size:11px;color:rgba(240,237,230,.4);margin-top:1px;}
     .conn-rank-row-taps{margin-left:auto;font-family:"Bebas Neue",impact,sans-serif;font-size:20px;color:var(--gold);letter-spacing:.02em;}
@@ -1079,6 +1081,11 @@
     .conn-rank-explain-inner{padding:16px;background:rgba(0,0,0,.25);border:1px solid rgba(196,149,42,.12);border-radius:8px;}
     .conn-rank-explain-inner p{font-size:12.5px;line-height:1.75;color:rgba(240,237,230,.55);margin-bottom:10px;}
     .conn-rank-explain-inner p:last-child{margin-bottom:0;color:rgba(196,149,42,.7);font-style:italic;font-family:"Cormorant Garamond",serif;font-size:14px;}
+    .conn-rank-find-row{display:flex;gap:8px;margin-bottom:14px;}
+    .conn-rank-find-row input{flex:1;min-width:0;background:rgba(0,0,0,.3);border:1px solid rgba(196,149,42,.22);border-radius:6px;padding:11px 12px;color:var(--cream);font-family:"Space Grotesk",sans-serif;font-size:12.5px;outline:none;}
+    .conn-rank-find-row input::placeholder{color:rgba(240,237,230,.3);}
+    .conn-rank-find-row input:focus{border-color:rgba(196,149,42,.5);}
+    .conn-rank-find-row button{flex-shrink:0;background:rgba(196,149,42,.14);border:1px solid rgba(196,149,42,.4);border-radius:6px;padding:11px 16px;color:var(--gold);font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;cursor:pointer;}
 
   </style>
 </head>
@@ -1226,23 +1233,26 @@
       </ul>
     </div>
 
-    <!-- CONNECT: Experience section -->
-    <div class="conn-exp rv" id="conn-exp-sec">
-      <div class="conn-exp-eyebrow">What to Expect</div>
-      <div class="conn-exp-grid" id="conn-exp-grid">
-        <div class="conn-exp-word">THE WORD.</div>
-        <div class="conn-exp-line" aria-hidden="true"></div>
-        <div class="conn-exp-word">CONVERSATION.</div>
-        <div class="conn-exp-line" aria-hidden="true"></div>
-        <div class="conn-exp-word">COMMUNITY.</div>
-        <div class="conn-exp-line" aria-hidden="true"></div>
-        <div class="conn-exp-word">QUESTIONS.</div>
-        <div class="conn-exp-line" aria-hidden="true"></div>
-        <div class="conn-exp-word">FOOD.</div>
-        <div class="conn-exp-line" aria-hidden="true"></div>
-        <div class="conn-exp-word">FAITH.</div>
-        <div class="conn-exp-line" aria-hidden="true"></div>
-        <div class="conn-exp-word">REAL LIFE.</div>
+    <!-- Rankings preview card -->
+    <div class="conn-rank rv" id="conn-rank-sec">
+      <div class="conn-eyebrow">Earn Your Spot</div>
+      <div class="conn-rank-h">THE<br>RANKINGS.</div>
+      <div class="conn-rank-sub">Every bracelet tap moves you up the board. <strong id="conn-rank-total">—</strong> people are already climbing.</div>
+      <div class="conn-rank-top" id="conn-rank-top">
+        <div class="conn-rank-row"><span class="conn-rank-medal">&hellip;</span><div><div class="conn-rank-row-name">Loading</div></div></div>
+      </div>
+      <a class="conn-rank-btn" href="/rankings">See Full Rankings &rarr;</a>
+      <button class="conn-rank-explain-btn" type="button" onclick="document.getElementById('conn-rank-explain').classList.toggle('open')">What is this? &nbsp;&darr;</button>
+      <div class="conn-rank-explain" id="conn-rank-explain">
+        <div class="conn-rank-explain-inner">
+          <p>Come to a meetup and you get your own number and your own bracelet — yours, for good.</p>
+          <p>Tap it against someone else's phone and it logs a point for you. Bring people in, climb the board.</p>
+          <div class="conn-rank-find-row">
+            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" id="conn-rank-find-input" placeholder="Already got a bracelet? Enter your number">
+            <button type="button" onclick="(function(){var v=document.getElementById('conn-rank-find-input').value.trim();if(!v)return;location.href='/c/'+v.padStart(3,'0');})()">Go &rarr;</button>
+          </div>
+          <p>The leaderboard isn't the point. Who you bring with you is.</p>
+        </div>
       </div>
     </div>
 
@@ -1272,25 +1282,6 @@
       <div class="conn-year-label">One Year of Set Apart Movement</div>
       <div class="conn-year-h">ONE YEAR.</div>
       <div class="conn-year-tag">And we&rsquo;re just getting started.</div>
-    </div>
-
-    <!-- Rankings preview card -->
-    <div class="conn-rank rv" id="conn-rank-sec">
-      <div class="conn-eyebrow">Earn Your Spot</div>
-      <div class="conn-rank-h">THE<br>RANKINGS.</div>
-      <div class="conn-rank-sub">Every bracelet tap moves you up the board. <strong id="conn-rank-total">—</strong> people are already climbing.</div>
-      <div class="conn-rank-top" id="conn-rank-top">
-        <div class="conn-rank-row"><span class="conn-rank-medal">&hellip;</span><div><div class="conn-rank-row-name">Loading</div></div></div>
-      </div>
-      <a class="conn-rank-btn" href="/rankings">See Full Rankings &rarr;</a>
-      <button class="conn-rank-explain-btn" type="button" onclick="document.getElementById('conn-rank-explain').classList.toggle('open')">What is this? &nbsp;&darr;</button>
-      <div class="conn-rank-explain" id="conn-rank-explain">
-        <div class="conn-rank-explain-inner">
-          <p>Come to a meetup and you get your own number and your own bracelet — yours, for good.</p>
-          <p>Tap it against someone else's phone and it logs a point for you. Bring people in, climb the board.</p>
-          <p>The leaderboard isn't the point. Who you bring with you is.</p>
-        </div>
-      </div>
     </div>
 
     <!-- Community CTA -->
@@ -2223,23 +2214,22 @@
     heroSub: 'Not for everyone. Just for the ones who want to level up.',
     evTag: 'Set Apart Movement · Meetup 008',
     evDate: 'October 17',
-    evTime: 'Saturday · 4:00 PM – 6:00 PM',
+    evTime: 'Saturday, October 17 · 7:00 PM – 9:00 PM',
     evLimit: 'Ages 12–19 · FREE',
     bullets: [
       ['📍','<span>2200 Driskell Drive &middot; Corinth, TX<br><span style="font-size:12px;opacity:.45">Off I-35E &middot; Free parking</span></span>'],
-      ['🕰️','<strong>Saturday &middot; 4:00&ndash;6:00 PM</strong>'],
+      ['🕰️','<strong>Saturday, October 17 &middot; 7:00&ndash;9:00 PM</strong>'],
       ['📖','<strong>Bring your Bible</strong>'],
       ['🥪','<strong style="color:var(--gold)">Food not included &mdash; bring a snack to share!</strong>'],
       ['👥','<strong>Bring a friend</strong>'],
     ],
-    countdownTargetIso: '2026-10-17T21:00:00Z',     // Oct 17, 4:00 PM CDT
+    countdownTargetIso: '2026-10-18T00:00:00Z',     // Oct 17, 7:00 PM CDT
     switchOnAt: new Date('2026-10-05T00:00:00Z'),    // live now
-    waitlistAt: new Date('2026-10-17T21:30:00Z'),    // Oct 17, 4:30 PM CDT — 30 min after start,
-                                                       // matching the pattern Sam set for Meetup 007
-                                                       // (7:30 PM reset for a 7 PM start). Flag this
-                                                       // if a different cutoff is wanted this time.
-    rsvpConfirmLine: 'Saturday, October 17 at 4 PM &middot; 2200 Driskell Dr, Corinth',
-    citationText: 'Set Apart Movement is a student-led faith community for students ages 12 to 19. Meetup 008 is titled CONNECT. and is on Saturday, October 17, 2026 from 4:00 PM to 6:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. Food not included — bring a snack to share. RSVP required. Text 817-983-3004 for more information.',
+    waitlistAt: new Date('2026-10-18T00:30:00Z'),    // Oct 17, 7:30 PM CDT — same 30-min-after-start
+                                                       // cutoff Sam set for Meetup 007, now a clean
+                                                       // match since both meetups start at 7 PM.
+    rsvpConfirmLine: 'Saturday, October 17 at 7 PM &middot; 2200 Driskell Dr, Corinth',
+    citationText: 'Set Apart Movement is a student-led faith community for students ages 12 to 19. Meetup 008 is titled CONNECT. and is on Saturday, October 17, 2026 from 7:00 PM to 9:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. Food not included — bring a snack to share. RSVP required. Text 817-983-3004 for more information.',
   };
 
   const showCurrentMeetup = Date.now() >= CURRENT_MEETUP.switchOnAt.getTime() && Date.now() < CURRENT_MEETUP.waitlistAt.getTime();
@@ -2447,11 +2437,11 @@ window._samDb = (function(){
   #sam-drawer.open{pointer-events:auto}
   #sam-overlay{position:absolute;inset:0;background:rgba(0,0,0,.65);opacity:0;transition:opacity .3s;backdrop-filter:blur(4px)}
   #sam-drawer.open #sam-overlay{opacity:1}
-  #sam-panel{position:absolute;bottom:0;left:0;right:0;max-height:90vh;background:#0a0806;border-top:1px solid rgba(196,146,58,.22);border-radius:20px 20px 0 0;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.4,1);overflow-y:auto;padding:0 0 max(env(safe-area-inset-bottom,0px),28px);font-family:'Space Grotesk',sans-serif;color:#F0ECE4}
+  #sam-panel{position:absolute;bottom:0;left:0;right:0;max-height:80vh;background:#0a0806;border-top:1px solid rgba(196,146,58,.22);border-radius:20px 20px 0 0;transform:translateY(100%);transition:transform .38s cubic-bezier(.32,1,.4,1);overflow-y:auto;padding:0 0 max(env(safe-area-inset-bottom,0px),28px);font-family:'Space Grotesk',sans-serif;color:#F0ECE4}
   #sam-drawer.open #sam-panel{transform:translateY(0)}
   .sdp-top-bar{display:flex;align-items:center;justify-content:center;position:relative;padding:12px 20px 4px}
   .sdp-handle{width:40px;height:4px;border-radius:2px;background:rgba(196,146,58,.28);margin:0 auto}
-  .sdp-close-btn{position:absolute;right:16px;top:8px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(196,146,58,.18);background:rgba(196,146,58,.06);display:flex;align-items:center;justify-content:center;color:rgba(240,236,228,.45);font-size:18px;cursor:pointer;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent}
+  .sdp-close-btn{position:absolute;right:12px;top:8px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(196,146,58,.35);background:rgba(196,146,58,.14);display:flex;align-items:center;justify-content:center;color:rgba(240,236,228,.85);font-size:22px;cursor:pointer;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent}
   .sdp-close-btn:hover{background:rgba(196,146,58,.14);color:rgba(240,236,228,.85)}
   .sdp-hd{padding:12px 20px 16px;border-bottom:1px solid rgba(196,146,58,.1)}
   .sdp-mytag{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:rgba(196,146,58,.55);margin-bottom:4px}
@@ -2476,6 +2466,8 @@ window._samDb = (function(){
   .sdp-row-rank.silver{color:#C0C0C0;font-size:14px}
   .sdp-row-rank.bronze{color:#CD7F32;font-size:13px}
   .sdp-row-num{font-family:'Bebas Neue',impact,sans-serif;font-size:14px;color:#D4A84A;width:38px;flex-shrink:0;letter-spacing:.04em}
+  .sdp-row-photo{width:30px;height:30px;border-radius:50%;flex-shrink:0;background:rgba(0,0,0,.3);border:1px solid rgba(212,168,74,.2);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(212,168,74,.35)}
+  .sdp-row-photo img{width:100%;height:100%;object-fit:cover}
   .sdp-row-info{flex:1;min-width:0}
   .sdp-row-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .sdp-row-city{font-size:10px;color:rgba(240,236,228,.32);margin-top:1px}
@@ -2645,14 +2637,15 @@ window._samDb = (function(){
       snap.forEach(function(c){
         var v = c.val();
         if (!v || !v.name) return;
-        claimed.push({ id: c.key, taps: v.tapCount || 0, name: v.name, city: v.city || '' });
+        claimed.push({ id: c.key, taps: v.tapCount || 0, name: v.name, city: v.city || '', photo: v.photo || null });
       });
       claimed.sort(function(a,b){ return b.taps - a.taps; });
       totalEl.textContent = claimed.length.toLocaleString();
       if (!claimed.length) { topEl.innerHTML = '<div class="conn-rank-row"><div class="conn-rank-row-name" style="color:rgba(240,237,230,.4)">Be the first on the board.</div></div>'; return; }
       var medals = ['\u{1F947}','\u{1F948}','\u{1F949}'];
       topEl.innerHTML = claimed.slice(0,3).map(function(m,i){
-        return '<div class="conn-rank-row"><span class="conn-rank-medal">'+medals[i]+'</span><div><div class="conn-rank-row-name">'+m.name+'</div>'+(m.city?'<div class="conn-rank-row-city">'+m.city+'</div>':'')+'</div><div class="conn-rank-row-taps">'+m.taps+'</div></div>';
+        var photoHtml = m.photo ? '<img src="'+m.photo+'" alt="'+m.name+' profile photo" loading="lazy">' : '&#9818;';
+        return '<div class="conn-rank-row"><span class="conn-rank-medal">'+medals[i]+'</span><div class="conn-rank-row-photo">'+photoHtml+'</div><div><div class="conn-rank-row-name">'+m.name+'</div>'+(m.city?'<div class="conn-rank-row-city">'+m.city+'</div>':'')+'</div><div class="conn-rank-row-taps">'+m.taps+'</div></div>';
       }).join('');
     }).catch(function(){
       topEl.innerHTML = '<div class="conn-rank-row"><div class="conn-rank-row-name" style="color:rgba(240,237,230,.35)">Could not load rankings.</div></div>';
@@ -2671,20 +2664,22 @@ window._samDb = (function(){
     fabNum.style.fontSize='10px';
     fabNum.style.letterSpacing='.18em';
     fabNum.style.color='rgba(196,146,58,.9)';
-    fabNum.textContent='Get Your Number';
+    fabNum.textContent='Rankings';
     fab.style.display='flex';
   }
 
   function setFabRef(padded, name){
+    /* Still tracked (used elsewhere for attribution) but no longer shown as "You were
+       invited by #042" on the FAB itself — Sam wants this simplified to just say Rankings,
+       same as the default state. */
     fabMode='ref';
     refPadded=padded;
-    fabLbl.style.display='block';
-    fabLbl.textContent='You were invited by';
-    fabNum.style.fontFamily="'Bebas Neue',impact,sans-serif";
-    fabNum.style.fontSize='24px';
-    fabNum.style.letterSpacing='.04em';
-    fabNum.style.color='#D4A84A';
-    fabNum.textContent='#'+padded;
+    fabLbl.style.display='none';
+    fabNum.style.fontFamily="'Space Grotesk',sans-serif";
+    fabNum.style.fontSize='10px';
+    fabNum.style.letterSpacing='.18em';
+    fabNum.style.color='rgba(196,146,58,.9)';
+    fabNum.textContent='Rankings';
     fab.style.display='flex';
     document.getElementById('srm-profile').href='/c/'+padded;
     document.getElementById('srm-profile-lbl').textContent='#'+padded+(name?' — '+name:'');
@@ -2762,11 +2757,30 @@ window._samDb = (function(){
   window.closeSamDrawer=function(){
     document.getElementById('sam-drawer').classList.remove('open');
   };
+  var waitlistTabLoaded=false;
   window.switchSdpTab=function(tab,el){
     document.querySelectorAll('.sdp-tab').forEach(function(t){t.classList.remove('active')});
     document.querySelectorAll('.sdp-tab-pane').forEach(function(p){p.classList.remove('active')});
     el.classList.add('active');
     document.getElementById('tab-'+tab).classList.add('active');
+    if(tab==='waitlist' && !waitlistTabLoaded){
+      waitlistTabLoaded=true;
+      var paneEl=document.getElementById('tab-waitlist');
+      if(paneEl)paneEl.innerHTML='<div class="sdp-loading">Loading&hellip;</div>';
+      fetchAdminResource('waitlist', function(data, err){
+        var pane=document.getElementById('tab-waitlist');
+        if(!pane)return;
+        if(err==='cancelled'){ pane.innerHTML='<div class="sdp-loading">Admin password required.</div>'; waitlistTabLoaded=false; return; }
+        if(err){ pane.innerHTML='<div class="sdp-loading">'+err+'</div>'; waitlistTabLoaded=false; return; }
+        var entries=Object.keys(data||{}).map(function(k){return data[k];});
+        entries.sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
+        var html='<div class="wl-admin-count">'+entries.length+' sign-up'+(entries.length!==1?'s':'')+' total</div>';
+        entries.forEach(function(e,i){
+          html+='<div class="wl-entry"><div class="wl-entry-num">'+(i+1)+'</div><div class="wl-entry-info"><div class="wl-entry-name">'+e.name+'</div><div class="wl-entry-phone">'+e.phone+'</div></div></div>';
+        });
+        pane.innerHTML=html||'<div class="sdp-loading">No signups yet.</div>';
+      });
+    }
   };
 
   var drawerLoaded=false;
@@ -2780,8 +2794,17 @@ window._samDb = (function(){
       snap.forEach(function(c){
         var v=c.val();
         if(!v.name)return;
-        claimed.push({id:c.key,taps:v.tapCount||0,name:v.name,city:v.city||''});
-        if(v.city)cities[v.city]=(cities[v.city]||0)+1;
+        claimed.push({id:c.key,taps:v.tapCount||0,name:v.name,city:v.city||'',photo:v.photo||null});
+        /* Fold spelling/casing/state-suffix variants ("Corinth", "corinth", "Corinth, TX",
+           "Corinth Texas") into one bucket so the count isn't split across near-duplicates. */
+        if(v.city){
+          var cRaw=String(v.city).trim().replace(/,?\s*(texas|tx)\.?\s*$/i,'').trim();
+          if(cRaw){
+            var cKey=cRaw.toLowerCase().replace(/\s+/g,' ');
+            if(!cities[cKey]) cities[cKey]={label:cRaw.replace(/\s+/g,' ').replace(/\w\S*/g,function(w){return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();}),count:0};
+            cities[cKey].count++;
+          }
+        }
       });
       claimed.sort(function(a,b){return b.taps-a.taps});
       var mine=claimed.find(function(m){return m.id===samId});
@@ -2796,27 +2819,19 @@ window._samDb = (function(){
       claimed.forEach(function(m,i){
         var r=i+1,rc=r===1?'gold':r===2?'silver':r===3?'bronze':'',rs=r===1?'&#x1F947;':r===2?'&#x1F948;':r===3?'&#x1F949;':r;
         var isMine=m.id===samId;
-        rHtml+='<div class="sdp-row'+(isMine?' mine':'')+'"><div class="sdp-row-rank '+rc+'">'+rs+'</div><div class="sdp-row-num">#'+m.id+'</div><div class="sdp-row-info"><div class="sdp-row-name">'+m.name+'</div><div class="sdp-row-city">'+m.city+'</div></div><div class="sdp-row-score">'+m.taps+'</div></div>';
+        var sdpPhoto=m.photo?'<img src="'+m.photo+'" alt="'+m.name+' profile photo" loading="lazy">':'&#9818;';
+        rHtml+='<div class="sdp-row'+(isMine?' mine':'')+'"><div class="sdp-row-rank '+rc+'">'+rs+'</div><div class="sdp-row-photo">'+sdpPhoto+'</div><div class="sdp-row-num">#'+m.id+'</div><div class="sdp-row-info"><div class="sdp-row-name">'+m.name+'</div><div class="sdp-row-city">'+m.city+'</div></div><div class="sdp-row-score">'+m.taps+'</div></div>';
       });
       document.getElementById('tab-rankings').innerHTML=rHtml||'<div class="sdp-loading">No members yet.</div>';
-      var cHtml=Object.keys(cities).sort().map(function(c){return'<div class="sdp-city-tag">'+c+' &middot; '+cities[c]+'</div>'}).join('');
+      var cHtml=Object.keys(cities).sort(function(a,b){return cities[b].count-cities[a].count;}).map(function(k){return'<div class="sdp-city-tag">'+cities[k].label+' &middot; '+cities[k].count+'</div>'}).join('');
       document.getElementById('tab-cities').innerHTML=cHtml||'<div class="sdp-loading">No cities yet.</div>';
     }).catch(function(){document.getElementById('tab-rankings').innerHTML='<div class="sdp-loading">Could not load.</div>';});
 
-    // Waitlist tab — admin only
+    // Waitlist tab button is shown for admin — its data loads lazily (and password-gated)
+    // only once that tab is actually clicked; see switchSdpTab.
     if(isAdmin){
       var wlTab=document.getElementById('wl-admin-tab');
       if(wlTab)wlTab.style.display='';
-      d.ref('waitlist').get().then(function(snap){
-        var entries=[];
-        snap.forEach(function(c){entries.push(c.val());});
-        entries.sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
-        var html='<div class="wl-admin-count">'+entries.length+' sign-up'+(entries.length!==1?'s':'')+' total</div>';
-        entries.forEach(function(e,i){
-          html+='<div class="wl-entry"><div class="wl-entry-num">'+(i+1)+'</div><div class="wl-entry-info"><div class="wl-entry-name">'+e.name+'</div><div class="wl-entry-phone">'+e.phone+'</div></div></div>';
-        });
-        document.getElementById('tab-waitlist').innerHTML=html||'<div class="sdp-loading">No signups yet.</div>';
-      }).catch(function(){document.getElementById('tab-waitlist').innerHTML='<div class="sdp-loading">Could not load.</div>';});
     }
   }
 
@@ -2952,6 +2967,39 @@ function dismissWlCard(){
   try{sessionStorage.setItem('wl_dismissed','1');}catch(e){}
 }
 /* Admin unlock: expires 14 days after unlock, or immediately when a new meetup replaces the one it was unlocked for */
+/* Real admin data access — the old sam_is_admin localStorage flag below only ever controlled
+   whether admin UI (tabs, panels) was SHOWN. It never actually restricted who could read the
+   data, since the data was being read straight from Firebase with the public client SDK —
+   anyone could've pulled the same data with a plain HTTP request, no login needed. Sensitive
+   reads (waitlist names/phone numbers, RSVP records) now go through /api/admin-data, which
+   checks a real password server-side and uses a privileged credential the browser never sees.
+   The password is asked for the first time it's needed each browser session and re-checked by
+   the server on every single request — nothing about "being admin" is just trusted client-side. */
+function getAdminPassword(promptIfMissing){
+  var pw = null;
+  try { pw = sessionStorage.getItem('sam_admin_pw'); } catch(e) {}
+  if (!pw && promptIfMissing) {
+    pw = window.prompt('Admin password:');
+    if (pw) { try { sessionStorage.setItem('sam_admin_pw', pw); } catch(e) {} }
+  }
+  return pw;
+}
+function fetchAdminResource(resource, cb){
+  var pw = getAdminPassword(true);
+  if (!pw) { cb(null, 'cancelled'); return; }
+  fetch('/api/admin-data?resource='+resource, { headers: { 'X-Admin-Password': pw } })
+    .then(function(r){
+      if (r.status === 403) {
+        try { sessionStorage.removeItem('sam_admin_pw'); } catch(e) {}
+        throw new Error('Wrong password.');
+      }
+      if (!r.ok) throw new Error('Could not load.');
+      return r.json();
+    })
+    .then(function(data){ cb(data, null); })
+    .catch(function(err){ cb(null, (err && err.message) || 'error'); });
+}
+
 function adminUnlockValid(){
   try{
     if(localStorage.getItem('sam_is_admin')!=='1') return false;
@@ -2991,14 +3039,14 @@ function openWlAdmin(){
 function renderWlaWaitlist(){
   var body=document.getElementById('wla-body');
   if(body)body.innerHTML='<div class="sdp-loading">Loading&hellip;</div>';
-  var d=window._samDb;
-  if(!d){ if(body)body.innerHTML='<div class="sdp-loading">Could not load.</div>'; return; }
-  d.ref('waitlist').get().then(function(snap){
-    var entries=[];
-    snap.forEach(function(c){entries.push(c.val());});
+  fetchAdminResource('waitlist', function(data, err){
+    var body=document.getElementById('wla-body');
+    if(err==='cancelled'){ if(body)body.innerHTML='<div class="sdp-loading">Admin password required.</div>'; return; }
+    if(err){ if(body)body.innerHTML='<div class="sdp-loading">'+err+'</div>'; return; }
+    var entries=Object.keys(data||{}).map(function(k){return data[k];});
     entries.sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
+    var d=window._samDb;
     var offset=0;
-    d.ref('config/waitlistOffset').get().then(function(os){offset=os.val()||0;render();}).catch(function(){render();});
     function render(){
       var total=offset+entries.length;
       var html='<div class="wla-count-hd">'+total.toLocaleString()+' total on the list ('+entries.length+' via site)</div>';
@@ -3008,23 +3056,21 @@ function renderWlaWaitlist(){
       var body=document.getElementById('wla-body');
       if(body)body.innerHTML=html||'<div class="sdp-loading">No site signups yet.</div>';
     }
-  }).catch(function(){
-    var body=document.getElementById('wla-body');
-    if(body)body.innerHTML='<div class="sdp-loading">Could not load.</div>';
+    if(d){ d.ref('config/waitlistOffset').get().then(function(os){offset=os.val()||0;render();}).catch(render); }
+    else render();
   });
 }
 function renderWlaRsvps(){
   var body=document.getElementById('wla-body');
   if(body)body.innerHTML='<div class="sdp-loading">Loading&hellip;</div>';
-  var d=window._samDb;
-  if(!d){ if(body)body.innerHTML='<div class="sdp-loading">Could not load.</div>'; return; }
-  d.ref('rsvps').get().then(function(snap){
-    var meetups=[];
-    snap.forEach(function(c){
-      var entries=[];
-      c.forEach(function(e){entries.push(e.val());});
+  fetchAdminResource('rsvps', function(data, err){
+    var body=document.getElementById('wla-body');
+    if(err==='cancelled'){ if(body)body.innerHTML='<div class="sdp-loading">Admin password required.</div>'; return; }
+    if(err){ if(body)body.innerHTML='<div class="sdp-loading">'+err+'</div>'; return; }
+    var meetups=Object.keys(data||{}).map(function(mid){
+      var entries=Object.keys(data[mid]||{}).map(function(k){return data[mid][k];});
       entries.sort(function(a,b){return(a.ts||0)-(b.ts||0);});
-      meetups.push({id:c.key,entries:entries});
+      return {id:mid,entries:entries};
     });
     meetups.sort(function(a,b){return b.id.localeCompare(a.id);});
     var html='';
@@ -3042,11 +3088,8 @@ function renderWlaRsvps(){
         html+='</div></div>';
       });
     }
-    var body=document.getElementById('wla-body');
-    if(body)body.innerHTML=html;
-  }).catch(function(){
-    var body=document.getElementById('wla-body');
-    if(body)body.innerHTML='<div class="sdp-loading">Could not load.</div>';
+    var body2=document.getElementById('wla-body');
+    if(body2)body2.innerHTML=html;
   });
 }
 function toggleWlaMeetup(el){
