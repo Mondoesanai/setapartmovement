@@ -1057,6 +1057,28 @@
     .conn-join-btn{display:inline-block;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#080806;background:var(--gold);border:none;border-radius:4px;padding:15px 30px;cursor:pointer;transition:opacity .18s ease,transform .18s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 24px rgba(196,149,42,.22);}
     .conn-join-btn:active{transform:scale(.96);}
     .conn-join-fine{font-size:10px;letter-spacing:.12em;color:rgba(240,237,230,.2);margin-top:12px;}
+    /* Rankings preview card */
+    .conn-rank{width:100%;padding:44px 22px 40px;text-align:center;border-top:1px solid rgba(196,149,42,.07);background:rgba(196,149,42,.02);border-radius:10px;margin:8px 0;}
+    .conn-rank-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(36px,11vw,56px);letter-spacing:.02em;color:var(--cream);line-height:.88;margin:4px 0 14px;}
+    .conn-rank-sub{font-size:13px;line-height:1.7;color:rgba(240,237,230,.5);max-width:300px;margin:0 auto 24px;}
+    .conn-rank-sub strong{color:var(--gold);font-weight:700;}
+    .conn-rank-top{display:flex;flex-direction:column;gap:0;margin-bottom:22px;border:1px solid rgba(196,149,42,.14);border-radius:8px;overflow:hidden;background:rgba(0,0,0,.2);}
+    .conn-rank-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(196,149,42,.08);text-align:left;}
+    .conn-rank-row:last-child{border-bottom:none;}
+    .conn-rank-medal{font-size:18px;min-width:26px;text-align:center;}
+    .conn-rank-row-name{font-size:13px;font-weight:700;color:var(--cream);font-family:"Space Grotesk",sans-serif;}
+    .conn-rank-row-city{font-size:11px;color:rgba(240,237,230,.4);margin-top:1px;}
+    .conn-rank-row-taps{margin-left:auto;font-family:"Bebas Neue",impact,sans-serif;font-size:20px;color:var(--gold);letter-spacing:.02em;}
+    .conn-rank-btn{display:inline-block;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:rgba(196,149,42,.08);border:1px solid rgba(196,149,42,.35);border-radius:4px;padding:13px 26px;cursor:pointer;text-decoration:none;transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .18s ease;margin-bottom:14px;}
+    .conn-rank-btn:hover{background:rgba(196,149,42,.14);}
+    .conn-rank-btn:active{transform:scale(.96);}
+    .conn-rank-explain-btn{display:block;width:100%;background:none;border:none;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,230,.4);cursor:pointer;padding:6px 0;transition:color .2s ease;}
+    .conn-rank-explain-btn:hover{color:rgba(240,237,230,.7);}
+    .conn-rank-explain{max-height:0;overflow:hidden;transition:max-height .35s ease;text-align:left;}
+    .conn-rank-explain.open{max-height:260px;margin-top:16px;}
+    .conn-rank-explain-inner{padding:16px;background:rgba(0,0,0,.25);border:1px solid rgba(196,149,42,.12);border-radius:8px;}
+    .conn-rank-explain-inner p{font-size:12.5px;line-height:1.75;color:rgba(240,237,230,.55);margin-bottom:10px;}
+    .conn-rank-explain-inner p:last-child{margin-bottom:0;color:rgba(196,149,42,.7);font-style:italic;font-family:"Cormorant Garamond",serif;font-size:14px;}
 
   </style>
 </head>
@@ -1125,13 +1147,13 @@
       <div class="wl-card rv" style="margin-top:8px;">
         <div class="wl-eyebrow">Set Apart Movement</div>
         <div class="wl-headline">THE NEXT MEETUP<span>ISN&rsquo;T ANNOUNCED YET.</span></div>
-        <div class="wl-sub">The people on this list will find out before it&rsquo;s posted anywhere &mdash; date, time, everything. Don&rsquo;t be the last to know.</div>
+        <div class="wl-sub">Drop your number below. The moment the next date is locked in, you get <strong style="color:var(--gold)">one text</strong> &mdash; before it's posted anywhere else.</div>
         <div class="wl-count-row">
           <div class="wl-count-dot"></div>
-          <div class="wl-count-text"><strong id="wl-count">153</strong> people already in line &middot; limited spots</div>
+          <div class="wl-count-text"><strong id="wl-count">153</strong> people already set to get that text</div>
         </div>
-        <button class="wl-join-btn" id="wl-join-btn" onclick="openWaitlistModal()">JOIN THE WAITLIST &rarr;</button>
-        <div class="wl-fine">No spam. Just the drop when the next meetup is locked in.</div>
+        <button class="wl-join-btn" id="wl-join-btn" onclick="openWaitlistModal()">GET TEXTED FIRST &rarr;</button>
+        <div class="wl-fine">One text when it drops. No spam, no group chat, nothing else.</div>
         <div class="wl-corners">
           <button class="wl-corner-btn wl-plus" id="wl-admin-btn" onclick="openWlAdmin()" title="Admin">+</button>
           <button class="wl-corner-btn wl-ex" onclick="dismissWlCard()" title="Dismiss">&times;</button>
@@ -1250,6 +1272,25 @@
       <div class="conn-year-label">One Year of Set Apart Movement</div>
       <div class="conn-year-h">ONE YEAR.</div>
       <div class="conn-year-tag">And we&rsquo;re just getting started.</div>
+    </div>
+
+    <!-- Rankings preview card -->
+    <div class="conn-rank rv" id="conn-rank-sec">
+      <div class="conn-eyebrow">Earn Your Spot</div>
+      <div class="conn-rank-h">THE<br>RANKINGS.</div>
+      <div class="conn-rank-sub">Every bracelet tap moves you up the board. <strong id="conn-rank-total">—</strong> people are already climbing.</div>
+      <div class="conn-rank-top" id="conn-rank-top">
+        <div class="conn-rank-row"><span class="conn-rank-medal">&hellip;</span><div><div class="conn-rank-row-name">Loading</div></div></div>
+      </div>
+      <a class="conn-rank-btn" href="/rankings">See Full Rankings &rarr;</a>
+      <button class="conn-rank-explain-btn" type="button" onclick="document.getElementById('conn-rank-explain').classList.toggle('open')">What is this? &nbsp;&darr;</button>
+      <div class="conn-rank-explain" id="conn-rank-explain">
+        <div class="conn-rank-explain-inner">
+          <p>Come to a meetup and you get your own number and your own bracelet — yours, for good.</p>
+          <p>Tap it against someone else's phone and it logs a point for you. Bring people in, climb the board.</p>
+          <p>The leaderboard isn't the point. Who you bring with you is.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Community CTA -->
@@ -2170,10 +2211,129 @@
     }
   } catch(e) { console.error('hamburger menu error:', e); }
 
+  /* ── CURRENT MEETUP — this is now the whole update process for a new meetup: edit this
+     config object (and the matching Firebase meetups/next record), nothing else. Replaces
+     the old pattern of copy-pasting a brand new date-gated block (and its own copy of the
+     CSS + behaviors) for every single meetup, which is what caused the bugs fixed earlier
+     today — evergreen things kept getting buried inside one-off per-meetup blocks that
+     later got retired. ── */
+  const CURRENT_MEETUP = {
+    id: '008',
+    eyebrow: 'Set Apart Movement · Meetup 008',
+    heroSub: 'Not for everyone. Just for the ones who want to level up.',
+    evTag: 'Set Apart Movement · Meetup 008',
+    evDate: 'October 17',
+    evTime: 'Saturday · 4:00 PM – 6:00 PM',
+    evLimit: 'Ages 12–19 · FREE',
+    bullets: [
+      ['📍','<span>2200 Driskell Drive &middot; Corinth, TX<br><span style="font-size:12px;opacity:.45">Off I-35E &middot; Free parking</span></span>'],
+      ['🕰️','<strong>Saturday &middot; 4:00&ndash;6:00 PM</strong>'],
+      ['📖','<strong>Bring your Bible</strong>'],
+      ['🥪','<strong style="color:var(--gold)">Food not included &mdash; bring a snack to share!</strong>'],
+      ['👥','<strong>Bring a friend</strong>'],
+    ],
+    countdownTargetIso: '2026-10-17T21:00:00Z',     // Oct 17, 4:00 PM CDT
+    switchOnAt: new Date('2026-10-05T00:00:00Z'),    // live now
+    waitlistAt: new Date('2026-10-17T21:30:00Z'),    // Oct 17, 4:30 PM CDT — 30 min after start,
+                                                       // matching the pattern Sam set for Meetup 007
+                                                       // (7:30 PM reset for a 7 PM start). Flag this
+                                                       // if a different cutoff is wanted this time.
+    rsvpConfirmLine: 'Saturday, October 17 at 4 PM &middot; 2200 Driskell Dr, Corinth',
+    citationText: 'Set Apart Movement is a student-led faith community for students ages 12 to 19. Meetup 008 is titled CONNECT. and is on Saturday, October 17, 2026 from 4:00 PM to 6:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. Food not included — bring a snack to share. RSVP required. Text 817-983-3004 for more information.',
+  };
+
+  const showCurrentMeetup = Date.now() >= CURRENT_MEETUP.switchOnAt.getTime() && Date.now() < CURRENT_MEETUP.waitlistAt.getTime();
+
+  if (showCurrentMeetup) { try {
+
+    window.SAM_CURRENT_MEETUP_ID = CURRENT_MEETUP.id;
+
+    /* Force meetup-mode ON immediately — don't wait for the Firebase async check */
+    var mmCur = document.getElementById('meetup-mode');
+    if (mmCur) mmCur.hidden = false;
+    var wmCur = document.getElementById('waitlist-mode');
+    if (wmCur) wmCur.style.display = 'none';
+    var wlBubCur = document.getElementById('wl-bubble');
+    if (wlBubCur) wlBubCur.style.display = 'none';
+
+    /* Hero text */
+    var preCur = document.querySelector('.inv-pre');
+    if (preCur) preCur.textContent = CURRENT_MEETUP.eyebrow;
+    var h1Cur = document.querySelector('.inv-headline');
+    if (h1Cur) { h1Cur.textContent = 'CONNECT.'; h1Cur.style.fontStyle = 'normal'; }
+    var subCur = document.querySelector('.inv-sub');
+    if (subCur) { subCur.textContent = CURRENT_MEETUP.heroSub; subCur.style.display = ''; }
+
+    /* Event card */
+    var cardCur = document.querySelector('.event-card');
+    if (cardCur) {
+      var tagElC = cardCur.querySelector('.ev-tag');   if (tagElC)  tagElC.textContent  = CURRENT_MEETUP.evTag;
+      var dateElC = cardCur.querySelector('.ev-date');  if (dateElC) dateElC.textContent = CURRENT_MEETUP.evDate;
+      var timeElC = cardCur.querySelector('.ev-time');  if (timeElC) timeElC.textContent = CURRENT_MEETUP.evTime;
+      var limElC  = cardCur.querySelector('.ev-limit'); if (limElC)  limElC.textContent  = CURRENT_MEETUP.evLimit;
+      var blCur = cardCur.querySelector('.ev-bullets');
+      if (blCur) blCur.innerHTML = CURRENT_MEETUP.bullets.map(function(r){return '<li><span class="ev-icon">'+r[0]+'</span> '+r[1]+'</li>';}).join('');
+    }
+
+    /* RSVP button — in-page confirmation, no external form */
+    var rsvpCur = document.getElementById('ev-rsvp-btn');
+    if (rsvpCur) {
+      rsvpCur.innerHTML = "I'M COMING &nbsp;&rarr;";
+      rsvpCur.removeAttribute('href');
+      rsvpCur.setAttribute('role','button');
+      rsvpCur.setAttribute('aria-label','RSVP for ' + CURRENT_MEETUP.evTag);
+      rsvpCur.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (this.classList.contains('rsvp-confirmed')) return;
+        this.classList.add('rsvp-confirmed');
+        this.innerHTML = 'YOUR SPOT IS RESERVED &nbsp;✓';
+        this.style.cssText += ';background:rgba(196,149,42,.1)!important;border:1px solid rgba(196,149,42,.38)!important;color:var(--gold)!important;box-shadow:none!important;animation:none!important;cursor:default;pointer-events:none;';
+        var msg = document.createElement('div');
+        msg.style.cssText = 'text-align:center;margin-top:14px;font-size:12px;letter-spacing:.06em;line-height:1.7;color:rgba(240,237,230,.42);';
+        msg.innerHTML = 'We’ll see you <strong style="color:rgba(196,149,42,.7)">' + CURRENT_MEETUP.rsvpConfirmLine + '</strong>';
+        this.insertAdjacentElement('afterend', msg);
+        try {
+          var already = localStorage.getItem('sam_rsvp_' + CURRENT_MEETUP.id) === '1';
+          if (!already && window._samDb) {
+            window._samDb.ref('rsvps/' + CURRENT_MEETUP.id).push({ ts: Date.now() });
+            localStorage.setItem('sam_rsvp_' + CURRENT_MEETUP.id, '1');
+          }
+        } catch (err) {}
+      });
+    }
+
+    /* Open button (legacy envelope intro) */
+    if (openBtn) openBtn.innerHTML = 'ACCEPT MISSION &nbsp;&rarr;';
+
+    /* Countdown */
+    var curTarget = new Date(CURRENT_MEETUP.countdownTargetIso).getTime();
+    var curCdEls = {d:document.getElementById('cd-days'),h:document.getElementById('cd-hrs'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
+    function tickCur() {
+      var diff = curTarget - Date.now();
+      if (!curCdEls.d) return;
+      if (diff <= 0) { curCdEls.d.textContent = curCdEls.h.textContent = curCdEls.m.textContent = curCdEls.s.textContent = '00'; return; }
+      function pad(n){return String(Math.floor(n)).padStart(2,'0');}
+      curCdEls.d.textContent = pad(diff/86400000);
+      curCdEls.h.textContent = pad((diff%86400000)/3600000);
+      curCdEls.m.textContent = pad((diff%3600000)/60000);
+      curCdEls.s.textContent = pad((diff%60000)/1000);
+    }
+    tickCur(); setInterval(tickCur, 1000);
+
+    /* Citation text for AI/search citation */
+    var citeCur = document.querySelector('[aria-hidden="true"]');
+    if (citeCur && citeCur.textContent.indexOf('Set Apart Movement is a student-led') === 0) {
+      citeCur.textContent = CURRENT_MEETUP.citationText;
+    }
+
+  } catch(e) { console.error('CURRENT_MEETUP error:', e); } }
+
   function runSequence() {
     setTimeout(function () {
       if (flap) flap.classList.add('open');
       if (seal) seal.classList.add('open');
+      var ray = document.getElementById('light-ray');
+      if (ray) ray.classList.add('ray-on');
     }, 350);
     setTimeout(function () { if (cardSmall) cardSmall.classList.add('risen'); }, 700);
     setTimeout(function () { if (envelope) envelope.classList.add('opened'); }, 1050);
@@ -2382,7 +2542,7 @@ window._samDb = (function(){
     <div id="wlm-form-view">
       <div class="wlm-eyebrow">Set Apart Movement</div>
       <div class="wlm-headline">DON&rsquo;T GET<br>LEFT OUT.</div>
-      <div class="wlm-sub">Drop your name and number. When the next meetup drops, you&rsquo;ll hear about it before anyone else does.</div>
+      <div class="wlm-sub">Drop your name and number. The second the next meetup is locked in, we text you &mdash; before it's posted anywhere else.</div>
       <div class="wlm-field"><input type="text" id="wlm-name" placeholder="Your name" autocomplete="given-name" /></div>
       <div class="wlm-field">
         <input type="tel" id="wlm-phone" placeholder="Phone number" autocomplete="tel" inputmode="tel" />
@@ -2470,6 +2630,34 @@ window._samDb = (function(){
   if(location.search) history.replaceState({},'',location.pathname);
 
   function getDb(){ return window._samDb; }
+
+  /* Rankings preview card — top 3 + total, shown inline near the bottom of the page (not
+     hidden behind a tap-to-open drawer). Reuses the same bracelets/{id}.tapCount data as the
+     admin rankings drawer. */
+  (function loadRankPreview(){
+    var totalEl = document.getElementById('conn-rank-total');
+    var topEl = document.getElementById('conn-rank-top');
+    if (!totalEl || !topEl) return;
+    var d = getDb();
+    if (!d) return;
+    d.ref('bracelets').get().then(function(snap){
+      var claimed = [];
+      snap.forEach(function(c){
+        var v = c.val();
+        if (!v || !v.name) return;
+        claimed.push({ id: c.key, taps: v.tapCount || 0, name: v.name, city: v.city || '' });
+      });
+      claimed.sort(function(a,b){ return b.taps - a.taps; });
+      totalEl.textContent = claimed.length.toLocaleString();
+      if (!claimed.length) { topEl.innerHTML = '<div class="conn-rank-row"><div class="conn-rank-row-name" style="color:rgba(240,237,230,.4)">Be the first on the board.</div></div>'; return; }
+      var medals = ['\u{1F947}','\u{1F948}','\u{1F949}'];
+      topEl.innerHTML = claimed.slice(0,3).map(function(m,i){
+        return '<div class="conn-rank-row"><span class="conn-rank-medal">'+medals[i]+'</span><div><div class="conn-rank-row-name">'+m.name+'</div>'+(m.city?'<div class="conn-rank-row-city">'+m.city+'</div>':'')+'</div><div class="conn-rank-row-taps">'+m.taps+'</div></div>';
+      }).join('');
+    }).catch(function(){
+      topEl.innerHTML = '<div class="conn-rank-row"><div class="conn-rank-row-name" style="color:rgba(240,237,230,.35)">Could not load rankings.</div></div>';
+    });
+  })();
 
   var fab=document.getElementById('sam-fab');
   var fabLbl=document.getElementById('sam-fab-lbl');
@@ -2653,18 +2841,23 @@ window._samDb = (function(){
       }
 
       if(showMeetup&&meetup){
-        // Populate meetup card
-        var sd=new Date(meetup.startIso);
-        var dateStr=sd.toLocaleDateString('en-US',{month:'long',day:'numeric'});
-        var timeStr=sd.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-        var ed=new Date(meetup.endIso);
-        var endStr=ed.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-        var tagEl=document.getElementById('ev-tag-txt');
-        var dateEl=document.getElementById('ev-date-txt');
-        var timeEl=document.getElementById('ev-time-txt');
-        if(tagEl)tagEl.textContent='Next Meetup'+(meetup.title?' · '+meetup.title:'');
-        if(dateEl)dateEl.textContent=dateStr;
-        if(timeEl)timeEl.textContent=timeStr+' – '+endStr;
+        /* If a synchronous per-meetup block (e.g. CURRENT_MEETUP) already ran and set richer
+           card text/bullets, don't clobber it with this plainer Firebase-derived version —
+           just use this check for the show/hide switch + countdown, which must stay
+           authoritative regardless of what any synchronous block did. */
+        if(!window.SAM_CURRENT_MEETUP_ID){
+          var sd=new Date(meetup.startIso);
+          var dateStr=sd.toLocaleDateString('en-US',{month:'long',day:'numeric'});
+          var timeStr=sd.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+          var ed=new Date(meetup.endIso);
+          var endStr=ed.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+          var tagEl=document.getElementById('ev-tag-txt');
+          var dateEl=document.getElementById('ev-date-txt');
+          var timeEl=document.getElementById('ev-time-txt');
+          if(tagEl)tagEl.textContent='Next Meetup'+(meetup.title?' · '+meetup.title:'');
+          if(dateEl)dateEl.textContent=dateStr;
+          if(timeEl)timeEl.textContent=timeStr+' – '+endStr;
+        }
         /* rsvpUrl intentionally not applied — CONNECT uses in-page confirmation */
         document.getElementById('meetup-mode').hidden=false;
         document.getElementById('waitlist-mode').style.display='none';
