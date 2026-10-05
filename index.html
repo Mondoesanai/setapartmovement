@@ -1492,51 +1492,6 @@
       drawEmbers();
     }
 
-    // Hamburger menu
-    if (!document.getElementById('menu-fab')) {
-      var mStyle = document.createElement('style');
-      mStyle.textContent = '#menu-fab{position:fixed;top:max(env(safe-area-inset-top,0px),16px);right:18px;z-index:9500;width:44px;height:44px;background:rgba(10,10,8,.75);backdrop-filter:blur(8px);border:1px solid rgba(196,146,58,.2);border-radius:50%;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:border-color .2s}' +
-        '#menu-fab:hover{border-color:rgba(196,146,58,.5)}' +
-        '#menu-fab span{display:block;width:18px;height:1.5px;background:rgba(240,236,228,.8);border-radius:2px;transition:all .3s}' +
-        '#menu-fab.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}' +
-        '#menu-fab.open span:nth-child(2){opacity:0}' +
-        '#menu-fab.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}' +
-        '#menu-panel{position:fixed;top:0;right:0;width:min(280px,85vw);height:100vh;background:rgba(8,8,6,.97);backdrop-filter:blur(12px);border-left:1px solid rgba(196,146,58,.15);z-index:9499;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);padding:80px 28px 40px;display:flex;flex-direction:column;gap:8px}' +
-        '#menu-panel.open{transform:translateX(0)}' +
-        '#menu-panel a{display:block;padding:16px 0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(212,168,74,.8);text-decoration:none;border-bottom:1px solid rgba(196,146,58,.1);transition:color .2s}' +
-        '#menu-panel a:hover{color:rgba(232,192,96,1)}' +
-        '#menu-overlay{position:fixed;inset:0;z-index:9498;display:none}' +
-        '#menu-panel.open ~ #menu-overlay{display:block}';
-      document.head.appendChild(mStyle);
-
-      var fab = document.createElement('button');
-      fab.id = 'menu-fab';
-      fab.setAttribute('aria-label','Menu');
-      fab.innerHTML = '<span></span><span></span><span></span>';
-      document.body.appendChild(fab);
-
-      var panel = document.createElement('div');
-      panel.id = 'menu-panel';
-      panel.innerHTML = '<a href="/rankings">&#9733; Rankings</a>' +
-        '<a href="/how-it-works">How It Works</a>' +
-        '<a href="#community" onclick="this.closest(\'#menu-panel\').classList.remove(\'open\');document.getElementById(\'menu-fab\').classList.remove(\'open\');document.getElementById(\'menu-overlay\').style.display=\'none\'">Join WhatsApp</a>' +
-        '<a href="/">Home</a>';
-      document.body.appendChild(panel);
-
-      var overlay = document.createElement('div');
-      overlay.id = 'menu-overlay';
-      document.body.appendChild(overlay);
-
-      fab.addEventListener('click', function() {
-        fab.classList.toggle('open');
-        panel.classList.toggle('open');
-        overlay.style.display = panel.classList.contains('open') ? 'block' : 'none';
-      });
-      overlay.addEventListener('click', function() {
-        fab.classList.remove('open'); panel.classList.remove('open'); overlay.style.display = 'none';
-      });
-    }
-
   } catch(e) { console.error('showServe error:', e); } }
 
   if (showRA && !showServe) { try {
@@ -2165,6 +2120,56 @@
 
   } catch(e) { console.error('showConnect error:', e); } }
 
+  /* ── Hamburger menu — permanent site nav, not tied to any specific meetup.
+     (Previously lived inside the showServe block and silently stopped running once that
+     block was correctly retired — moved here so it can never be taken out by a future
+     meetup's code being retired.) ── */
+  try {
+    if (!document.getElementById('menu-fab')) {
+      var mStyle = document.createElement('style');
+      mStyle.textContent = '#menu-fab{position:fixed;top:max(env(safe-area-inset-top,0px),16px);right:18px;z-index:9500;width:44px;height:44px;background:rgba(10,10,8,.75);backdrop-filter:blur(8px);border:1px solid rgba(196,146,58,.2);border-radius:50%;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:border-color .2s}' +
+        '#menu-fab:hover{border-color:rgba(196,146,58,.5)}' +
+        '#menu-fab span{display:block;width:18px;height:1.5px;background:rgba(240,236,228,.8);border-radius:2px;transition:all .3s}' +
+        '#menu-fab.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}' +
+        '#menu-fab.open span:nth-child(2){opacity:0}' +
+        '#menu-fab.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}' +
+        '#menu-panel{position:fixed;top:0;right:0;width:min(280px,85vw);height:100vh;background:rgba(8,8,6,.97);backdrop-filter:blur(12px);border-left:1px solid rgba(196,146,58,.15);z-index:9499;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);padding:80px 28px 40px;display:flex;flex-direction:column;gap:8px}' +
+        '#menu-panel.open{transform:translateX(0)}' +
+        '#menu-panel a{display:block;padding:16px 0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(212,168,74,.8);text-decoration:none;border-bottom:1px solid rgba(196,146,58,.1);transition:color .2s}' +
+        '#menu-panel a:hover{color:rgba(232,192,96,1)}' +
+        '#menu-overlay{position:fixed;inset:0;z-index:9498;display:none}' +
+        '#menu-panel.open ~ #menu-overlay{display:block}';
+      document.head.appendChild(mStyle);
+
+      var hamFab = document.createElement('button');
+      hamFab.id = 'menu-fab';
+      hamFab.setAttribute('aria-label','Menu');
+      hamFab.innerHTML = '<span></span><span></span><span></span>';
+      document.body.appendChild(hamFab);
+
+      var hamPanel = document.createElement('div');
+      hamPanel.id = 'menu-panel';
+      hamPanel.innerHTML = '<a href="/rankings">&#9733; Rankings</a>' +
+        '<a href="/how-it-works">How It Works</a>' +
+        '<a href="#community" onclick="this.closest(\'#menu-panel\').classList.remove(\'open\');document.getElementById(\'menu-fab\').classList.remove(\'open\');document.getElementById(\'menu-overlay\').style.display=\'none\'">Join WhatsApp</a>' +
+        '<a href="/">Home</a>';
+      document.body.appendChild(hamPanel);
+
+      var hamOverlay = document.createElement('div');
+      hamOverlay.id = 'menu-overlay';
+      document.body.appendChild(hamOverlay);
+
+      hamFab.addEventListener('click', function() {
+        hamFab.classList.toggle('open');
+        hamPanel.classList.toggle('open');
+        hamOverlay.style.display = hamPanel.classList.contains('open') ? 'block' : 'none';
+      });
+      hamOverlay.addEventListener('click', function() {
+        hamFab.classList.remove('open'); hamPanel.classList.remove('open'); hamOverlay.style.display = 'none';
+      });
+    }
+  } catch(e) { console.error('hamburger menu error:', e); }
+
   function runSequence() {
     setTimeout(function () {
       if (flap) flap.classList.add('open');
@@ -2446,7 +2451,19 @@ window._samDb = (function(){
   var samName = localStorage.getItem('sam_name');
   var params = new URLSearchParams(location.search);
   var refId = params.get('ref');
-  var isAdmin = (samId==='002') || adminUnlockValid();
+  var isAdmin = (samId==='002') || (function(){
+    // Inlined (not a call to adminUnlockValid) — that function lives in a script block further
+    // down the page and isn't defined yet when this block runs. Read-only check; cleanup on
+    // expiry happens wherever adminUnlockValid itself is called later in the page.
+    try{
+      if(localStorage.getItem('sam_is_admin')!=='1') return false;
+      var exp=parseInt(localStorage.getItem('sam_admin_expiry')||'0',10);
+      if(exp && Date.now()>exp) return false;
+      var storedMeetup=localStorage.getItem('sam_admin_meetup');
+      if(storedMeetup && window.SAM_CURRENT_MEETUP_ID && storedMeetup!==window.SAM_CURRENT_MEETUP_ID) return false;
+      return true;
+    }catch(e){ return false; }
+  })();
   var fabMode = 'default';
   var refPadded = null;
 
