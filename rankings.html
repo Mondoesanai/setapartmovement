@@ -33,6 +33,9 @@
     .hdr-logo{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(212,168,74,.5);margin-bottom:14px}
     .hdr-title{font-family:'Bebas Neue',impact,sans-serif;font-size:clamp(52px,14vw,88px);letter-spacing:.04em;line-height:.9;color:var(--gold);text-shadow:0 0 40px rgba(212,168,74,.35)}
     .hdr-sub{font-size:13px;color:var(--dim);margin-top:12px}
+    .hdr-hiw-btn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:13px 28px;background:linear-gradient(135deg,#1a1000,#4a3010,#1a1000);border:1.5px solid rgba(212,168,74,.45);border-radius:6px;color:var(--gold-l);font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;transition:border-color .2s,box-shadow .2s,transform .18s;-webkit-tap-highlight-color:transparent}
+    .hdr-hiw-btn:hover{border-color:var(--gold);box-shadow:0 0 26px rgba(212,168,74,.28)}
+    .hdr-hiw-btn:active{transform:scale(.97)}
 
     /* SEARCH */
     .search-wrap{position:relative;z-index:5;max-width:520px;margin:24px auto 0;padding:0 20px}
@@ -74,6 +77,50 @@
     .hiw-link a{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer);transition:color .2s}
     .hiw-link a:hover{color:var(--dim)}
 
+    /* MAP */
+    .map-toggle-wrap{position:relative;z-index:5;max-width:520px;margin:14px auto 0;padding:0 20px;text-align:center}
+    .map-toggle{display:inline-flex;align-items:center;gap:9px;background:var(--ink2);border:1px solid rgba(212,168,74,.28);border-radius:8px;padding:12px 26px;color:var(--gold-l);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,background .2s;-webkit-tap-highlight-color:transparent}
+    .map-toggle:hover{border-color:var(--gold);background:rgba(212,168,74,.08)}
+    .map-panel{position:relative;z-index:5;max-width:520px;margin:12px auto 0;padding:0 20px;display:none}
+    .map-panel.open{display:block}
+    #member-map{width:100%;height:380px;border-radius:12px;border:1px solid rgba(212,168,74,.22);background:#0b0a08;overflow:hidden}
+    .map-note{font-size:11px;color:var(--dimmer);text-align:center;margin-top:9px;line-height:1.65}
+    .leaflet-container{background:#0b0a08!important;font-family:'Space Grotesk',sans-serif}
+    /* Darkens the light OSM tiles to match the site. Applied to the tile pane only, so
+       markers, popups and controls keep their real colors. */
+    .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.93) contrast(.86) saturate(.62)}
+    .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#14110c;color:var(--text);border:1px solid rgba(212,168,74,.3)}
+    .leaflet-popup-content-wrapper{border-radius:10px}
+    .leaflet-popup-content{margin:11px 15px;font-size:13px;line-height:1.5}
+    .leaflet-popup-content b{color:var(--gold-l)}
+    .leaflet-control-attribution{background:rgba(0,0,0,.55)!important;color:rgba(242,238,230,.35)!important;font-size:9px!important}
+    .leaflet-control-attribution a{color:rgba(212,168,74,.65)!important}
+    .leaflet-bar a{background:#14110c!important;color:#E8C060!important;border-color:rgba(212,168,74,.25)!important}
+    .leaflet-bar a:hover{background:#1e1912!important}
+    .sam-pin{background:transparent!important;border:none!important}
+    .sam-pin-inner{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 38% 34%,rgba(255,110,110,.98),rgba(186,32,32,.92));border:2px solid rgba(255,150,150,.9);box-shadow:0 0 16px rgba(226,60,60,.75);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',impact,sans-serif;font-size:13px;letter-spacing:.02em;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+
+    /* MEMBER PROFILE PANEL */
+    #profile-panel{position:fixed;inset:0;z-index:9000;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+    #profile-panel.open{pointer-events:auto}
+    #profile-overlay{position:absolute;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);opacity:0;transition:opacity .3s}
+    #profile-panel.open #profile-overlay{opacity:1}
+    #profile-sheet{position:relative;z-index:1;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;background:#0b0a08;border:1px solid rgba(212,168,74,.25);border-radius:18px 18px 0 0;padding:26px 24px max(env(safe-area-inset-bottom,0px),28px);transform:translateY(100%);transition:transform .35s cubic-bezier(.32,1,.4,1)}
+    #profile-panel.open #profile-sheet{transform:translateY(0)}
+    .pp-close{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(212,168,74,.35);background:rgba(212,168,74,.14);color:rgba(242,238,230,.85);font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .pp-photo{width:98px;height:98px;border-radius:50%;margin:8px auto 14px;border:2px solid rgba(212,168,74,.4);overflow:hidden;background:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:36px;color:rgba(212,168,74,.3)}
+    .pp-photo img{width:100%;height:100%;object-fit:cover}
+    .pp-name{font-family:'Bebas Neue',impact,sans-serif;font-size:clamp(28px,8vw,36px);letter-spacing:.03em;text-align:center;color:var(--text);line-height:1.05}
+    .pp-num{text-align:center;font-family:'Bebas Neue',impact,sans-serif;font-size:16px;color:var(--gold);letter-spacing:.06em;margin-top:3px}
+    .pp-city{text-align:center;font-size:12.5px;color:var(--dim);margin-top:7px}
+    .pp-stats{display:flex;gap:10px;margin-top:20px}
+    .pp-stat{flex:1;background:var(--ink2);border:1px solid rgba(212,168,74,.14);border-radius:10px;padding:14px 8px;text-align:center}
+    .pp-stat-n{font-family:'Bebas Neue',impact,sans-serif;font-size:26px;color:var(--gold);line-height:1}
+    .pp-stat-l{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dimmer);margin-top:5px}
+    .pp-since{margin-top:18px;padding-top:16px;border-top:1px solid rgba(212,168,74,.12);text-align:center;font-size:13px;color:var(--dim);line-height:1.75}
+    .pp-since strong{color:var(--gold-l);font-weight:600}
+    .board-row[data-clickable="1"]{cursor:pointer}
+
     /* SITE FOOTER — legal entity + compliance links (required on every page) */
     .sam-footer{position:relative;z-index:20;border-top:1px solid rgba(212,168,74,.12);padding:34px 24px max(env(safe-area-inset-bottom,0px),34px);text-align:center;font-family:'Space Grotesk',sans-serif}
     .sam-footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-bottom:16px}
@@ -94,6 +141,7 @@
   <div class="hdr-logo">Set Apart Movement</div>
   <div class="hdr-title">RANKINGS</div>
   <div class="hdr-sub">100 numbers. Every tap counts.</div>
+  <a class="hdr-hiw-btn" href="/how-it-works.html">How does this work? &rarr;</a>
 </div>
 
 <div class="search-wrap">
@@ -101,6 +149,14 @@
 </div>
 
 <div class="city-wrap" id="city-wrap"></div>
+
+<div class="map-toggle-wrap">
+  <button type="button" class="map-toggle" id="map-toggle" onclick="toggleMap()">&#128205; View Map</button>
+</div>
+<div class="map-panel" id="map-panel">
+  <div id="member-map"></div>
+  <div class="map-note" id="map-note">Every marker is a city someone on the board is from.</div>
+</div>
 
 <div class="demo-notice" id="demo-note" hidden>
   Firebase not connected &mdash; showing placeholders. Add apiKey &amp; appId to c.html to see live data.
@@ -112,6 +168,23 @@
 
 <div class="hiw-link">
   <a href="/how-it-works">How does ranking work? &rarr;</a>
+</div>
+
+<div id="profile-panel">
+  <div id="profile-overlay" onclick="closeProfile()"></div>
+  <div id="profile-sheet">
+    <button class="pp-close" onclick="closeProfile()" aria-label="Close">&times;</button>
+    <div class="pp-photo" id="pp-photo">&#9818;</div>
+    <div class="pp-name" id="pp-name">&mdash;</div>
+    <div class="pp-num" id="pp-num">#&mdash;</div>
+    <div class="pp-city" id="pp-city"></div>
+    <div class="pp-stats">
+      <div class="pp-stat"><div class="pp-stat-n" id="pp-rank">&mdash;</div><div class="pp-stat-l">Rank</div></div>
+      <div class="pp-stat"><div class="pp-stat-n" id="pp-taps">&mdash;</div><div class="pp-stat-l">Taps</div></div>
+      <div class="pp-stat"><div class="pp-stat-n" id="pp-invites">&mdash;</div><div class="pp-stat-l">Invites</div></div>
+    </div>
+    <div class="pp-since" id="pp-since"></div>
+  </div>
 </div>
 
 <footer class="sam-footer">
@@ -215,9 +288,17 @@ function renderRows(map, demo) {
     var photoHtml = (m && m.photo)
       ? '<img src="'+m.photo+'" alt="'+name+' profile photo" loading="lazy">'
       : '&#9818;';
+    var isClaimed = !!(m && m.name);
+    if (isClaimed) {
+      allMembers[id] = {
+        id: id, name: name, city: city, cityKey: cityInfo ? cityInfo.key : '',
+        cityLabel: cityInfo ? cityInfo.label : '', taps: taps, rank: rank,
+        photo: m.photo || null, claimedAt: m.claimedAt || null, invites: m.inviteCount || 0
+      };
+    }
     return {
       id: id, name: name, cityKey: cityInfo ? cityInfo.key : '', html:
-        '<div class="'+rowClass+'" data-name="'+name.toLowerCase()+'">' +
+        '<div class="'+rowClass+'" data-name="'+name.toLowerCase()+'"'+(isClaimed?' data-clickable="1" onclick="openProfile(\''+id+'\')"':'')+'>' +
         '<div class="board-rank '+rankClass+'">'+rankSymbol+'</div>' +
         '<div class="board-photo">'+photoHtml+'</div>' +
         '<div class="board-num">#'+id+'</div>' +
@@ -230,7 +311,55 @@ function renderRows(map, demo) {
   lastCityGroups = cityGroups;
   renderCityBubbles(cityGroups);
   filterRows();
+  if (mapReady) renderMapMarkers();
 }
+
+var allMembers = {};
+
+/* ── MEMBER PROFILE PANEL ── */
+function sinceLabel(ts) {
+  if (!ts) return null;
+  var d = new Date(ts);
+  var monthYear = d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  var days = Math.floor((Date.now() - ts) / 86400000);
+  var rel;
+  if (days < 1) rel = 'today';
+  else if (days === 1) rel = '1 day';
+  else if (days < 30) rel = days + ' days';
+  else if (days < 365) { var mo = Math.max(1, Math.round(days / 30.44)); rel = mo + (mo === 1 ? ' month' : ' months'); }
+  else {
+    var y = Math.floor(days / 365.25);
+    var rem = Math.round((days / 365.25 - y) * 12);
+    rel = y + (y === 1 ? ' year' : ' years') + (rem ? ' ' + rem + (rem === 1 ? ' month' : ' months') : '');
+  }
+  return { monthYear: monthYear, rel: rel };
+}
+
+function openProfile(id) {
+  var m = allMembers[id];
+  if (!m) return;
+  document.getElementById('pp-photo').innerHTML = m.photo
+    ? '<img src="' + m.photo + '" alt="' + m.name + ' profile photo">'
+    : '&#9818;';
+  document.getElementById('pp-name').textContent = m.name;
+  document.getElementById('pp-num').textContent = '#' + m.id;
+  document.getElementById('pp-city').textContent = m.cityLabel || m.city || '';
+  document.getElementById('pp-rank').textContent = '#' + m.rank;
+  document.getElementById('pp-taps').textContent = m.taps;
+  document.getElementById('pp-invites').textContent = m.invites;
+  var since = sinceLabel(m.claimedAt);
+  document.getElementById('pp-since').innerHTML = since
+    ? 'Part of the movement since <strong>' + since.monthYear + '</strong><br>That’s ' + since.rel + ' in.'
+    : 'A member of the movement.';
+  var panel = document.getElementById('profile-panel');
+  panel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeProfile() {
+  document.getElementById('profile-panel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeProfile(); });
 
 var lastCityGroups = {};
 
@@ -249,6 +378,183 @@ function toggleCity(key) {
   activeCity = (activeCity === key) ? null : key;
   renderCityBubbles(lastCityGroups);
   filterRows();
+}
+
+/* ── MEMBER MAP ──
+   Coordinates for the towns our members actually come from (DFW + the rest of Texas
+   + major US cities), so the common case needs no network lookup at all. Anything not
+   in this table is geocoded once via OpenStreetMap and the result is cached in Firebase
+   under config/geo, so a given city is only ever looked up one time for the whole site. */
+var CITY_COORDS = {
+  'corinth':[33.1540,-97.0647],'denton':[33.2148,-97.1331],'flower mound':[33.0146,-97.0969],
+  'fort worth':[32.7555,-97.3308],'lantana':[33.0871,-97.1200],'argyle':[33.1212,-97.1836],
+  'roanoke':[33.0040,-97.2261],'lewisville':[33.0462,-96.9942],'mansfield':[32.5632,-97.1417],
+  'saginaw':[32.8601,-97.3639],'arlington':[32.7357,-97.1081],'highland village':[33.0918,-97.0470],
+  'double oak':[33.0665,-97.1070],'bartonville':[33.0732,-97.1361],'copper canyon':[33.0921,-97.1083],
+  'shady shores':[33.1601,-97.0350],'hickory creek':[33.1234,-97.0436],'lake dallas':[33.1262,-97.0253],
+  'justin':[33.0848,-97.2961],'haslet':[32.9754,-97.3475],'trophy club':[33.0048,-97.1864],
+  'westlake':[32.9915,-97.1958],'keller':[32.9346,-97.2297],'southlake':[32.9412,-97.1342],
+  'grapevine':[32.9343,-97.0781],'colleyville':[32.8807,-97.1550],'hurst':[32.8235,-97.1706],
+  'euless':[32.8371,-97.0819],'bedford':[32.8440,-97.1431],'north richland hills':[32.8343,-97.2289],
+  'watauga':[32.8579,-97.2547],'the colony':[33.0890,-96.8861],'little elm':[33.1626,-96.9375],
+  'frisco':[33.1507,-96.8236],'plano':[33.0198,-96.6989],'allen':[33.1032,-96.6706],
+  'mckinney':[33.1972,-96.6398],'prosper':[33.2362,-96.8011],'celina':[33.3245,-96.7847],
+  'carrollton':[32.9537,-96.8903],'coppell':[32.9546,-96.9900],'irving':[32.8140,-96.9489],
+  'dallas':[32.7767,-96.7970],'garland':[32.9126,-96.6389],'richardson':[32.9484,-96.7299],
+  'mesquite':[32.7668,-96.5992],'rockwall':[32.9312,-96.4597],'wylie':[33.0151,-96.5389],
+  'murphy':[33.0151,-96.6131],'sachse':[32.9762,-96.5950],'grand prairie':[32.7459,-96.9978],
+  'duncanville':[32.6518,-96.9083],'desoto':[32.5899,-96.8570],'cedar hill':[32.5885,-96.9561],
+  'waxahachie':[32.3865,-96.8483],'midlothian':[32.4824,-96.9944],'burleson':[32.5421,-97.3209],
+  'crowley':[32.5793,-97.3628],'benbrook':[32.6732,-97.4606],'weatherford':[32.7593,-97.7972],
+  'azle':[32.8954,-97.5456],'decatur':[33.2343,-97.5861],'sanger':[33.3643,-97.1739],
+  'krum':[33.2609,-97.2375],'aubrey':[33.3043,-96.9861],'pilot point':[33.3959,-96.9597],
+  'ponder':[33.1801,-97.2886],'providence village':[33.2362,-96.9683],'oak point':[33.1876,-96.9908],
+  'cross roads':[33.2179,-96.9772],'savannah':[33.2254,-96.9500],'northlake':[33.0937,-97.2639],
+  'denison':[33.7557,-96.5367],'sherman':[33.6357,-96.6089],'gainesville':[33.6259,-97.1334],
+  'houston':[29.7604,-95.3698],'austin':[30.2672,-97.7431],'san antonio':[29.4241,-98.4936],
+  'el paso':[31.7619,-106.4850],'lubbock':[33.5779,-101.8552],'amarillo':[35.2220,-101.8313],
+  'waco':[31.5493,-97.1467],'tyler':[32.3513,-95.3011],'abilene':[32.4487,-99.7331],
+  'midland':[31.9973,-102.0779],'odessa':[31.8457,-102.3676],'college station':[30.6280,-96.3344],
+  'corpus christi':[27.8006,-97.3964],'laredo':[27.5306,-99.4803],'mcallen':[26.2034,-98.2300],
+  'brownsville':[25.9017,-97.4975],'killeen':[31.1171,-97.7278],'temple':[31.0982,-97.3428],
+  'bryan':[30.6744,-96.3700],'san angelo':[31.4638,-100.4370],'wichita falls':[33.9137,-98.4934],
+  'los angeles':[34.0522,-118.2437],'san diego':[32.7157,-117.1611],'san francisco':[37.7749,-122.4194],
+  'phoenix':[33.4484,-112.0740],'las vegas':[36.1699,-115.1398],'denver':[39.7392,-104.9903],
+  'chicago':[41.8781,-87.6298],'new york':[40.7128,-74.0060],'atlanta':[33.7490,-84.3880],
+  'miami':[25.7617,-80.1918],'orlando':[28.5383,-81.3792],'nashville':[36.1627,-86.7816],
+  'seattle':[47.6062,-122.3321],'portland':[45.5152,-122.6784],'oklahoma city':[35.4676,-97.5164],
+  'tulsa':[36.1540,-95.9928],'kansas city':[39.0997,-94.5786],'st louis':[38.6270,-90.1994],
+  'memphis':[35.1495,-90.0490],'new orleans':[29.9511,-90.0715],'little rock':[34.7465,-92.2896]
+};
+
+var GEO_CACHE_URL = 'https://set-apart-movement-default-rtdb.firebaseio.com/config/geo';
+var geoCache = {};
+var mapObj = null, mapReady = false, mapMarkers = [], mapLoading = false;
+
+function loadScript(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+function loadCss(href){return new Promise(function(res){var l=document.createElement('link');l.rel='stylesheet';l.href=href;l.onload=res;l.onerror=res;document.head.appendChild(l);});}
+
+function toggleMap() {
+  var panel = document.getElementById('map-panel');
+  var btn = document.getElementById('map-toggle');
+  if (panel.classList.contains('open')) {
+    panel.classList.remove('open');
+    btn.innerHTML = '📍 View Map';
+    return;
+  }
+  panel.classList.add('open');
+  btn.innerHTML = '📍 Hide Map';
+  if (mapReady) { setTimeout(function(){ mapObj.invalidateSize(); renderMapMarkers(); }, 60); return; }
+  if (mapLoading) return;
+  mapLoading = true;
+  document.getElementById('map-note').textContent = 'Loading map…';
+  Promise.all([
+    loadCss('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'),
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js')
+  ]).then(function(){
+    mapObj = L.map('member-map', { scrollWheelZoom: false, attributionControl: true }).setView([33.05, -97.10], 9);
+    /* Standard OSM tiles (free, no API key). CARTO's dark basemap now requires a key and
+       serves watermarked placeholders without one, so instead we darken the light OSM tiles
+       with a CSS filter on the tile pane to match the site. */
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
+    }).addTo(mapObj);
+    mapReady = true;
+    mapLoading = false;
+    setTimeout(function(){ mapObj.invalidateSize(); renderMapMarkers(); }, 60);
+  }).catch(function(){
+    mapLoading = false;
+    document.getElementById('map-note').textContent = 'Map could not load right now.';
+  });
+}
+
+function geocodeUnknown(key, label) {
+  // One lookup per city, ever — then cached in Firebase for every future visitor.
+  return fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(label + ', Texas, USA'))
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .then(function(j){
+      if (!j || !j.length) {
+        return fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(label))
+          .then(function(r){ return r.ok ? r.json() : []; });
+      }
+      return j;
+    })
+    .then(function(j){
+      if (!j || !j.length) return null;
+      var coords = [parseFloat(j[0].lat), parseFloat(j[0].lon)];
+      geoCache[key] = coords;
+      fetch(GEO_CACHE_URL + '/' + encodeURIComponent(key) + '.json', {
+        method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(coords)
+      }).catch(function(){});
+      return coords;
+    })
+    .catch(function(){ return null; });
+}
+
+function renderMapMarkers() {
+  if (!mapReady || !mapObj) return;
+  mapMarkers.forEach(function(m){ mapObj.removeLayer(m); });
+  mapMarkers = [];
+
+  fetch(GEO_CACHE_URL + '.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+    .then(function(cached){
+      if (cached) Object.keys(cached).forEach(function(k){ if (Array.isArray(cached[k])) geoCache[k] = cached[k]; });
+
+      var groups = lastCityGroups || {};
+      var keys = Object.keys(groups);
+      var pending = [];
+      keys.forEach(function(k){
+        var coords = CITY_COORDS[k] || geoCache[k];
+        if (coords) placePin(coords, groups[k].label, groups[k].count);
+        else pending.push(k);
+      });
+      fitMap();
+
+      if (!pending.length) { updateMapNote(0); return; }
+      // Look up anything unknown, one at a time, spaced out to respect the geocoder.
+      var i = 0;
+      (function next(){
+        if (i >= pending.length) { fitMap(); updateMapNote(pending.filter(function(k){ return !geoCache[k]; }).length); return; }
+        var k = pending[i++];
+        geocodeUnknown(k, groups[k].label).then(function(coords){
+          if (coords) placePin(coords, groups[k].label, groups[k].count);
+          setTimeout(next, 1100);
+        });
+      })();
+    });
+}
+
+function placePin(coords, label, count) {
+  var size = count >= 8 ? 40 : count >= 4 ? 34 : 28;
+  var icon = L.divIcon({
+    className: 'sam-pin',
+    html: '<div class="sam-pin-inner" style="width:' + size + 'px;height:' + size + 'px">' + count + '</div>',
+    iconSize: [size, size], iconAnchor: [size/2, size/2]
+  });
+  var marker = L.marker(coords, { icon: icon }).addTo(mapObj);
+  marker._samCount = count;
+  marker.bindPopup('<b>' + label + '</b><br>' + count + (count === 1 ? ' member' : ' members'));
+  mapMarkers.push(marker);
+}
+
+function fitMap() {
+  if (!mapMarkers.length) return;
+  /* Centre on the single biggest city rather than fitting every marker or averaging them.
+     Fitting all markers lets one far-away member force a continental view where the whole
+     home cluster becomes one unreadable blob; averaging gets dragged off into empty country
+     by that same outlier. The largest city is the actual home base and is outlier-proof. */
+  var biggest = mapMarkers[0];
+  mapMarkers.forEach(function(m){ if ((m._samCount || 1) > (biggest._samCount || 1)) biggest = m; });
+  mapObj.setView(biggest.getLatLng(), mapMarkers.length === 1 ? 11 : 9);
+}
+
+function updateMapNote(unplaced) {
+  var note = document.getElementById('map-note');
+  if (!note) return;
+  var placed = mapMarkers.length;
+  var txt = placed + (placed === 1 ? ' city' : ' cities') + ' on the board. Pinch or zoom out to see everyone.';
+  if (unplaced > 0) txt += ' ' + unplaced + (unplaced === 1 ? ' city' : ' cities') + " couldn't be placed.";
+  note.textContent = txt;
 }
 
 function filterRows() {

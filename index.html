@@ -713,23 +713,28 @@
     /* Can't make it card */
     .cant-make-it {
       width: 100%;
-      margin-top: 14px;
-      padding: 16px 20px;
-      border: 1px solid rgba(196,149,42,.12);
-      border-radius: 8px;
-      background: rgba(240,237,230,.018);
+      margin-top: 20px;
+      padding: 22px 22px 20px;
+      border: 1px solid rgba(196,149,42,.32);
+      border-top: 2px solid rgba(196,149,42,.55);
+      border-radius: 10px;
+      background: rgba(196,149,42,.055);
       text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,.35);
     }
-    .cmi-label { font-size: 11px; color: rgba(240,237,230,.38); margin-bottom: 10px; letter-spacing: .04em; }
+    .cmi-label { font-size: 14px; color: rgba(240,237,230,.72); margin-bottom: 14px; letter-spacing: .01em; font-weight: 500; line-height: 1.5; }
     .cmi-btn {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
-      color: rgba(196,149,42,.7); background: transparent;
-      border: 1px solid rgba(196,149,42,.22); border-radius: 20px;
-      padding: 8px 18px; cursor: pointer;
-      transition: border-color .2s, color .2s;
+      width: 100%;
+      font-size: 11.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+      color: #080806; background: var(--gold);
+      border: none; border-radius: 5px;
+      padding: 15px 20px; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(196,149,42,.28);
+      transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
     }
-    .cmi-btn:hover { border-color: rgba(196,149,42,.5); color: var(--gold); }
+    .cmi-btn:hover { box-shadow: 0 6px 28px rgba(196,149,42,.45); }
+    .cmi-btn:active { transform: scale(.97); }
 
     /* Community scroll button under RSVP */
     .community-scroll-btn {
@@ -1074,8 +1079,9 @@
     .conn-rank-btn{display:inline-block;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:rgba(196,149,42,.08);border:1px solid rgba(196,149,42,.35);border-radius:4px;padding:13px 26px;cursor:pointer;text-decoration:none;transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .18s ease;margin-bottom:14px;}
     .conn-rank-btn:hover{background:rgba(196,149,42,.14);}
     .conn-rank-btn:active{transform:scale(.96);}
-    .conn-rank-explain-btn{display:block;width:100%;background:none;border:none;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,230,.4);cursor:pointer;padding:6px 0;transition:color .2s ease;}
-    .conn-rank-explain-btn:hover{color:rgba(240,237,230,.7);}
+    .conn-rank-explain-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(240,237,230,.05);border:1px solid rgba(240,237,230,.22);border-radius:22px;font-family:"Space Grotesk",sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,230,.82);cursor:pointer;padding:12px 24px;transition:background .2s ease,border-color .2s ease,transform .18s cubic-bezier(.34,1.56,.64,1);}
+    .conn-rank-explain-btn:hover{background:rgba(240,237,230,.1);border-color:rgba(240,237,230,.4);}
+    .conn-rank-explain-btn:active{transform:scale(.96);}
     .conn-rank-explain{max-height:0;overflow:hidden;transition:max-height .35s ease;text-align:left;}
     .conn-rank-explain.open{max-height:260px;margin-top:16px;}
     .conn-rank-explain-inner{padding:16px;background:rgba(0,0,0,.25);border:1px solid rgba(196,149,42,.12);border-radius:8px;}
@@ -1086,6 +1092,16 @@
     .conn-rank-find-row input::placeholder{color:rgba(240,237,230,.3);}
     .conn-rank-find-row input:focus{border-color:rgba(196,149,42,.5);}
     .conn-rank-find-row button{flex-shrink:0;background:rgba(196,149,42,.14);border:1px solid rgba(196,149,42,.4);border-radius:6px;padding:11px 16px;color:var(--gold);font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;cursor:pointer;}
+    /* Simple how-it-works strip */
+    .conn-flow{width:100%;padding:44px 0 40px;border-top:1px solid rgba(196,149,42,.07);}
+    .conn-flow-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(32px,9.5vw,46px);letter-spacing:.02em;color:var(--cream);line-height:.9;margin:4px 0 22px;text-align:center;}
+    .conn-flow-steps{display:flex;flex-direction:column;gap:12px;}
+    .conn-flow-step{display:flex;gap:16px;align-items:flex-start;background:rgba(240,237,230,.028);border:1px solid rgba(196,149,42,.16);border-radius:10px;padding:18px 18px;}
+    .conn-flow-n{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:rgba(196,149,42,.12);border:1px solid rgba(196,149,42,.4);display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",impact,sans-serif;font-size:17px;color:var(--gold);letter-spacing:.02em;}
+    .conn-flow-t{font-size:15px;font-weight:700;color:var(--cream);margin-bottom:4px;letter-spacing:.01em;}
+    .conn-flow-d{font-size:13px;line-height:1.65;color:rgba(240,237,230,.5);}
+    .conn-flow-link{display:block;text-align:center;margin-top:20px;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:13px;border:1px solid rgba(196,149,42,.3);border-radius:6px;transition:background .2s ease,border-color .2s ease;}
+    .conn-flow-link:hover{background:rgba(196,149,42,.08);border-color:rgba(196,149,42,.55);}
     /* SITE FOOTER — legal entity + compliance links (required on every page) */
     .sam-footer{position:relative;z-index:20;border-top:1px solid rgba(212,168,74,.12);padding:34px 24px max(env(safe-area-inset-bottom,0px),34px);text-align:center;font-family:'Space Grotesk',sans-serif;background:var(--ink);}
     .sam-footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-bottom:16px;}
@@ -1260,6 +1276,36 @@
           <p>The leaderboard isn't the point. Who you bring with you is.</p>
         </div>
       </div>
+    </div>
+
+    <!-- Simple how-it-works flow — the plain-language version. Full breakdown lives on /how-it-works.html -->
+    <div class="conn-flow rv" id="conn-flow-sec">
+      <div class="conn-eyebrow" style="text-align:center">How This Works</div>
+      <div class="conn-flow-h">START HERE.</div>
+      <div class="conn-flow-steps">
+        <div class="conn-flow-step">
+          <div class="conn-flow-n">1</div>
+          <div>
+            <div class="conn-flow-t">Show up.</div>
+            <div class="conn-flow-d">Come to a meetup. Free, nothing to sign up for, just show up.</div>
+          </div>
+        </div>
+        <div class="conn-flow-step">
+          <div class="conn-flow-n">2</div>
+          <div>
+            <div class="conn-flow-t">Get your bracelet and your number.</div>
+            <div class="conn-flow-d">Come a few times and you get your own bracelet with a permanent number. Only 100 exist.</div>
+          </div>
+        </div>
+        <div class="conn-flow-step">
+          <div class="conn-flow-n">3</div>
+          <div>
+            <div class="conn-flow-t">Bring people with you.</div>
+            <div class="conn-flow-d">People tap your bracelet with their phone. Every tap moves you up the board.</div>
+          </div>
+        </div>
+      </div>
+      <a class="conn-flow-link" href="/how-it-works.html">See the full breakdown &rarr;</a>
     </div>
 
     <!-- CONNECT: Belong section -->
@@ -2692,13 +2738,15 @@ window._samDb = (function(){
   }
 
   function setFabOwner(id){
+    /* Members used to see their own number here. Now every state reads "Rankings" and goes
+       to the rankings page — their number is shown on their profile card there instead. */
     fabMode='owner';
     fabLbl.style.display='none';
-    fabNum.style.fontFamily="'Bebas Neue',impact,sans-serif";
-    fabNum.style.fontSize='28px';
-    fabNum.style.letterSpacing='.04em';
-    fabNum.style.color='#D4A84A';
-    fabNum.textContent='#'+id;
+    fabNum.style.fontFamily="'Space Grotesk',sans-serif";
+    fabNum.style.fontSize='10px';
+    fabNum.style.letterSpacing='.18em';
+    fabNum.style.color='rgba(196,146,58,.9)';
+    fabNum.textContent='Rankings';
     fab.style.display='flex';
   }
 
@@ -2741,13 +2789,9 @@ window._samDb = (function(){
   }
 
   window.samFabClick=function(){
-    if(fabMode==='owner'){
-      openSamDrawer();
-    } else if(fabMode==='ref'){
-      refMenu.style.display=refMenu.style.display==='block'?'none':'block';
-    } else {
-      location.href='/how-it-works';
-    }
+    /* The button says Rankings in every state now, so it goes to the rankings page in
+       every state — including for members, who previously got the stats drawer instead. */
+    location.href='/rankings';
   };
 
   document.addEventListener('click',function(e){
