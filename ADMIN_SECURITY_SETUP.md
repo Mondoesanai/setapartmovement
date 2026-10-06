@@ -23,6 +23,10 @@ its rules tightened — that part has to happen in your Firebase account, I can'
       ".read": false,
       ".write": true
     },
+    "smsOptIns": {
+      ".read": false,
+      ".write": true
+    },
     "bracelets": {
       ".read": true,
       ".write": true
@@ -42,9 +46,9 @@ its rules tightened — that part has to happen in your Firebase account, I can'
 ```
 
 This keeps `bracelets` (names/cities for the public rankings leaderboard) and `meetups` (event info)
-publicly readable — those are meant to be public. `waitlist` and `rsvps` become **write-only** from
-the browser: the signup form still works (it writes a new entry), but nothing can read the list back
-except the server-side function, below.
+publicly readable — those are meant to be public. `waitlist`, `rsvps` and `smsOptIns` become
+**write-only** from the browser: the signup and opt-in forms still work (they write a new entry),
+but nothing can read those lists back except the server-side function, below.
 
 ## Step 2 — Get the two values the server-side function needs
 1. In the same Firebase console: **Project Settings** (gear icon) → **Service Accounts** tab → scroll to **Database secrets** → click **Show** next to the secret → copy it.

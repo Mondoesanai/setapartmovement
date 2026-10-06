@@ -73,6 +73,13 @@
     .hiw-link{max-width:520px;margin:8px auto 0;padding:0 20px;position:relative;z-index:5;text-align:center}
     .hiw-link a{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer);transition:color .2s}
     .hiw-link a:hover{color:var(--dim)}
+
+    /* SITE FOOTER — legal entity + compliance links (required on every page) */
+    .sam-footer{position:relative;z-index:20;border-top:1px solid rgba(212,168,74,.12);padding:34px 24px max(env(safe-area-inset-bottom,0px),34px);text-align:center;font-family:'Space Grotesk',sans-serif}
+    .sam-footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-bottom:16px}
+    .sam-footer-links a{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#D4A84A;text-decoration:none;transition:color .2s}
+    .sam-footer-links a:hover{color:#E8C060}
+    .sam-footer-legal{font-size:11px;line-height:1.85;color:rgba(242,238,230,.3);max-width:640px;margin:0 auto}
   </style>
 </head>
 <body>
@@ -106,6 +113,16 @@
 <div class="hiw-link">
   <a href="/how-it-works">How does ranking work? &rarr;</a>
 </div>
+
+<footer class="sam-footer">
+  <div class="sam-footer-links">
+    <a href="/">Home</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+    <a href="/terms-and-conditions.html">Terms &amp; Conditions</a>
+    <a href="/sms-opt-in.html">SMS Opt-In</a>
+  </div>
+  <div class="sam-footer-legal">© 2026 Set Apart Movement — operated by Inspiring Websites LLC · 2200 Driskell Dr, Corinth, TX 76210 · 817-983-3004 · info@inspiringwebsites.org</div>
+</footer>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>

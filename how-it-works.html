@@ -77,6 +77,13 @@
     .cta-btn{display:inline-block;padding:16px 48px;background:linear-gradient(135deg,#1a1000,#4a3010,#1a1000);border:1.5px solid rgba(212,168,74,.35);border-radius:6px;color:var(--gold-l);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;transition:border-color .2s,box-shadow .2s}
     .cta-btn:hover{border-color:var(--gold);box-shadow:0 0 28px rgba(212,168,74,.25)}
     .cta-sub{font-size:11px;color:var(--dimmer);margin-top:14px}
+
+    /* SITE FOOTER — legal entity + compliance links (required on every page) */
+    .sam-footer{position:relative;z-index:20;border-top:1px solid rgba(212,168,74,.12);padding:34px 24px max(env(safe-area-inset-bottom,0px),34px);text-align:center;font-family:'Space Grotesk',sans-serif}
+    .sam-footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-bottom:16px}
+    .sam-footer-links a{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#D4A84A;text-decoration:none;transition:color .2s}
+    .sam-footer-links a:hover{color:#E8C060}
+    .sam-footer-legal{font-size:11px;line-height:1.85;color:rgba(242,238,230,.3);max-width:640px;margin:0 auto}
   </style>
 </head>
 <body>
@@ -160,6 +167,16 @@
     <div class="cta-sub"><a href="/rankings" style="color:var(--dimmer);text-decoration:none;transition:color .2s" onmouseover="this.style.color='rgba(212,168,74,.7)'" onmouseout="this.style.color='rgba(242,238,230,.26)'">View Current Rankings &rarr;</a></div>
   </div>
 </div>
+
+<footer class="sam-footer">
+  <div class="sam-footer-links">
+    <a href="/">Home</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+    <a href="/terms-and-conditions.html">Terms &amp; Conditions</a>
+    <a href="/sms-opt-in.html">SMS Opt-In</a>
+  </div>
+  <div class="sam-footer-legal">© 2026 Set Apart Movement — operated by Inspiring Websites LLC · 2200 Driskell Dr, Corinth, TX 76210 · 817-983-3004 · info@inspiringwebsites.org</div>
+</footer>
 
 <script>
 (function(){

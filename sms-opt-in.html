@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMS Opt-In | Set Apart Movement</title>
+  <meta name="description" content="Opt in to receive community updates, event announcements and reminders by text from Set Apart Movement, operated by Inspiring Websites LLC.">
+  <link rel="canonical" href="https://setapartmovement.com/sms-opt-in.html">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="SMS Opt-In | Set Apart Movement">
+  <meta property="og:description" content="Opt in to receive community updates, event announcements and reminders by text from Set Apart Movement.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&display=swap"></noscript>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --gold:#D4A84A;--gold-l:#E8C060;--gold-d:rgba(212,168,74,.2);
+      --ink:#060504;--ink2:#100e09;--ink3:#181510;
+      --text:#F2EEE6;--dim:rgba(242,238,230,.52);--dimmer:rgba(242,238,230,.26);
+    }
+    html,body{width:100%;min-height:100vh;background:var(--ink);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+
+    #ember-c{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.45}
+
+    .back-bar{position:relative;z-index:10;display:flex;justify-content:center;padding:max(env(safe-area-inset-top,0px),28px) 24px 0}
+    .back-bar a{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;border:1px solid rgba(212,168,74,.25);border-radius:6px;color:var(--dimmer);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;transition:color .2s,border-color .2s}
+    .back-bar a:hover{color:var(--gold-l);border-color:rgba(212,168,74,.5)}
+
+    .site-nav{position:relative;z-index:10;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px;padding:20px 24px 0}
+    .site-nav a{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);transition:color .2s}
+    .site-nav a:hover{color:var(--gold-l)}
+
+    .hero{position:relative;z-index:5;text-align:center;padding:36px 24px 34px}
+    .hero-label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:14px}
+    .hero-title{font-family:'Bebas Neue',impact,sans-serif;font-size:clamp(48px,13vw,82px);letter-spacing:.04em;line-height:.92;color:var(--text)}
+    .hero-title span{color:var(--gold);display:block}
+    .hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4.4vw,21px);font-weight:300;font-style:italic;color:var(--dim);margin-top:16px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.5}
+
+    .form-wrap{position:relative;z-index:5;max-width:580px;margin:0 auto;padding:0 24px 72px}
+    .field{margin-bottom:16px}
+    .field label{display:block;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+    .field .req{color:rgba(242,238,230,.3);font-weight:400}
+    .field input,.field textarea{width:100%;background:var(--ink2);border:1px solid rgba(212,168,74,.18);border-radius:8px;padding:13px 15px;color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:15px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+    .field input:focus,.field textarea:focus{border-color:rgba(212,168,74,.5)}
+    .field input::placeholder,.field textarea::placeholder{color:var(--dimmer)}
+    .field textarea{min-height:96px;resize:vertical;line-height:1.6}
+    .row2{display:flex;gap:12px}
+    .row2 .field{flex:1;min-width:0}
+
+    .disclosure{background:var(--ink2);border:1px solid rgba(212,168,74,.2);border-radius:10px;padding:20px 22px;margin:24px 0 18px}
+    .disclosure-ttl{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+    .disclosure dl{margin:0}
+    .disclosure dt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,238,230,.75);margin-top:12px}
+    .disclosure dt:first-child{margin-top:0}
+    .disclosure dd{font-size:13.5px;line-height:1.7;color:var(--dim);margin:3px 0 0}
+    .disclosure .note{font-size:13px;line-height:1.7;color:var(--dim);margin-top:16px;padding-top:14px;border-top:1px solid rgba(212,168,74,.12)}
+    .disclosure a{color:var(--gold-l);text-decoration:underline;text-underline-offset:2px}
+
+    .consent-row{display:flex;gap:13px;align-items:flex-start;background:rgba(212,168,74,.04);border:1px solid rgba(212,168,74,.18);border-radius:10px;padding:18px 20px;margin-bottom:10px}
+    .consent-row input[type=checkbox]{flex-shrink:0;width:22px;height:22px;margin-top:1px;accent-color:#D4A84A;cursor:pointer}
+    .consent-row label{font-size:13.5px;line-height:1.7;color:var(--dim);cursor:pointer}
+    .optional-note{font-size:11.5px;color:var(--dimmer);margin-bottom:22px;line-height:1.65}
+
+    .submit-btn{width:100%;padding:17px 24px;background:linear-gradient(135deg,#1a1000,#4a3010,#1a1000);border:1.5px solid rgba(212,168,74,.35);border-radius:6px;color:var(--gold-l);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+    .submit-btn:hover{border-color:var(--gold);box-shadow:0 0 28px rgba(212,168,74,.25)}
+    .submit-btn:disabled{opacity:.55;cursor:default}
+    .form-msg{margin-top:16px;font-size:13.5px;line-height:1.7;text-align:center}
+    .form-msg.err{color:#E89A9A}
+
+    .success{display:none;text-align:center;padding:40px 24px;background:var(--ink2);border:1px solid rgba(212,168,74,.22);border-radius:12px}
+    .success-icon{font-family:'Bebas Neue',impact,sans-serif;font-size:40px;color:var(--gold);letter-spacing:.04em;margin-bottom:10px}
+    .success-ttl{font-family:'Bebas Neue',impact,sans-serif;font-size:34px;letter-spacing:.04em;color:var(--text);margin-bottom:12px}
+    .success-sub{font-size:14px;line-height:1.75;color:var(--dim);max-width:380px;margin:0 auto}
+
+    .site-footer{position:relative;z-index:5;border-top:1px solid rgba(212,168,74,.12);padding:34px 24px max(env(safe-area-inset-bottom,0px),34px);text-align:center}
+    .sf-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-bottom:16px}
+    .sf-links a{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);transition:color .2s}
+    .sf-links a:hover{color:var(--gold-l)}
+    .sf-legal{font-size:11px;line-height:1.85;color:var(--dimmer);max-width:640px;margin:0 auto}
+  </style>
+</head>
+<body>
+<canvas id="ember-c"></canvas>
+
+<div class="back-bar">
+  <a href="/">&#8592; Back to Home</a>
+</div>
+
+<nav class="site-nav">
+  <a href="/">Home</a>
+  <a href="/how-it-works.html">How It Works</a>
+  <a href="/rankings.html">Rankings</a>
+  <a href="/privacy-policy.html">Privacy</a>
+  <a href="/terms-and-conditions.html">Terms</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Set Apart Movement</div>
+  <div class="hero-title">STAY IN<span>THE LOOP.</span></div>
+  <div class="hero-sub">Get community updates, event announcements, and reminders by text.</div>
+</div>
+
+<div class="form-wrap">
+  <form id="optin-form" novalidate>
+    <div class="row2">
+      <div class="field">
+        <label for="f-first">First Name <span class="req">(required)</span></label>
+        <input type="text" id="f-first" name="firstName" autocomplete="given-name" placeholder="First name" required>
+      </div>
+      <div class="field">
+        <label for="f-last">Last Name <span class="req">(required)</span></label>
+        <input type="text" id="f-last" name="lastName" autocomplete="family-name" placeholder="Last name" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-email">Email <span class="req">(required)</span></label>
+      <input type="email" id="f-email" name="email" autocomplete="email" placeholder="you@example.com" required>
+    </div>
+
+    <div class="field">
+      <label for="f-phone">Mobile Phone Number <span class="req">(required)</span></label>
+      <input type="tel" id="f-phone" name="phone" autocomplete="tel" inputmode="tel" placeholder="(555) 555-5555" required>
+    </div>
+
+    <div class="field">
+      <label for="f-message">Message <span class="req">(optional)</span></label>
+      <textarea id="f-message" name="message" placeholder="Anything you want to tell us or ask us."></textarea>
+    </div>
+
+    <div class="disclosure">
+      <div class="disclosure-ttl">Before you opt in</div>
+      <dl>
+        <dt>Business Name</dt>
+        <dd>Set Apart Movement (operated by Inspiring Websites LLC)</dd>
+
+        <dt>Message Types</dt>
+        <dd>Community updates, event announcements and reminders, and responses to your inquiries.</dd>
+
+        <dt>Message Frequency</dt>
+        <dd>Message frequency varies.</dd>
+
+        <dt>Message &amp; Data Rates</dt>
+        <dd>Message &amp; data rates may apply.</dd>
+
+        <dt>Opt-Out</dt>
+        <dd>Reply STOP to unsubscribe. Reply HELP for help. Carriers are not liable for delayed or undelivered messages.</dd>
+      </dl>
+      <div class="note">
+        You must be 18 years or older to opt in. Consent is not required as a condition of any purchase.
+        See our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/terms-and-conditions.html">Terms &amp; Conditions</a>.
+      </div>
+    </div>
+
+    <div class="consent-row">
+      <input type="checkbox" id="f-consent" name="smsConsent" value="yes">
+      <label for="f-consent">I agree to receive SMS text messages from Set Apart Movement (operated by Inspiring Websites LLC) including community updates, event announcements, and reminders. Message frequency varies. Message &amp; data rates may apply. Reply STOP to unsubscribe. Reply HELP for help.</label>
+    </div>
+    <div class="optional-note">This checkbox is optional. You can submit this form without agreeing to receive text messages, and we will still respond to your message by email.</div>
+
+    <button type="submit" class="submit-btn" id="submit-btn">Submit</button>
+    <div class="form-msg" id="form-msg"></div>
+  </form>
+
+  <div class="success" id="success-box">
+    <div class="success-icon">&#10003;</div>
+    <div class="success-ttl">YOU'RE ALL SET.</div>
+    <div class="success-sub" id="success-sub">Thanks &mdash; we got your information and we'll be in touch.</div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="sf-links">
+    <a href="/">Home</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+    <a href="/terms-and-conditions.html">Terms &amp; Conditions</a>
+    <a href="/sms-opt-in.html">SMS Opt-In</a>
+  </div>
+  <div class="sf-legal">© 2026 Set Apart Movement — operated by Inspiring Websites LLC · 2200 Driskell Dr, Corinth, TX 76210 · 817-983-3004 · info@inspiringwebsites.org</div>
+</footer>
+
+<script>
+(function(){
+  var canvas=document.getElementById('ember-c');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  var embers=[];
+  for(var i=0;i<35;i++)embers.push({x:Math.random()*window.innerWidth,y:window.innerHeight+Math.random()*200,vx:(Math.random()-.5)*.45,vy:-.35-Math.random()*.7,r:.6+Math.random()*1.5,life:Math.random(),gold:Math.random()>.3});
+  (function draw(){
+    var W=canvas.width,H=canvas.height;ctx.clearRect(0,0,W,H);
+    embers.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.life-=.003;if(p.life<=0){p.x=Math.random()*W;p.y=H+10;p.life=.85+Math.random()*.15;p.vx=(Math.random()-.5)*.45;p.vy=-.35-Math.random()*.7;}ctx.globalAlpha=Math.min(p.life,.5)*Math.sin(p.life*Math.PI);ctx.fillStyle=p.gold?'#D4A84A':'rgba(242,238,230,.5)';ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();});ctx.globalAlpha=1;requestAnimationFrame(draw);
+  })();
+})();
+
+(function(){
+  var form=document.getElementById('optin-form');
+  var btn=document.getElementById('submit-btn');
+  var msg=document.getElementById('form-msg');
+  var successBox=document.getElementById('success-box');
+  var successSub=document.getElementById('success-sub');
+
+  function val(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    msg.textContent='';
+    msg.className='form-msg';
+
+    var firstName=val('f-first');
+    var lastName=val('f-last');
+    var email=val('f-email');
+    var phone=val('f-phone');
+    var message=val('f-message');
+    var consent=document.getElementById('f-consent').checked;
+
+    if(!firstName||!lastName||!email||!phone){
+      msg.textContent='Please fill in your name, email, and mobile phone number.';
+      msg.className='form-msg err';
+      return;
+    }
+    if(email.indexOf('@')===-1||email.indexOf('.')===-1){
+      msg.textContent='Please enter a valid email address.';
+      msg.className='form-msg err';
+      return;
+    }
+    if(phone.replace(/\D/g,'').length<10){
+      msg.textContent='Please enter a valid 10-digit mobile phone number.';
+      msg.className='form-msg err';
+      return;
+    }
+
+    btn.disabled=true;
+    btn.textContent='Submitting...';
+
+    var payload={
+      firstName:firstName,
+      lastName:lastName,
+      email:email,
+      phone:phone,
+      message:message||null,
+      smsConsent:consent,
+      consentText:consent?"I agree to receive SMS text messages from Set Apart Movement (operated by Inspiring Websites LLC) including community updates, event announcements, and reminders. Message frequency varies. Message & data rates may apply. Reply STOP to unsubscribe. Reply HELP for help.":null,
+      source:'sms-opt-in.html',
+      createdAt:Date.now()
+    };
+
+    fetch('https://set-apart-movement-default-rtdb.firebaseio.com/smsOptIns.json',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    }).then(function(r){
+      if(!r.ok) throw new Error('submit-failed');
+      return r.json();
+    }).then(function(){
+      form.style.display='none';
+      successSub.textContent = consent
+        ? "Thanks — you're on the list. You'll get a text when there's something worth knowing about. Reply STOP any time to unsubscribe."
+        : "Thanks — we got your message and we'll get back to you by email.";
+      successBox.style.display='block';
+      successBox.scrollIntoView({behavior:'smooth',block:'center'});
+    }).catch(function(){
+      btn.disabled=false;
+      btn.textContent='Submit';
+      msg.textContent='Something went wrong sending that. Please try again, or email us at info@inspiringwebsites.org.';
+      msg.className='form-msg err';
+    });
+  });
+})();
+</script>
+<script defer src="https://agency-dashboard-omega-red.vercel.app/t.js"></script>
+</body>
+</html>

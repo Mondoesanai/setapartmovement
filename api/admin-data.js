@@ -10,6 +10,7 @@
 const ALLOWED_RESOURCES = {
   waitlist: 'waitlist',
   rsvps: 'rsvps',
+  smsOptIns: 'smsOptIns', // SMS opt-in form submissions (name, email, phone, consent record)
   bracelets: 'bracelets', // not sensitive (used for the public rankings feature) but served
                             // from here too so everything admin-facing goes through one path
 };

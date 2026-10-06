@@ -1086,6 +1086,12 @@
     .conn-rank-find-row input::placeholder{color:rgba(240,237,230,.3);}
     .conn-rank-find-row input:focus{border-color:rgba(196,149,42,.5);}
     .conn-rank-find-row button{flex-shrink:0;background:rgba(196,149,42,.14);border:1px solid rgba(196,149,42,.4);border-radius:6px;padding:11px 16px;color:var(--gold);font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;cursor:pointer;}
+    /* SITE FOOTER — legal entity + compliance links (required on every page) */
+    .sam-footer{position:relative;z-index:20;border-top:1px solid rgba(212,168,74,.12);padding:34px 24px max(env(safe-area-inset-bottom,0px),34px);text-align:center;font-family:'Space Grotesk',sans-serif;background:var(--ink);}
+    .sam-footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-bottom:16px;}
+    .sam-footer-links a{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#D4A84A;text-decoration:none;transition:color .2s;}
+    .sam-footer-links a:hover{color:#E8C060;}
+    .sam-footer-legal{font-size:11px;line-height:1.85;color:rgba(242,238,230,.3);max-width:640px;margin:0 auto;}
 
   </style>
 </head>
@@ -3155,6 +3161,19 @@ document.addEventListener('DOMContentLoaded',function(){
   }
 });
 </script>
+
+<!-- Legal entity + compliance footer. Deliberately outside #invite so the intro reveal
+     animation can never hide it from a visitor or a carrier reviewer. -->
+<footer class="sam-footer">
+  <div class="sam-footer-links">
+    <a href="/how-it-works.html">How It Works</a>
+    <a href="/rankings.html">Rankings</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
+    <a href="/terms-and-conditions.html">Terms &amp; Conditions</a>
+    <a href="/sms-opt-in.html">SMS Opt-In</a>
+  </div>
+  <div class="sam-footer-legal">© 2026 Set Apart Movement — operated by Inspiring Websites LLC · 2200 Driskell Dr, Corinth, TX 76210 · 817-983-3004 · info@inspiringwebsites.org</div>
+</footer>
 
 <script defer src="https://agency-dashboard-omega-red.vercel.app/t.js"></script>
 </body>
