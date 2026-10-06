@@ -1092,16 +1092,32 @@
     .conn-rank-find-row input::placeholder{color:rgba(240,237,230,.3);}
     .conn-rank-find-row input:focus{border-color:rgba(196,149,42,.5);}
     .conn-rank-find-row button{flex-shrink:0;background:rgba(196,149,42,.14);border:1px solid rgba(196,149,42,.4);border-radius:6px;padding:11px 16px;color:var(--gold);font-family:"Space Grotesk",sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;cursor:pointer;}
-    /* Simple how-it-works strip */
-    .conn-flow{width:100%;padding:44px 0 40px;border-top:1px solid rgba(196,149,42,.07);}
-    .conn-flow-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(32px,9.5vw,46px);letter-spacing:.02em;color:var(--cream);line-height:.9;margin:4px 0 22px;text-align:center;}
-    .conn-flow-steps{display:flex;flex-direction:column;gap:12px;}
-    .conn-flow-step{display:flex;gap:16px;align-items:flex-start;background:rgba(240,237,230,.028);border:1px solid rgba(196,149,42,.16);border-radius:10px;padding:18px 18px;}
-    .conn-flow-n{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:rgba(196,149,42,.12);border:1px solid rgba(196,149,42,.4);display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",impact,sans-serif;font-size:17px;color:var(--gold);letter-spacing:.02em;}
-    .conn-flow-t{font-size:15px;font-weight:700;color:var(--cream);margin-bottom:4px;letter-spacing:.01em;}
-    .conn-flow-d{font-size:13px;line-height:1.65;color:rgba(240,237,230,.5);}
-    .conn-flow-link{display:block;text-align:center;margin-top:20px;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:13px;border:1px solid rgba(196,149,42,.3);border-radius:6px;transition:background .2s ease,border-color .2s ease;}
+    /* How-it-works journey track — tappable steps on a progress line */
+    .conn-flow{width:100%;padding:48px 0 44px;border-top:1px solid rgba(196,149,42,.07);}
+    .conn-flow-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(38px,11vw,58px);letter-spacing:.02em;color:var(--cream);line-height:.88;margin:4px 0 8px;text-align:center;}
+    .conn-flow-sub{text-align:center;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:15px;color:rgba(240,237,230,.42);margin-bottom:28px;}
+    .cf-track{position:relative;padding-left:4px;}
+    /* the dim rail + the gold fill that grows as steps open */
+    .cf-rail{position:absolute;left:21px;top:16px;bottom:16px;width:2px;background:rgba(196,149,42,.14);border-radius:2px;}
+    .cf-rail-fill{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(to bottom,#E8B84A,#C4952A);border-radius:2px;box-shadow:0 0 12px rgba(196,149,42,.5);transition:height .55s cubic-bezier(.4,0,.2,1);}
+    .cf-step{position:relative;margin-bottom:10px;}
+    .cf-step:last-child{margin-bottom:0;}
+    .cf-head{display:flex;align-items:center;gap:15px;width:100%;background:rgba(240,237,230,.022);border:1px solid rgba(196,149,42,.14);border-radius:12px;padding:15px 16px;cursor:pointer;text-align:left;font-family:inherit;transition:background .25s ease,border-color .25s ease,transform .18s cubic-bezier(.34,1.56,.64,1);-webkit-tap-highlight-color:transparent;}
+    .cf-head:active{transform:scale(.985);}
+    .cf-step.open .cf-head{background:rgba(196,149,42,.07);border-color:rgba(196,149,42,.4);}
+    .cf-node{position:relative;z-index:2;flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#100d08;border:2px solid rgba(196,149,42,.3);display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",impact,sans-serif;font-size:18px;color:rgba(196,149,42,.6);letter-spacing:.02em;transition:border-color .3s ease,color .3s ease,box-shadow .3s ease,background .3s ease;}
+    .cf-step.open .cf-node{background:linear-gradient(145deg,#E8B84A,#C4952A);border-color:#E8B84A;color:#0c0a06;box-shadow:0 0 18px rgba(196,149,42,.55);}
+    .cf-title{flex:1;font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(21px,5.6vw,26px);letter-spacing:.02em;color:rgba(240,237,230,.62);line-height:1.05;transition:color .25s ease;}
+    .cf-step.open .cf-title{color:var(--cream);}
+    .cf-chev{flex-shrink:0;color:rgba(196,149,42,.45);font-size:13px;transition:transform .35s cubic-bezier(.4,0,.2,1),color .25s ease;}
+    .cf-step.open .cf-chev{transform:rotate(180deg);color:var(--gold);}
+    .cf-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
+    .cf-step.open .cf-body{max-height:220px;}
+    .cf-body-inner{padding:13px 18px 4px 67px;font-size:13.5px;line-height:1.75;color:rgba(240,237,230,.52);}
+    .cf-body-inner strong{color:rgba(196,149,42,.85);font-weight:600;}
+    .conn-flow-link{display:block;text-align:center;margin-top:24px;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:14px;border:1px solid rgba(196,149,42,.3);border-radius:6px;transition:background .2s ease,border-color .2s ease,transform .18s cubic-bezier(.34,1.56,.64,1);}
     .conn-flow-link:hover{background:rgba(196,149,42,.08);border-color:rgba(196,149,42,.55);}
+    .conn-flow-link:active{transform:scale(.98);}
     /* SITE FOOTER — legal entity + compliance links (required on every page) */
     .sam-footer{position:relative;z-index:20;border-top:1px solid rgba(212,168,74,.12);padding:34px 24px max(env(safe-area-inset-bottom,0px),34px);text-align:center;font-family:'Space Grotesk',sans-serif;background:var(--ink);}
     .sam-footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-bottom:16px;}
@@ -1278,30 +1294,45 @@
       </div>
     </div>
 
-    <!-- Simple how-it-works flow — the plain-language version. Full breakdown lives on /how-it-works.html -->
+    <!-- How-it-works journey. Tapping a step expands it and fills the rail up to that node.
+         Full breakdown lives on /how-it-works.html -->
     <div class="conn-flow rv" id="conn-flow-sec">
       <div class="conn-eyebrow" style="text-align:center">How This Works</div>
       <div class="conn-flow-h">START HERE.</div>
-      <div class="conn-flow-steps">
-        <div class="conn-flow-step">
-          <div class="conn-flow-n">1</div>
-          <div>
-            <div class="conn-flow-t">Show up.</div>
-            <div class="conn-flow-d">Come to a meetup. Free, nothing to sign up for, just show up.</div>
+      <div class="conn-flow-sub">Three steps. That's the whole thing.</div>
+      <div class="cf-track" id="cf-track">
+        <div class="cf-rail"><div class="cf-rail-fill" id="cf-rail-fill"></div></div>
+
+        <div class="cf-step open" id="cf-step-1">
+          <button class="cf-head" type="button" onclick="toggleFlowStep(1)" aria-expanded="true" aria-controls="cf-body-1">
+            <span class="cf-node">1</span>
+            <span class="cf-title">Show up.</span>
+            <span class="cf-chev">&#9660;</span>
+          </button>
+          <div class="cf-body" id="cf-body-1">
+            <div class="cf-body-inner">Come to a meetup. It's <strong>free</strong>, there's nothing to sign up for, and you don't need to know anybody. Just show up.</div>
           </div>
         </div>
-        <div class="conn-flow-step">
-          <div class="conn-flow-n">2</div>
-          <div>
-            <div class="conn-flow-t">Get your bracelet and your number.</div>
-            <div class="conn-flow-d">Come a few times and you get your own bracelet with a permanent number. Only 100 exist.</div>
+
+        <div class="cf-step" id="cf-step-2">
+          <button class="cf-head" type="button" onclick="toggleFlowStep(2)" aria-expanded="false" aria-controls="cf-body-2">
+            <span class="cf-node">2</span>
+            <span class="cf-title">Get your number.</span>
+            <span class="cf-chev">&#9660;</span>
+          </button>
+          <div class="cf-body" id="cf-body-2">
+            <div class="cf-body-inner">Come a few times and you earn your own bracelet with a permanent number. <strong>Only 100 exist</strong> &mdash; once it's yours, nobody else ever has it.</div>
           </div>
         </div>
-        <div class="conn-flow-step">
-          <div class="conn-flow-n">3</div>
-          <div>
-            <div class="conn-flow-t">Bring people with you.</div>
-            <div class="conn-flow-d">People tap your bracelet with their phone. Every tap moves you up the board.</div>
+
+        <div class="cf-step" id="cf-step-3">
+          <button class="cf-head" type="button" onclick="toggleFlowStep(3)" aria-expanded="false" aria-controls="cf-body-3">
+            <span class="cf-node">3</span>
+            <span class="cf-title">Bring people with you.</span>
+            <span class="cf-chev">&#9660;</span>
+          </button>
+          <div class="cf-body" id="cf-body-3">
+            <div class="cf-body-inner">People tap your bracelet with their phone. Every tap moves you up the board &mdash; and the people at the top are the ones <strong>actually growing this thing</strong>.</div>
           </div>
         </div>
       </div>
@@ -2203,6 +2234,45 @@
     if (challengeStrip) challengeStrip.remove();
 
   } catch(e) { console.error('showConnect error:', e); } }
+
+  /* ── START HERE journey track: tapping a step expands it and grows the gold rail down to
+     that step's node. Accordion (one open at a time) so the section stays compact. ── */
+  window.toggleFlowStep = function (n) {
+    var target = document.getElementById('cf-step-' + n);
+    if (!target) return;
+    var wasOpen = target.classList.contains('open');
+    for (var i = 1; i <= 3; i++) {
+      var s = document.getElementById('cf-step-' + i);
+      if (!s) continue;
+      var open = (i === n && !wasOpen);
+      s.classList.toggle('open', open);
+      var btn = s.querySelector('.cf-head');
+      if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    updateFlowRail();
+  };
+
+  function updateFlowRail() {
+    var track = document.getElementById('cf-track');
+    var fill = document.getElementById('cf-rail-fill');
+    var rail = track && track.querySelector('.cf-rail');
+    if (!track || !fill || !rail) return;
+    var openStep = track.querySelector('.cf-step.open');
+    if (!openStep) { fill.style.height = '0px'; return; }
+    var node = openStep.querySelector('.cf-node');
+    if (!node) return;
+    // fill from the top of the rail down to the centre of the open step's node
+    var railTop = rail.getBoundingClientRect().top;
+    var nodeRect = node.getBoundingClientRect();
+    fill.style.height = Math.max(0, (nodeRect.top + nodeRect.height / 2) - railTop) + 'px';
+  }
+
+  window.addEventListener('resize', updateFlowRail);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(updateFlowRail, 60); });
+  else setTimeout(updateFlowRail, 60);
+  /* the section starts hidden behind the .rv reveal, so recompute once it's actually laid out */
+  setTimeout(updateFlowRail, 900);
+  setTimeout(updateFlowRail, 2000);
 
   /* ── Hamburger menu — permanent site nav, not tied to any specific meetup.
      (Previously lived inside the showServe block and silently stopped running once that

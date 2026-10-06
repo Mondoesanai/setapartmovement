@@ -97,8 +97,19 @@
     .leaflet-control-attribution a{color:rgba(212,168,74,.65)!important}
     .leaflet-bar a{background:#14110c!important;color:#E8C060!important;border-color:rgba(212,168,74,.25)!important}
     .leaflet-bar a:hover{background:#1e1912!important}
+    /* one small pin per member */
     .sam-pin{background:transparent!important;border:none!important}
-    .sam-pin-inner{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 38% 34%,rgba(255,110,110,.98),rgba(186,32,32,.92));border:2px solid rgba(255,150,150,.9);box-shadow:0 0 16px rgba(226,60,60,.75);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',impact,sans-serif;font-size:13px;letter-spacing:.02em;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+    .sam-pin-inner{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 38% 34%,rgba(255,120,120,.98),rgba(198,38,38,.95));border:1.5px solid rgba(255,165,165,.95);box-shadow:0 0 9px rgba(226,60,60,.8);transition:transform .15s ease}
+    .sam-pin:hover .sam-pin-inner{transform:scale(1.25)}
+    /* cluster bubbles shown when zoomed out */
+    .sam-cluster{background:transparent!important;border:none!important}
+    .sam-cluster-inner{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 38% 34%,rgba(255,110,110,.95),rgba(176,26,26,.9));border:2px solid rgba(255,150,150,.85);box-shadow:0 0 18px rgba(226,60,60,.6);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bebas Neue',impact,sans-serif;letter-spacing:.02em;text-shadow:0 1px 2px rgba(0,0,0,.55)}
+    .leaflet-cluster-anim .leaflet-marker-icon,.leaflet-cluster-anim .leaflet-marker-shadow{transition:transform .3s ease-out,opacity .3s ease-in}
+    .pin-pop{display:flex;align-items:center;gap:10px}
+    .pin-pop-photo{width:38px;height:38px;border-radius:50%;flex-shrink:0;overflow:hidden;background:#1a1510;border:1px solid rgba(212,168,74,.35);display:flex;align-items:center;justify-content:center;font-size:15px;color:rgba(212,168,74,.4)}
+    .pin-pop-photo img{width:100%;height:100%;object-fit:cover}
+    .pin-pop-name{font-weight:700;color:#E8C060;font-size:13.5px;line-height:1.25}
+    .pin-pop-city{font-size:11.5px;color:rgba(242,238,230,.5);margin-top:1px}
 
     /* MEMBER PROFILE PANEL */
     #profile-panel{position:fixed;inset:0;z-index:9000;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
@@ -429,7 +440,7 @@ var CITY_COORDS = {
 
 var GEO_CACHE_URL = 'https://set-apart-movement-default-rtdb.firebaseio.com/config/geo';
 var geoCache = {};
-var mapObj = null, mapReady = false, mapMarkers = [], mapLoading = false;
+var mapObj = null, mapReady = false, mapMarkers = [], mapLoading = false, clusterGroup = null;
 
 function loadScript(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
 function loadCss(href){return new Promise(function(res){var l=document.createElement('link');l.rel='stylesheet';l.href=href;l.onload=res;l.onerror=res;document.head.appendChild(l);});}
@@ -450,8 +461,11 @@ function toggleMap() {
   document.getElementById('map-note').textContent = 'Loading map…';
   Promise.all([
     loadCss('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'),
+    loadCss('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css'),
     loadScript('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js')
   ]).then(function(){
+    return loadScript('https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js');
+  }).then(function(){
     mapObj = L.map('member-map', { scrollWheelZoom: false, attributionControl: true }).setView([33.05, -97.10], 9);
     /* Standard OSM tiles (free, no API key). CARTO's dark basemap now requires a key and
        serves watermarked placeholders without one, so instead we darken the light OSM tiles
@@ -491,69 +505,134 @@ function geocodeUnknown(key, label) {
     .catch(function(){ return null; });
 }
 
+/* Stable pseudo-random offset per member, so each person sits at their own spot around their
+   city instead of every pin stacking on the exact same point — and so those spots don't jump
+   around between renders. Derived from the member id, not Math.random. */
+function jitterFor(id, index) {
+  var h = 0;
+  for (var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) & 0x7fffffff;
+  var angle = ((h % 360) + index * 47) * Math.PI / 180;
+  var radius = 0.006 + ((h >> 8) % 100) / 100 * 0.016; // ~0.6-2.2km out from centre
+  return [Math.sin(angle) * radius, Math.cos(angle) * radius * 1.25];
+}
+
 function renderMapMarkers() {
   if (!mapReady || !mapObj) return;
-  mapMarkers.forEach(function(m){ mapObj.removeLayer(m); });
+  if (clusterGroup) { clusterGroup.clearLayers(); mapObj.removeLayer(clusterGroup); }
   mapMarkers = [];
+
+  clusterGroup = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    spiderfyOnMaxZoom: true,
+    disableClusteringAtZoom: 13,   // zoomed in this far, always show individual people
+    maxClusterRadius: 45,
+    iconCreateFunction: function (cluster) {
+      var n = cluster.getChildCount();
+      var size = n >= 15 ? 46 : n >= 8 ? 40 : n >= 4 ? 34 : 30;
+      var fs = n >= 15 ? 17 : n >= 8 ? 16 : 14;
+      return L.divIcon({
+        className: 'sam-cluster',
+        html: '<div class="sam-cluster-inner" style="width:' + size + 'px;height:' + size + 'px;font-size:' + fs + 'px">' + n + '</div>',
+        iconSize: [size, size], iconAnchor: [size/2, size/2]
+      });
+    }
+  });
 
   fetch(GEO_CACHE_URL + '.json').then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
     .then(function(cached){
       if (cached) Object.keys(cached).forEach(function(k){ if (Array.isArray(cached[k])) geoCache[k] = cached[k]; });
 
-      var groups = lastCityGroups || {};
-      var keys = Object.keys(groups);
+      // group members by city so each city's people can be fanned out around its centre
+      var byCity = {};
+      Object.keys(allMembers).forEach(function(id){
+        var m = allMembers[id];
+        if (!m.cityKey) return;
+        (byCity[m.cityKey] = byCity[m.cityKey] || []).push(m);
+      });
+
       var pending = [];
-      keys.forEach(function(k){
+      Object.keys(byCity).forEach(function(k){
         var coords = CITY_COORDS[k] || geoCache[k];
-        if (coords) placePin(coords, groups[k].label, groups[k].count);
+        if (coords) placeCityMembers(coords, byCity[k]);
         else pending.push(k);
       });
+
+      mapObj.addLayer(clusterGroup);
       fitMap();
 
+      var unplacedMembers = pending.reduce(function(a,k){ return a + byCity[k].length; }, 0);
       if (!pending.length) { updateMapNote(0); return; }
+
       // Look up anything unknown, one at a time, spaced out to respect the geocoder.
       var i = 0;
       (function next(){
-        if (i >= pending.length) { fitMap(); updateMapNote(pending.filter(function(k){ return !geoCache[k]; }).length); return; }
+        if (i >= pending.length) {
+          fitMap();
+          var stillUnplaced = pending.filter(function(k){ return !geoCache[k]; })
+            .reduce(function(a,k){ return a + byCity[k].length; }, 0);
+          updateMapNote(stillUnplaced);
+          return;
+        }
         var k = pending[i++];
-        geocodeUnknown(k, groups[k].label).then(function(coords){
-          if (coords) placePin(coords, groups[k].label, groups[k].count);
+        var label = (byCity[k][0] && byCity[k][0].cityLabel) || k;
+        geocodeUnknown(k, label).then(function(coords){
+          if (coords) { placeCityMembers(coords, byCity[k]); fitMap(); }
           setTimeout(next, 1100);
         });
       })();
     });
 }
 
-function placePin(coords, label, count) {
-  var size = count >= 8 ? 40 : count >= 4 ? 34 : 28;
-  var icon = L.divIcon({
-    className: 'sam-pin',
-    html: '<div class="sam-pin-inner" style="width:' + size + 'px;height:' + size + 'px">' + count + '</div>',
-    iconSize: [size, size], iconAnchor: [size/2, size/2]
+function placeCityMembers(coords, members) {
+  members.forEach(function(m, idx) {
+    var off = jitterFor(m.id, idx);
+    var pos = [coords[0] + off[0], coords[1] + off[1]];
+    var size = 15;
+    var icon = L.divIcon({
+      className: 'sam-pin',
+      html: '<div class="sam-pin-inner"></div>',
+      iconSize: [size, size], iconAnchor: [size/2, size/2]
+    });
+    var marker = L.marker(pos, { icon: icon, title: m.name });
+    var photo = m.photo
+      ? '<img src="' + m.photo + '" alt="">'
+      : '&#9818;';
+    marker.bindPopup(
+      '<div class="pin-pop">' +
+      '<div class="pin-pop-photo">' + photo + '</div>' +
+      '<div><div class="pin-pop-name">' + m.name + ' &middot; #' + m.id + '</div>' +
+      '<div class="pin-pop-city">' + (m.cityLabel || m.city || '') + ' &middot; ' + m.taps + ' taps</div></div>' +
+      '</div>'
+    );
+    marker._samCount = 1;
+    marker._samCity = coords;
+    clusterGroup.addLayer(marker);
+    mapMarkers.push(marker);
   });
-  var marker = L.marker(coords, { icon: icon }).addTo(mapObj);
-  marker._samCount = count;
-  marker.bindPopup('<b>' + label + '</b><br>' + count + (count === 1 ? ' member' : ' members'));
-  mapMarkers.push(marker);
 }
 
 function fitMap() {
   if (!mapMarkers.length) return;
-  /* Centre on the single biggest city rather than fitting every marker or averaging them.
-     Fitting all markers lets one far-away member force a continental view where the whole
-     home cluster becomes one unreadable blob; averaging gets dragged off into empty country
-     by that same outlier. The largest city is the actual home base and is outlier-proof. */
-  var biggest = mapMarkers[0];
-  mapMarkers.forEach(function(m){ if ((m._samCount || 1) > (biggest._samCount || 1)) biggest = m; });
-  mapObj.setView(biggest.getLatLng(), mapMarkers.length === 1 ? 11 : 9);
+  /* Centre on the city with the most members rather than fitting every marker or averaging
+     them. Fitting all markers lets one far-away member force a continental view; averaging
+     gets dragged off into empty country by that same outlier. The biggest city is the actual
+     home base and is outlier-proof. */
+  var counts = {}, best = null, bestN = 0;
+  mapMarkers.forEach(function(m){
+    if (!m._samCity) return;
+    var key = m._samCity[0].toFixed(3) + ',' + m._samCity[1].toFixed(3);
+    counts[key] = (counts[key] || 0) + 1;
+    if (counts[key] > bestN) { bestN = counts[key]; best = m._samCity; }
+  });
+  if (best) mapObj.setView(best, bestN === 1 ? 10 : 11);
 }
 
 function updateMapNote(unplaced) {
   var note = document.getElementById('map-note');
   if (!note) return;
   var placed = mapMarkers.length;
-  var txt = placed + (placed === 1 ? ' city' : ' cities') + ' on the board. Pinch or zoom out to see everyone.';
-  if (unplaced > 0) txt += ' ' + unplaced + (unplaced === 1 ? ' city' : ' cities') + " couldn't be placed.";
+  var txt = placed + (placed === 1 ? ' member' : ' members') + ' on the map. Zoom in to split the groups apart, tap a pin to see who it is.';
+  if (unplaced > 0) txt += ' ' + unplaced + (unplaced === 1 ? " member's city couldn't" : " members' cities couldn't") + ' be placed.';
   note.textContent = txt;
 }
 
