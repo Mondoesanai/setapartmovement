@@ -9,3 +9,5 @@ Thumbs.db
 *.contacts.csv
 
 .vercel
+*roster*.csv
+*attendance*.csv
