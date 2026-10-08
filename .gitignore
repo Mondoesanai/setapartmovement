@@ -3,4 +3,9 @@ node_modules/
 Thumbs.db
 .vercel
 
+# Contact exports — real names and phone numbers. This repo is public; these must never land in it.
+*contacts*.csv
+*waitlist*.csv
+*.contacts.csv
+
 .vercel
