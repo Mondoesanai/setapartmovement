@@ -16,3 +16,9 @@ slicktext-import.csv
 import-*.csv
 slicktext-final.csv
 NEED-numbers.csv
+
+# Local env pulls — contains the SlickText key. Public repo; never commit.
+.env
+.env.*
+
+.env*.local

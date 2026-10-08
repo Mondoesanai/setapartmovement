@@ -52,29 +52,84 @@ async function writeContact(phone, data) {
   if (!r.ok) throw new Error('db write failed');
 }
 
+// SlickText list ids for this account. Campaigns can target a list but cannot EXCLUDE one, so
+// "RSVP'd" and "not RSVP'd" have to be kept as two non-overlapping lists rather than worked out
+// at send time — otherwise anyone who RSVPs would receive both Saturday messages.
+const LISTS = {
+  websiteSignups: 183782, // everyone who ever submitted either form
+  rsvpOct17: 183781,      // said they are coming to meetup 008
+  oct17NotRsvpd: 183783,  // everyone else; people leave this list when they RSVP
+};
+
+async function stFetch(path, options = {}) {
+  const key = process.env.SLICKTEXT_API_KEY;
+  const r = await fetch(`${SLICKTEXT_BASE}${path}`, {
+    ...options,
+    headers: {
+      Authorization: `Bearer ${key}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+    },
+  });
+  const text = await r.text();
+  let body;
+  try { body = JSON.parse(text); } catch { body = null; }
+  return { ok: r.ok, status: r.status, body };
+}
+
 // Best-effort push into SlickText. A failure here must never cost us the signup — the person is
 // already safely in Firebase by this point, so we record that the sync is owed and move on.
 // `pendingSync` is what a later reconcile pass looks for.
-async function syncToSlickText({ phone, name, listKey }) {
+async function syncToSlickText({ phone, name, kind }) {
   const key = process.env.SLICKTEXT_API_KEY;
   const brand = process.env.SLICKTEXT_BRAND_ID;
   if (!key || !brand) return { ok: false, reason: 'not configured' };
 
-  const r = await fetch(`${SLICKTEXT_BASE}/contacts`, {
+  const e164 = `+1${phone}`;
+
+  // Reuse the existing contact if there is one, so a repeat signup updates a person instead of
+  // erroring or duplicating them.
+  let contactId = null;
+  const found = await stFetch(`/brands/${brand}/contacts?mobile_number=${encodeURIComponent(e164)}`);
+  if (found.ok && found.body && Array.isArray(found.body.data) && found.body.data.length) {
+    contactId = found.body.data[0].contact_id;
+  }
+
+  if (!contactId) {
+    const created = await stFetch(`/brands/${brand}/contacts`, {
+      method: 'POST',
+      body: JSON.stringify({
+        first_name: name,
+        mobile_number: e164,
+        // They ticked a required consent box on the form, which is express written consent.
+        opt_in_status: 'subscribed',
+      }),
+    });
+    if (!created.ok) return { ok: false, reason: `create ${created.status}` };
+    contactId = created.body && created.body.contact_id;
+  }
+  if (!contactId) return { ok: false, reason: 'no contact id' };
+
+  const lists = kind === 'rsvp'
+    ? [LISTS.websiteSignups, LISTS.rsvpOct17]
+    : [LISTS.websiteSignups, LISTS.oct17NotRsvpd];
+
+  const add = await stFetch(`/brands/${brand}/lists/contacts`, {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${key}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      brand_id: Number(brand),
-      mobile_number: phone,
-      first_name: name,
-      lists: listKey ? [listKey] : undefined,
-    }),
+    body: JSON.stringify([{ contact_id: contactId, lists }]),
   });
-  if (!r.ok) return { ok: false, reason: `slicktext ${r.status}` };
-  return { ok: true };
+  if (!add.ok) return { ok: false, reason: `list add ${add.status}` };
+
+  // An RSVP has to leave the "not RSVP'd" bucket or they get the wrong Saturday text as well.
+  if (kind === 'rsvp') {
+    await stFetch(`/brands/${brand}/lists/contacts`, {
+      method: 'DELETE',
+      body: JSON.stringify([{ contact_id: contactId, lists: [LISTS.oct17NotRsvpd] }]),
+    }).catch(() => {});
+  }
+
+  return { ok: true, contactId };
 }
 
 export default async function handler(req, res) {
@@ -150,10 +205,9 @@ export default async function handler(req, res) {
       }),
     }).catch(() => {});
 
-    // Everyone lands in the main list. RSVPs additionally get tagged for the day-of send, so the
-    // "see you in a few hours" text only goes to people who actually said they were coming.
-    const listKey = kind === 'rsvp' && meetupId ? `rsvp-${meetupId}` : 'all';
-    const sync = await syncToSlickText({ phone, name: patch.name, listKey });
+    // Everyone lands in the signups list. RSVPs additionally get tagged for the day-of send, so
+    // the "we saved you a spot" text only goes to people who actually said they were coming.
+    const sync = await syncToSlickText({ phone, name: patch.name, kind });
     if (!sync.ok) {
       await writeContact(phone, { pendingSync: true, pendingSyncReason: sync.reason });
     }
