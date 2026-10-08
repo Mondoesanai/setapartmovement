@@ -13,3 +13,5 @@ Thumbs.db
 *attendance*.csv
 match-*.csv
 slicktext-import.csv
+import-*.csv
+slicktext-final.csv
