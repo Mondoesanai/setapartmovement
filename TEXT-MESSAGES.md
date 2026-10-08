@@ -7,34 +7,34 @@ message, retype it with straight quotes.
 
 Opt-out language goes in the first send of a campaign, not every send.
 
+**The link does the work.** These don't recite the time, address and price — the site already says
+all of that, and cramming it in makes a text read like a flyer. One warm line, one link.
+
 ---
 
-## Meetup 008 — Saturday, October 17 (7-9 PM, 2200 Driskell Dr)
+## Meetup 008 — Saturday, October 17
 
-Two sends, as planned.
+Two sends, both scheduled for 9:00 AM.
 
-### Send 1 — Monday Oct 12, 4:00 PM — to EVERYONE
+### Send 1 — Monday Oct 12, 9:00 AM — to EVERYONE
 
-> Yo it's Sam. Set Apart Movement is back Sat Oct 17, 7-9pm, 2200 Driskell Dr. Free, bring a
-> friend + a snack. setapartmovement.com Reply STOP to end
+> Hey! Set Apart Movement is back this Saturday night and we would love to have you there. All the
+> info is here: setapartmovement.com Reply STOP to end
 
-4 PM lands after school and before practice. Sending in the morning gets read in a hallway and
-forgotten.
+### Send 2 — Saturday Oct 17, 9:00 AM — SPLIT INTO TWO
 
-### Send 2 — Saturday Oct 17, 10:00 AM — SPLIT INTO TWO SEGMENTS
+**2A — people who RSVP'd**
 
-**2A — to people who RSVP'd** (list: `rsvp-008`)
+> Today is the day! You already saved your spot so we are counting on you tonight. Everything you
+> need is here: setapartmovement.com Cannot wait to see you!
 
-> Yo it's Sam. Tonight's the night. 7pm at 2200 Driskell Dr. You said you're in so we got a spot
-> saved for you. Don't forget a snack to share. See you tonight.
+**2B — everyone who did NOT RSVP**
 
-**2B — to everyone who did NOT RSVP**
+> Today is the day! Set Apart Movement is tonight and there is still room for you. All the info is
+> here: setapartmovement.com Hope to see you there!
 
-> Yo it's Sam. Set Apart Movement is tonight, 7-9pm at 2200 Driskell Dr. There's still room for
-> you. Free, bring a friend. We'd love to see you there.
-
-The split matters. "We saved you a spot" to someone who never RSVP'd reads like a form letter, and
-"there's still room" to someone who already committed makes them feel forgotten.
+The split matters. "You already saved your spot" to someone who never RSVP'd reads like a form
+letter, and "there is still room" to someone who already committed makes them feel forgotten.
 
 ---
 
@@ -42,13 +42,13 @@ The split matters. "We saved you a spot" to someone who never RSVP'd reads like 
 
 Borrowed from how churches text about events, which is the most tested version of this problem:
 
-- **Say who it is in the first four words.** An unknown number asking you to show up somewhere gets
-  ignored. "Yo it's Sam" does more work than any subject line.
+- **Lead with the name of the thing.** An unknown number telling you to show up somewhere gets
+  ignored. "Set Apart Movement" in the first four words is the whole introduction.
 - **One ask per message.** Never "RSVP and invite someone and follow us."
-- **Time and place every single time.** Assume they deleted the last text.
-- **No hype adjectives.** "Something crazy is coming" lowers trust. "Tonight's the night" is enough.
-- **Write how you talk.** Lowercase openers, contractions, short sentences.
-- **Name the cost barrier.** "Free" removes the most common silent objection for a teenager.
+- **Send people to one link instead of listing details.** A text is an invitation, not a flyer.
+  It also means you only update the site when something changes, never the text.
+- **No hype adjectives.** "Something crazy is coming" lowers trust. "Today is the day" is enough.
+- **Write how you talk.** Short sentences, contractions, a real exclamation point.
 
 ---
 
@@ -58,44 +58,43 @@ So it never reads copy-pasted. Rotate these; don't run the same frame twice in a
 
 ### Announcement (first send of a cycle)
 
-1. Yo it's Sam. Set Apart Movement is back [DAY] [DATE], [TIME] at [PLACE]. Free, bring a friend
-   and a snack to share. Save your spot: setapartmovement.com
-2. It's Sam. We're back [DAY] [DATE] at [PLACE], [TIME]. Same people, same room, bring somebody
-   who's never come. Free: setapartmovement.com
-3. Yo. Next Set Apart Movement is [DAY] [DATE], [TIME], [PLACE]. If you've been once you know.
-   If you haven't, this is the one to come to. setapartmovement.com
-4. It's Sam. [DAY] [DATE] we're back at [PLACE] at [TIME]. No cost, no pressure, just come.
-   Save a spot: setapartmovement.com
+1. Hey! Set Apart Movement is back this Saturday night and we would love to have you there. All the
+   info is here: setapartmovement.com
+2. Set Apart Movement is back [DAY] night. Same room, same people, bring somebody who has never
+   come. Everything you need: setapartmovement.com
+3. Hey! We are back [DAY] night. If you have been once you know how it goes. If you have not, this
+   is the one to come to: setapartmovement.com
+4. Set Apart Movement is back [DAY]. No cost, no pressure, just come. All the details are here:
+   setapartmovement.com
 
 ### Day-of, RSVP'd
 
-1. Yo it's Sam. Tonight's the night. [TIME] at [PLACE]. You said you're in so we got a spot saved
-   for you. See you tonight.
-2. It's Sam. Tonight, [TIME], [PLACE]. You're on the list. Bring your snack and bring your person.
-3. Yo. Few hours out. [TIME] at [PLACE]. Already got you counted. Don't leave us hanging.
-4. It's Sam. Tonight at [TIME]. [PLACE]. Pumped you're coming. Grab somebody on the way.
+1. Today is the day! You already saved your spot so we are counting on you tonight. Details:
+   setapartmovement.com
+2. Tonight is the night and you are on the list. Everything you need is here: setapartmovement.com
+   See you soon!
+3. Today is the day! Your spot is saved. Grab somebody on your way: setapartmovement.com
 
 ### Day-of, did not RSVP
 
-1. Yo it's Sam. Set Apart Movement is tonight, [TIME] at [PLACE]. Still room for you. Free, bring
-   a friend.
-2. It's Sam. Tonight [TIME], [PLACE]. You haven't said either way and that's all good. Door's open
-   if you want it.
-3. Yo. Tonight's the night, [TIME] at [PLACE]. No RSVP needed, just show up. Would be good to see
-   you.
+1. Today is the day! Set Apart Movement is tonight and there is still room for you. All the info:
+   setapartmovement.com
+2. Tonight is the night! No RSVP needed, just come. Everything you need to know:
+   setapartmovement.com
+3. Today is the day! Would be really good to see you tonight. Details here: setapartmovement.com
 
 ### Welcome (first text after someone joins)
 
-1. Yo, it's Sam. You're on the list for Set Apart Movement. I'll text you when the next one drops,
-   that's it. Reply STOP anytime.
-2. It's Sam. Got you added. You'll hear from me first when the next meetup is set. Reply STOP to
-   end.
+1. You are on the list for Set Apart Movement! We will text you the moment the next one is set.
+   Reply STOP anytime.
+2. Welcome to Set Apart Movement! You will hear from us first when the next meetup drops. Reply
+   STOP to end.
 
 ### After a meetup (keeps the list warm between events)
 
-1. Yo it's Sam. Last night was something. Thanks for coming. Next one's already in the works.
-2. It's Sam. Still thinking about last night. If you brought somebody, that's on you. Appreciate
-   you.
+1. Last night was something else. Thank you for coming. The next one is already in the works.
+2. Still thinking about last night! If you brought somebody with you, that is on you. We
+   appreciate you.
 
 ---
 
@@ -103,5 +102,5 @@ So it never reads copy-pasted. Rotate these; don't run the same frame twice in a
 
 - Stay under 160 characters per message. Over that, one text bills as two.
 - Plain ASCII only. No emoji, no curly quotes, no em-dashes.
-- Link only when there's a reason to tap. A link in a day-of reminder gets ignored.
 - Two sends per meetup is the right rhythm for this list size. Three starts costing opt-outs.
+- Run `node check-sms.mjs` after editing. It fails the build if a message would cost double.

@@ -8,12 +8,12 @@ const GSM7 =
   "¿abcdefghijklmnopqrstuvwxyzäöñüà";
 
 const sends = [
-  ['Send 1 - Mon Oct 12, all contacts',
-   "Yo it's Sam. Set Apart Movement is back Sat Oct 17, 7-9pm, 2200 Driskell Dr. Free, bring a friend + a snack. setapartmovement.com Reply STOP to end"],
-  ["Send 2A - Sat Oct 17 10am, RSVP'd",
-   "Yo it's Sam. Tonight's the night. 7pm at 2200 Driskell Dr. You said you're in so we got a spot saved for you. Don't forget a snack to share. See you tonight."],
-  ['Send 2B - Sat Oct 17 10am, did not RSVP',
-   "Yo it's Sam. Set Apart Movement is tonight, 7-9pm at 2200 Driskell Dr. There's still room for you. Free, bring a friend. We'd love to see you there."],
+  ['Send 1 - Mon Oct 12 9am, all contacts',
+   "Hey! Set Apart Movement is back this Saturday night and we would love to have you there. All the info is here: setapartmovement.com Reply STOP to end"],
+  ["Send 2A - Sat Oct 17 9am, RSVP'd",
+   "Today is the day! You already saved your spot so we are counting on you tonight. Everything you need is here: setapartmovement.com Cannot wait to see you!"],
+  ['Send 2B - Sat Oct 17 9am, did not RSVP',
+   "Today is the day! Set Apart Movement is tonight and there is still room for you. All the info is here: setapartmovement.com Hope to see you there!"],
 ];
 
 const md = fs.readFileSync('TEXT-MESSAGES.md', 'utf8');
