@@ -984,6 +984,9 @@
     .wlm-field input::placeholder { color: rgba(240,236,228,.28); }
     .wlm-field input:focus { border-color: rgba(212,168,74,.6); }
     .wlm-err { font-size: 11px; color: #e05050; margin-top: 6px; display: none; }
+    .wlm-consent { display:flex; gap:11px; align-items:flex-start; margin:4px 0 16px; cursor:pointer; }
+    .wlm-consent input[type=checkbox] { flex-shrink:0; width:20px; height:20px; margin-top:1px; accent-color:#D4A84A; cursor:pointer; }
+    .wlm-consent span { font-size:12px; line-height:1.6; color:rgba(240,236,228,.52); }
     .wlm-submit {
       width: 100%; padding: 17px;
       background: linear-gradient(135deg, #1a1000, #4a3010, #1a1000);
@@ -2662,6 +2665,10 @@ window._samDb = (function(){
         <input type="tel" id="wlm-phone" placeholder="Phone number" autocomplete="tel" inputmode="tel" />
         <div class="wlm-err" id="wlm-err">Please fill in both fields.</div>
       </div>
+      <label class="wlm-consent" for="wlm-consent">
+        <input type="checkbox" id="wlm-consent">
+        <span>Text me when the next meetup drops. Message frequency varies, message &amp; data rates may apply. Reply STOP to unsubscribe, HELP for help.</span>
+      </label>
       <button class="wlm-submit" onclick="submitWaitlist()">LOCK IN MY SPOT &rarr;</button>
     </div>
 
@@ -3067,7 +3074,15 @@ function submitWaitlist(){
   /* Capture rank before push — current count + 1 = user's spot */
   var countEl=document.getElementById('wl-count');
   var myRank=(countEl?parseInt(String(countEl.textContent).replace(/[^0-9]/g,''))||0:0)+1;
-  var entry={name:name,phone:phone,createdAt:Date.now()};
+  /* Store the consent decision and the exact wording they agreed to, so there's a dated
+     record per signup if a carrier ever asks for proof of opt-in. */
+  var consentEl=document.getElementById('wlm-consent');
+  var smsConsent=!!(consentEl&&consentEl.checked);
+  var entry={name:name,phone:phone,createdAt:Date.now(),smsConsent:smsConsent};
+  if(smsConsent){
+    entry.consentText='Text me when the next meetup drops. Message frequency varies, message & data rates may apply. Reply STOP to unsubscribe, HELP for help.';
+    entry.consentSource='setapartmovement.com waitlist form';
+  }
   if(ctx.refId)entry.ref=ctx.refId;
   d.ref('waitlist').push(entry).then(function(){
     var rankEl=document.getElementById('wlm-success-rank');
