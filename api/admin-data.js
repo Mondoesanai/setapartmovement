@@ -8,6 +8,7 @@
 // gate direct access to the database too. See ADMIN_SECURITY_SETUP.md in this repo.
 
 const ALLOWED_RESOURCES = {
+  contacts: 'contacts', // the real contact table: one record per phone, with consent + RSVP history
   waitlist: 'waitlist',
   rsvps: 'rsvps',
   smsOptIns: 'smsOptIns', // SMS opt-in form submissions (name, email, phone, consent record)

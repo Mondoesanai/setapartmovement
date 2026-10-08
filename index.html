@@ -1106,23 +1106,14 @@
     .conn-flow-h{font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(38px,11vw,58px);letter-spacing:.02em;color:var(--cream);line-height:.88;margin:4px 0 8px;text-align:center;}
     .conn-flow-sub{text-align:center;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:15px;color:rgba(240,237,230,.42);margin-bottom:28px;}
     .cf-track{position:relative;}
-    /* the dim rail + the gold fill that grows as steps open */
-    .cf-rail{position:absolute;left:34px;top:16px;bottom:16px;width:2px;background:rgba(196,149,42,.14);border-radius:2px;z-index:1;pointer-events:none;}
-    .cf-rail-fill{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(to bottom,#E8B84A,#C4952A);border-radius:2px;box-shadow:0 0 12px rgba(196,149,42,.5);transition:height .55s cubic-bezier(.4,0,.2,1);}
-    .cf-step{position:relative;margin-bottom:10px;background:rgba(240,237,230,.022);border:1px solid rgba(196,149,42,.14);border-radius:12px;transition:background .25s ease,border-color .25s ease,transform .18s cubic-bezier(.34,1.56,.64,1);}
+    /* All three steps read at once — nothing to tap open. The rail just connects them. */
+    .cf-rail{position:absolute;left:34px;top:16px;bottom:16px;width:2px;background:linear-gradient(to bottom,rgba(232,184,74,.8),rgba(196,149,42,.4));border-radius:2px;z-index:1;pointer-events:none;}
+    .cf-step{position:relative;margin-bottom:10px;background:rgba(240,237,230,.022);border:1px solid rgba(196,149,42,.14);border-radius:12px;}
     .cf-step:last-child{margin-bottom:0;}
-    .cf-head{display:flex;align-items:center;gap:15px;width:100%;background:transparent;border:0;border-radius:12px;padding:15px 16px;cursor:pointer;text-align:left;font-family:inherit;-webkit-tap-highlight-color:transparent;}
-    .cf-step:has(.cf-head:active){transform:scale(.985);z-index:3;}
-    .cf-step.open{background:rgba(196,149,42,.07);border-color:rgba(196,149,42,.4);}
-    .cf-node{position:relative;z-index:2;flex-shrink:0;width:36px;height:36px;border-radius:50%;background:#100d08;border:2px solid rgba(196,149,42,.3);display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",impact,sans-serif;font-size:18px;color:rgba(196,149,42,.6);letter-spacing:.02em;transition:border-color .3s ease,color .3s ease,box-shadow .3s ease,background .3s ease;}
-    .cf-step.open .cf-node{background:linear-gradient(145deg,#E8B84A,#C4952A);border-color:#E8B84A;color:#0c0a06;box-shadow:0 0 18px rgba(196,149,42,.55);}
-    .cf-title{flex:1;font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(21px,5.6vw,26px);letter-spacing:.02em;color:rgba(240,237,230,.62);line-height:1.05;transition:color .25s ease;}
-    .cf-step.open .cf-title{color:var(--cream);}
-    .cf-chev{flex-shrink:0;color:rgba(196,149,42,.45);font-size:11px;transition:transform .35s cubic-bezier(.4,0,.2,1),color .25s ease;}
-    .cf-step.open .cf-chev{transform:rotate(180deg);color:var(--gold);}
-    .cf-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
-    .cf-step.open .cf-body{max-height:220px;}
-    .cf-body-inner{padding:0 18px 16px 68px;text-align:left;font-size:13.5px;line-height:1.75;color:rgba(240,237,230,.52);}
+    .cf-head{display:flex;align-items:center;gap:15px;width:100%;padding:15px 16px 0;text-align:left;}
+    .cf-node{position:relative;z-index:2;flex-shrink:0;width:36px;height:36px;border-radius:50%;background:linear-gradient(145deg,#E8B84A,#C4952A);border:2px solid #E8B84A;display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",impact,sans-serif;font-size:18px;color:#0c0a06;letter-spacing:.02em;box-shadow:0 0 14px rgba(196,149,42,.38);}
+    .cf-title{flex:1;font-family:"Bebas Neue",impact,sans-serif;font-size:clamp(21px,5.6vw,26px);letter-spacing:.02em;color:var(--cream);line-height:1.05;}
+    .cf-body-inner{padding:10px 18px 16px 68px;text-align:left;font-size:13.5px;line-height:1.75;color:rgba(240,237,230,.52);}
     .cf-body-inner strong{color:rgba(196,149,42,.85);font-weight:600;}
     .conn-flow-link{display:block;text-align:center;margin-top:24px;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:14px;border:1px solid rgba(196,149,42,.3);border-radius:6px;transition:background .2s ease,border-color .2s ease,transform .18s cubic-bezier(.34,1.56,.64,1);}
     .conn-flow-link:hover{background:rgba(196,149,42,.08);border-color:rgba(196,149,42,.55);}
@@ -1243,7 +1234,7 @@
       </a>
       <div class="cant-make-it rv" id="cant-make-it-card">
         <div class="cmi-label">Can&rsquo;t make it to this one?</div>
-        <button class="cmi-btn" onclick="openWaitlistModal()">Join the Waitlist for the Next Meetup &rarr;</button>
+        <button class="cmi-btn" onclick="openJoinModal('list')">Text me when the next one drops &rarr;</button>
       </div>
     </div>
 
@@ -1303,43 +1294,40 @@
       </div>
     </div>
 
-    <!-- How-it-works journey. Tapping a step expands it and fills the rail up to that node.
+    <!-- How-it-works journey. All three steps show at once by design — no tapping.
          Full breakdown lives on /how-it-works.html -->
     <div class="conn-flow rv" id="conn-flow-sec">
       <div class="conn-eyebrow" style="text-align:center">How This Works</div>
       <div class="conn-flow-h">START HERE.</div>
       <div class="conn-flow-sub">Three steps. That's the whole thing.</div>
       <div class="cf-track" id="cf-track">
-        <div class="cf-rail"><div class="cf-rail-fill" id="cf-rail-fill"></div></div>
+        <div class="cf-rail"></div>
 
-        <div class="cf-step open" id="cf-step-1">
-          <button class="cf-head" type="button" onclick="toggleFlowStep(1)" aria-expanded="true" aria-controls="cf-body-1">
+        <div class="cf-step" id="cf-step-1">
+          <div class="cf-head">
             <span class="cf-node">1</span>
             <span class="cf-title">Show up.</span>
-            <span class="cf-chev">&#9660;</span>
-          </button>
+          </div>
           <div class="cf-body" id="cf-body-1">
             <div class="cf-body-inner">Come to a meetup. It's <strong>free</strong>, there's nothing to sign up for, and you don't need to know anybody. Just show up.</div>
           </div>
         </div>
 
         <div class="cf-step" id="cf-step-2">
-          <button class="cf-head" type="button" onclick="toggleFlowStep(2)" aria-expanded="false" aria-controls="cf-body-2">
+          <div class="cf-head">
             <span class="cf-node">2</span>
             <span class="cf-title">Get your number.</span>
-            <span class="cf-chev">&#9660;</span>
-          </button>
+          </div>
           <div class="cf-body" id="cf-body-2">
             <div class="cf-body-inner">Come a few times and you earn your own bracelet with a permanent number. <strong>Only 100 exist</strong> &mdash; once it's yours, nobody else ever has it.</div>
           </div>
         </div>
 
         <div class="cf-step" id="cf-step-3">
-          <button class="cf-head" type="button" onclick="toggleFlowStep(3)" aria-expanded="false" aria-controls="cf-body-3">
+          <div class="cf-head">
             <span class="cf-node">3</span>
             <span class="cf-title">Bring people with you.</span>
-            <span class="cf-chev">&#9660;</span>
-          </button>
+          </div>
           <div class="cf-body" id="cf-body-3">
             <div class="cf-body-inner">People tap your bracelet with their phone. Every tap moves you up the board &mdash; and the people at the top are the ones <strong>actually growing this thing</strong>.</div>
           </div>
@@ -2191,7 +2179,7 @@
       var curId = document.getElementById('wl-count');
       var curVal = curId ? curId.textContent : '--';
       wlCountText.innerHTML = '<strong id="wl-count">' + curVal + '</strong>';
-      wlCountText.insertAdjacentHTML('afterend','<div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,237,230,.3);text-align:center">People in Line &middot; Limited Spots</div>');
+      wlCountText.insertAdjacentHTML('afterend','<div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,237,230,.3);text-align:center">People Getting the Text</div>');
     }
 
     /* ── 10. Remove One Year section + THIS ONE IS DIFFERENT ── */
@@ -2246,48 +2234,21 @@
 
   /* ── START HERE journey track: tapping a step expands it and grows the gold rail down to
      that step's node. Accordion (one open at a time) so the section stays compact. ── */
-  window.toggleFlowStep = function (n) {
-    var target = document.getElementById('cf-step-' + n);
-    if (!target) return;
-    var wasOpen = target.classList.contains('open');
-    for (var i = 1; i <= 3; i++) {
-      var s = document.getElementById('cf-step-' + i);
-      if (!s) continue;
-      var open = (i === n && !wasOpen);
-      s.classList.toggle('open', open);
-      var btn = s.querySelector('.cf-head');
-      if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    }
-    updateFlowRail();
-  };
-
+  /* The steps are always open, so the only job left is keeping the rail
+     centred on the number column if the layout shifts. */
   function updateFlowRail() {
     var track = document.getElementById('cf-track');
-    var fill = document.getElementById('cf-rail-fill');
     var rail = track && track.querySelector('.cf-rail');
-    if (!track || !fill || !rail) return;
-    var firstNode = track.querySelector('.cf-node');
-    if (firstNode) {
-      var tLeft = track.getBoundingClientRect().left;
-      var nRect = firstNode.getBoundingClientRect();
-      rail.style.left = Math.round(nRect.left - tLeft + nRect.width / 2 - rail.offsetWidth / 2) + 'px';
-    }
-    var openStep = track.querySelector('.cf-step.open');
-    if (!openStep) { fill.style.height = '0px'; return; }
-    var node = openStep.querySelector('.cf-node');
-    if (!node) return;
-    // fill from the top of the rail down to the centre of the open step's node
-    var railTop = rail.getBoundingClientRect().top;
-    var nodeRect = node.getBoundingClientRect();
-    fill.style.height = Math.max(0, (nodeRect.top + nodeRect.height / 2) - railTop) + 'px';
+    var firstNode = track && track.querySelector('.cf-node');
+    if (!track || !rail || !firstNode) return;
+    var tLeft = track.getBoundingClientRect().left;
+    var nRect = firstNode.getBoundingClientRect();
+    rail.style.left = Math.round(nRect.left - tLeft + nRect.width / 2 - rail.offsetWidth / 2) + 'px';
   }
-
   window.addEventListener('resize', updateFlowRail);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(updateFlowRail, 60); });
   else setTimeout(updateFlowRail, 60);
-  /* the section starts hidden behind the .rv reveal, so recompute once it's actually laid out */
   setTimeout(updateFlowRail, 900);
-  setTimeout(updateFlowRail, 2000);
 
   /* ── Hamburger menu — permanent site nav, not tied to any specific meetup.
      (Previously lived inside the showServe block and silently stopped running once that
@@ -2409,24 +2370,14 @@
       rsvpCur.removeAttribute('href');
       rsvpCur.setAttribute('role','button');
       rsvpCur.setAttribute('aria-label','RSVP for ' + CURRENT_MEETUP.evTag);
+      /* Collect a name and number — a bare tap told us someone was coming but left us
+         no way to reach them, which is the whole point of the funnel. */
       rsvpCur.addEventListener('click', function(e) {
         e.preventDefault();
-        if (this.classList.contains('rsvp-confirmed')) return;
-        this.classList.add('rsvp-confirmed');
-        this.innerHTML = 'YOUR SPOT IS RESERVED &nbsp;✓';
-        this.style.cssText += ';background:rgba(196,149,42,.1)!important;border:1px solid rgba(196,149,42,.38)!important;color:var(--gold)!important;box-shadow:none!important;animation:none!important;cursor:default;pointer-events:none;';
-        var msg = document.createElement('div');
-        msg.style.cssText = 'text-align:center;margin-top:14px;font-size:12px;letter-spacing:.06em;line-height:1.7;color:rgba(240,237,230,.42);';
-        msg.innerHTML = 'We’ll see you <strong style="color:rgba(196,149,42,.7)">' + CURRENT_MEETUP.rsvpConfirmLine + '</strong>';
-        this.insertAdjacentElement('afterend', msg);
-        try {
-          var already = localStorage.getItem('sam_rsvp_' + CURRENT_MEETUP.id) === '1';
-          if (!already && window._samDb) {
-            window._samDb.ref('rsvps/' + CURRENT_MEETUP.id).push({ ts: Date.now() });
-            localStorage.setItem('sam_rsvp_' + CURRENT_MEETUP.id, '1');
-          }
-        } catch (err) {}
+        openJoinModal('rsvp');
       });
+      window.CURRENT_MEETUP_CONFIRM_LINE = CURRENT_MEETUP.rsvpConfirmLine;
+      _restoreRsvpState();
     }
 
     /* Open button (legacy envelope intro) */
@@ -2630,7 +2581,7 @@ window._samDb = (function(){
   </a>
   <a class="srm-item" href="javascript:void(0)" onclick="document.getElementById('sam-ref-menu').style.display='none';openWaitlistModal()">
     <div class="srm-icon">&#9670;</div>
-    <div class="srm-text"><strong>Join the Waitlist</strong><span>Get notified about the next meetup</span></div>
+    <div class="srm-text"><strong>Get the text</strong><span>Know first when the next meetup drops</span></div>
   </a>
   <a class="srm-item" href="/rankings">
     <div class="srm-icon">&#8679;</div>
@@ -2656,7 +2607,7 @@ window._samDb = (function(){
 
 <!-- Small waitlist bubble — bottom right, above FAB -->
 <!-- Waitlist bubble — bottom right, above bracelet FAB -->
-<button id="wl-bubble" onclick="openWaitlistModal()" style="position:fixed;bottom:calc(max(env(safe-area-inset-bottom,0px),28px) + 72px);right:18px;z-index:8900;background:linear-gradient(135deg,#2a1800,#6a4010);border:1.5px solid rgba(212,168,74,.5);border-radius:28px;padding:8px 16px;color:#D4A84A;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.6),0 0 16px rgba(212,168,74,.15);white-space:nowrap;display:none">JOIN WAITLIST</button>
+<button id="wl-bubble" onclick="openWaitlistModal()" style="position:fixed;bottom:calc(max(env(safe-area-inset-bottom,0px),28px) + 72px);right:18px;z-index:8900;background:linear-gradient(135deg,#2a1800,#6a4010);border:1.5px solid rgba(212,168,74,.5);border-radius:28px;padding:8px 16px;color:#D4A84A;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,.6),0 0 16px rgba(212,168,74,.15);white-space:nowrap;display:none">GET THE TEXT</button>
 
 <!-- Admin pill — bottom left, only visible to admin -->
 <button id="sam-admin-pill" onclick="openWlAdmin()" style="position:fixed;bottom:max(env(safe-area-inset-bottom,0px),28px);left:18px;z-index:8900;background:rgba(212,168,74,.06);border:1px solid rgba(212,168,74,.28);border-radius:28px;padding:8px 16px;color:rgba(212,168,74,.7);font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;display:none">WAITLIST ★</button>
@@ -2679,7 +2630,7 @@ window._samDb = (function(){
       </div>
       <label class="wlm-consent" for="wlm-consent">
         <input type="checkbox" id="wlm-consent">
-        <span>Text me when the next meetup drops. Message frequency varies, message &amp; data rates may apply. Reply STOP to unsubscribe, HELP for help.</span>
+        <span>I agree to get texts from Set Apart Movement about upcoming meetups. Message frequency varies. Message &amp; data rates may apply. Reply STOP to unsubscribe, HELP for help.</span>
       </label>
       <button class="wlm-submit" onclick="submitWaitlist()">LOCK IN MY SPOT &rarr;</button>
     </div>
@@ -2687,8 +2638,8 @@ window._samDb = (function(){
     <div class="wlm-success" id="wlm-success-view">
       <div class="wlm-success-icon">🔥</div>
       <div id="wlm-success-rank" style="font-family:'Bebas Neue',impact,sans-serif;font-size:72px;color:#C4952A;line-height:1;letter-spacing:.04em;margin:10px 0 2px">#--</div>
-      <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,237,230,.28);margin-bottom:18px">Your spot in line</div>
-      <div class="wlm-success-title">YOU&rsquo;RE IN LINE.</div>
+      <div id="wlm-success-label" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,237,230,.28);margin-bottom:18px">You&rsquo;re on the list</div>
+      <div class="wlm-success-title">YOU&rsquo;RE ON THE LIST.</div>
       <div class="wlm-success-sub">We got you. You&rsquo;ll hear from us before anyone else knows it&rsquo;s happening.<br><br>In the meantime &mdash; tell one person who needs to be there.</div>
     </div>
   </div>
@@ -2724,7 +2675,7 @@ window._samDb = (function(){
       <div id="tab-waitlist" class="sdp-tab-pane"><div class="sdp-loading">Loading&hellip;</div></div>
     </div>
     <div class="sdp-links">
-      <a href="javascript:void(0)" class="sdp-link" onclick="closeSamDrawer();openWaitlistModal()">Join the Waitlist &rarr;</a>
+      <a href="javascript:void(0)" class="sdp-link" onclick="closeSamDrawer();openJoinModal('list')">Get the text &rarr;</a>
       <a href="/rankings" class="sdp-link">Full Rankings &rarr;</a>
       <a href="/how-it-works" class="sdp-link">How It Works &rarr;</a>
     </div>
@@ -3058,55 +3009,129 @@ window._samDb = (function(){
 
 <script>
 /* ── WAITLIST & ADMIN GLOBALS ── */
-function openWaitlistModal(){
-  var m=document.getElementById('wl-modal');
-  if(m){m.classList.add('open');document.body.style.overflow='hidden';}
+/* The modal does double duty: "get the text" and "reserve my spot". Same fields, same
+   mandatory consent, same single contact record — only the copy and the funnel tag differ. */
+var JOIN_COPY = {
+  list: {
+    headline: 'DON&rsquo;T MISS<br>THE NEXT ONE.',
+    sub: 'Drop your name and number. The second the next meetup is locked in, you get a text &mdash; before it&rsquo;s posted anywhere else.',
+    cta: 'TEXT ME WHEN IT DROPS &rarr;',
+    busy: 'ADDING YOU&hellip;',
+    successTitle: 'YOU&rsquo;RE ON THE LIST.',
+    successLabel: 'You&rsquo;re on the list',
+    successSub: 'We got you. You&rsquo;ll hear from us before anyone else knows it&rsquo;s happening.<br><br>In the meantime &mdash; tell one person who needs to be there.'
+  },
+  rsvp: {
+    headline: 'SAVE<br>MY SPOT.',
+    sub: 'Drop your name and number and your spot is locked in. We&rsquo;ll text you a reminder the morning of.',
+    cta: 'RESERVE MY SPOT &rarr;',
+    busy: 'RESERVING&hellip;',
+    successTitle: 'YOUR SPOT IS RESERVED.',
+    successLabel: 'Saved for you',
+    successSub: 'We got you. You&rsquo;ll get one text the morning of so it doesn&rsquo;t sneak up on you.<br><br>Now bring somebody with you.'
+  }
+};
+var _joinMode = 'list';
+
+function openJoinModal(mode){
+  _joinMode = (mode === 'rsvp') ? 'rsvp' : 'list';
+  var c = JOIN_COPY[_joinMode];
+  var h  = document.querySelector('.wlm-headline'); if(h)  h.innerHTML  = c.headline;
+  var sb = document.querySelector('.wlm-sub');      if(sb) sb.innerHTML = c.sub;
+  var bt = document.querySelector('.wlm-submit');   if(bt){ bt.innerHTML = c.cta; bt.disabled = false; }
+  var fv = document.getElementById('wlm-form-view');    if(fv) fv.style.display = '';
+  var sv = document.getElementById('wlm-success-view'); if(sv) sv.style.display = 'none';
+  var er = document.getElementById('wlm-err');          if(er) er.style.display = 'none';
+  var m = document.getElementById('wl-modal');
+  if(m){ m.classList.add('open'); document.body.style.overflow='hidden'; }
   _hideWlBubble();
-  setTimeout(function(){var el=document.getElementById('wlm-name');if(el)el.focus();},400);
+  setTimeout(function(){ var el=document.getElementById('wlm-name'); if(el) el.focus(); }, 400);
 }
+/* Older call sites still say "waitlist" — keep them working. */
+function openWaitlistModal(){ openJoinModal('list'); }
+
 function closeWaitlistModal(){
   var m=document.getElementById('wl-modal');
   if(m)m.classList.remove('open');
   document.body.style.overflow='';
   _showWlBubble();
 }
+
 function submitWaitlist(){
   var nameEl=document.getElementById('wlm-name');
   var phoneEl=document.getElementById('wlm-phone');
   var err=document.getElementById('wlm-err');
+  var consentEl=document.getElementById('wlm-consent');
   if(!nameEl||!phoneEl)return;
   var name=nameEl.value.trim(), phone=phoneEl.value.trim();
-  if(!name||!phone){if(err){err.textContent='Please fill in both fields.';err.style.display='block';}return;}
-  if(err)err.style.display='none';
-  var d=window._samDb;
-  if(!d){if(err){err.textContent='Connection error. Try again.';err.style.display='block';}return;}
+  function fail(msg){ if(err){ err.textContent=msg; err.style.display='block'; } }
+
+  if(!name||!phone){ fail('Please fill in both fields.'); return; }
+  if(phone.replace(/[^0-9]/g,'').length < 10){ fail('That phone number looks too short.'); return; }
+  /* Consent is required, not optional. A contact we are not allowed to text is worse than
+     no contact — it looks like growth while doing nothing. */
+  if(!consentEl || !consentEl.checked){ fail('Please check the box so we can text you.'); return; }
+  if(err) err.style.display='none';
+
+  var c=JOIN_COPY[_joinMode];
   var btn=document.querySelector('.wlm-submit');
-  if(btn){btn.disabled=true;btn.textContent='LOCKING IN...';}
-  var ctx=window._samCtx||{};
-  /* Capture rank before push — current count + 1 = user's spot */
+  if(btn){ btn.disabled=true; btn.innerHTML=c.busy; }
+
   var countEl=document.getElementById('wl-count');
   var myRank=(countEl?parseInt(String(countEl.textContent).replace(/[^0-9]/g,''))||0:0)+1;
-  /* Store the consent decision and the exact wording they agreed to, so there's a dated
-     record per signup if a carrier ever asks for proof of opt-in. */
-  var consentEl=document.getElementById('wlm-consent');
-  var smsConsent=!!(consentEl&&consentEl.checked);
-  var entry={name:name,phone:phone,createdAt:Date.now(),smsConsent:smsConsent};
-  if(smsConsent){
-    entry.consentText='Text me when the next meetup drops. Message frequency varies, message & data rates may apply. Reply STOP to unsubscribe, HELP for help.';
-    entry.consentSource='setapartmovement.com waitlist form';
+  var ctx=window._samCtx||{};
+
+  fetch('/api/join',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      name:name, phone:phone, consent:true,
+      kind:_joinMode,
+      meetupId: window.SAM_CURRENT_MEETUP_ID || null,
+      ref: ctx.refId || null
+    })
+  }).then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ return {ok:r.ok, body:j}; }); })
+    .then(function(res){
+      if(!res.ok) throw new Error((res.body && res.body.error) || 'Something went wrong — try again.');
+      var rankEl=document.getElementById('wlm-success-rank'); if(rankEl) rankEl.textContent='#'+myRank;
+      var lbl=document.getElementById('wlm-success-label');   if(lbl) lbl.innerHTML=c.successLabel;
+      var ttl=document.querySelector('.wlm-success-title');   if(ttl) ttl.innerHTML=c.successTitle;
+      var sub=document.querySelector('.wlm-success-sub');     if(sub) sub.innerHTML=c.successSub;
+      var fv=document.getElementById('wlm-form-view');        if(fv) fv.style.display='none';
+      var sv=document.getElementById('wlm-success-view');     if(sv) sv.style.display='block';
+      if(_joinMode==='rsvp') _markRsvpButtonReserved();
+      try{
+        if(_joinMode==='rsvp' && window.SAM_CURRENT_MEETUP_ID)
+          localStorage.setItem('sam_rsvp_'+window.SAM_CURRENT_MEETUP_ID,'1');
+      }catch(e){}
+    })
+    .catch(function(e){
+      fail((e && e.message) || 'Something went wrong — try again.');
+      if(btn){ btn.disabled=false; btn.innerHTML=c.cta; }
+    });
+}
+
+/* Flips the hero RSVP button into its reserved state once a spot is actually saved. */
+function _markRsvpButtonReserved(){
+  var b=document.getElementById('ev-rsvp-btn');
+  if(!b || b.classList.contains('rsvp-confirmed')) return;
+  b.classList.add('rsvp-confirmed');
+  b.innerHTML='YOUR SPOT IS RESERVED &nbsp;&#10003;';
+  b.style.cssText += ';background:rgba(196,149,42,.1)!important;border:1px solid rgba(196,149,42,.38)!important;color:var(--gold)!important;box-shadow:none!important;animation:none!important;cursor:default;pointer-events:none;';
+  if(window.CURRENT_MEETUP_CONFIRM_LINE && !document.getElementById('rsvp-confirm-line')){
+    var msg=document.createElement('div');
+    msg.id='rsvp-confirm-line';
+    msg.style.cssText='text-align:center;margin-top:14px;font-size:12px;letter-spacing:.06em;line-height:1.7;color:rgba(240,237,230,.42);';
+    msg.innerHTML='We&rsquo;ll see you <strong style="color:rgba(196,149,42,.7)">'+window.CURRENT_MEETUP_CONFIRM_LINE+'</strong>';
+    b.insertAdjacentElement('afterend', msg);
   }
-  if(ctx.refId)entry.ref=ctx.refId;
-  d.ref('waitlist').push(entry).then(function(){
-    var rankEl=document.getElementById('wlm-success-rank');
-    if(rankEl)rankEl.textContent='#'+myRank;
-    var fv=document.getElementById('wlm-form-view');
-    var sv=document.getElementById('wlm-success-view');
-    if(fv)fv.style.display='none';
-    if(sv)sv.style.display='block';
-  }).catch(function(){
-    if(err){err.textContent='Something went wrong — try again.';err.style.display='block';}
-    if(btn){btn.disabled=false;btn.textContent='LOCK IN MY SPOT →';}
-  });
+}
+/* If they already reserved on this device, show that on load instead of asking twice. */
+function _restoreRsvpState(){
+  try{
+    if(window.SAM_CURRENT_MEETUP_ID && localStorage.getItem('sam_rsvp_'+window.SAM_CURRENT_MEETUP_ID)==='1')
+      _markRsvpButtonReserved();
+  }catch(e){}
 }
 function dismissWlCard(){
   var card=document.getElementById('waitlist-mode');
