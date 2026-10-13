@@ -11,10 +11,13 @@ const sends = [
   ['Send 1 - Mon Oct 12 9am, all contacts',
    "Hey! Set Apart Movement is back this Saturday night and we would love to have you there. All the info is here: setapartmovement.com Reply STOP to end"],
   ["Send 2A - Sat Oct 17 9am, RSVP'd",
-   "Today is the day! You already saved your spot so we are counting on you tonight. Everything you need is here: setapartmovement.com Cannot wait to see you!"],
+   "Yo! Today is the day. Set Apart Movement is tonight and I'm hyped you said you're in. Your spot is saved. If you can, grab somebody and bring them with you, that's what makes these nights hit different. All the info: setapartmovement.com See you tonight!"],
   ['Send 2B - Sat Oct 17 9am, did not RSVP',
-   "Today is the day! Set Apart Movement is tonight and there is still room for you. All the info is here: setapartmovement.com Hope to see you there!"],
+   "Yo! Today is the day. Set Apart Movement is tonight and there's still room for you. No RSVP needed, no cost, just pull up. Bring a friend if you can. It's always better when more of us are in the room: setapartmovement.com Hope to see you!"],
 ];
+
+// Budget is 2 credits per message now. One credit is 160 chars; past that each part is 153.
+const MAX_CREDITS = 2;
 
 const md = fs.readFileSync('TEXT-MESSAGES.md', 'utf8');
 // The doc wraps long lines for readability and quotes them as blockquotes, so strip the "> "
@@ -31,7 +34,7 @@ for (const [label, msg] of sends) {
   const len = msg.length;
   const segments = len <= 160 ? 1 : Math.ceil(len / 153);
   const inDoc = flat.includes(msg.replace(/\s+/g, ' '));
-  const ok = offenders.length === 0 && segments === 1 && inDoc;
+  const ok = offenders.length === 0 && segments <= MAX_CREDITS && inDoc;
   if (!ok) bad++;
   console.log(
     (ok ? 'PASS' : 'FAIL') + '  ' + label +
@@ -40,9 +43,14 @@ for (const [label, msg] of sends) {
     '  matches doc=' + inDoc
   );
 }
+// Each person receives exactly one of 2A / 2B, so the Saturday cost is per-person segments,
+// not the sum of both messages.
 const contacts = 110;
-console.log('\nCredit estimate at ' + contacts + ' contacts:');
-console.log('  Send 1 to everyone:      ' + contacts + ' credits');
-console.log('  Send 2 split (2A + 2B):  ' + contacts + ' credits');
-console.log('  Total for Oct 17:        ' + contacts * 2 + ' credits');
+const seg = (m) => (m.length <= 160 ? 1 : Math.ceil(m.length / 153));
+const mon = seg(sends[0][1]);
+const sat = Math.max(seg(sends[1][1]), seg(sends[2][1]));
+console.log('\nCredit estimate at ' + contacts + ' subscribed contacts:');
+console.log('  Mon Oct 12 (' + mon + ' credit/person):   ' + contacts * mon);
+console.log('  Sat Oct 17 (' + sat + ' credits/person):  ' + contacts * sat);
+console.log('  Total for this meetup:      ' + contacts * (mon + sat));
 process.exit(bad ? 1 : 0);
