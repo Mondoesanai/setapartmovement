@@ -1299,6 +1299,16 @@
    Nothing that depends on WHICH event is live may run until the server has told us. Both
    configurations ship in this one build; this decides which the visitor sees. Everything that
    cares subscribes through SAMGate.on(). */
+/* Capture these before anything else runs: the referral tracker calls
+   history.replaceState(location.pathname) further down the page, which wipes the whole query
+   string. Read later, the preview token is already gone. */
+(function () {
+  try {
+    var q = new URLSearchParams(location.search);
+    window.__samPreview = q.get('preview') || '';
+    window.__samTestAt = q.get('at') || '';
+  } catch (e) { window.__samPreview = ''; window.__samTestAt = ''; }
+})();
 window.SAMGate = {
   state: null,
   _waiters: [],
@@ -3620,9 +3630,9 @@ document.addEventListener('DOMContentLoaded',function(){
   var RELEASE_AT = Date.parse('2026-10-18T01:00:00Z'); // release of the WEBSITE
   var MEETUP_AT  = Date.parse('2026-10-31T23:00:00Z'); // Oct 31, 6:00 PM CDT — the countdown target
 
-  var qs        = new URLSearchParams(location.search);
-  var preview   = qs.get('preview') || '';
-  var testAt    = qs.get('at') || '';
+  /* Captured in <head> — by the time this runs the query string has been stripped. */
+  var preview   = window.__samPreview || '';
+  var testAt    = window.__samTestAt || '';
   var skewMs    = 0;      // server clock minus device clock
   var applied   = null;   // last state actually rendered
   var flipTimer = null;
