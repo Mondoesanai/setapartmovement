@@ -57,8 +57,19 @@ async function writeContact(phone, data) {
 // at send time — otherwise anyone who RSVPs would receive both Saturday messages.
 const LISTS = {
   websiteSignups: 183782, // everyone who ever submitted either form
-  rsvpOct17: 183781,      // said they are coming to meetup 008
-  oct17NotRsvpd: 183783,  // everyone else; people leave this list when they RSVP
+};
+
+// Per-meetup buckets, so an RSVP is filed against the event it was actually made for and can
+// never land in a previous meetup's audience.
+const RSVP_LISTS = {
+  '008': 183781, // Oct 17 — CONNECT
+  '009': 188989, // Oct 31 — BE THE LIGHT
+};
+
+// "Everyone who has not RSVP'd" only exists where a split send needs it. Campaigns can target a
+// list but not exclude one, so this bucket is kept disjoint from the matching RSVP list.
+const NOT_RSVPD_LISTS = {
+  '008': 183783,
 };
 
 async function stFetch(path, options = {}) {
@@ -81,7 +92,7 @@ async function stFetch(path, options = {}) {
 // Best-effort push into SlickText. A failure here must never cost us the signup — the person is
 // already safely in Firebase by this point, so we record that the sync is owed and move on.
 // `pendingSync` is what a later reconcile pass looks for.
-async function syncToSlickText({ phone, name, kind }) {
+async function syncToSlickText({ phone, name, kind, meetupId }) {
   const key = process.env.SLICKTEXT_API_KEY;
   const brand = process.env.SLICKTEXT_BRAND_ID;
   if (!key || !brand) return { ok: false, reason: 'not configured' };
@@ -111,9 +122,12 @@ async function syncToSlickText({ phone, name, kind }) {
   }
   if (!contactId) return { ok: false, reason: 'no contact id' };
 
-  const lists = kind === 'rsvp'
-    ? [LISTS.websiteSignups, LISTS.rsvpOct17]
-    : [LISTS.websiteSignups, LISTS.oct17NotRsvpd];
+  const rsvpList = meetupId ? RSVP_LISTS[meetupId] : null;
+  const notRsvpdList = meetupId ? NOT_RSVPD_LISTS[meetupId] : null;
+
+  const lists = [LISTS.websiteSignups];
+  if (kind === 'rsvp' && rsvpList) lists.push(rsvpList);
+  if (kind !== 'rsvp' && notRsvpdList) lists.push(notRsvpdList);
 
   const add = await stFetch(`/brands/${brand}/lists/contacts`, {
     method: 'POST',
@@ -121,11 +135,12 @@ async function syncToSlickText({ phone, name, kind }) {
   });
   if (!add.ok) return { ok: false, reason: `list add ${add.status}` };
 
-  // An RSVP has to leave the "not RSVP'd" bucket or they get the wrong Saturday text as well.
-  if (kind === 'rsvp') {
+  // An RSVP has to leave that meetup's "not RSVP'd" bucket, or they get both versions of the
+  // day-of text.
+  if (kind === 'rsvp' && notRsvpdList) {
     await stFetch(`/brands/${brand}/lists/contacts`, {
       method: 'DELETE',
-      body: JSON.stringify([{ contact_id: contactId, lists: [LISTS.oct17NotRsvpd] }]),
+      body: JSON.stringify([{ contact_id: contactId, lists: [notRsvpdList] }]),
     }).catch(() => {});
   }
 
@@ -207,7 +222,7 @@ export default async function handler(req, res) {
 
     // Everyone lands in the signups list. RSVPs additionally get tagged for the day-of send, so
     // the "we saved you a spot" text only goes to people who actually said they were coming.
-    const sync = await syncToSlickText({ phone, name: patch.name, kind });
+    const sync = await syncToSlickText({ phone, name: patch.name, kind, meetupId });
     if (!sync.ok) {
       await writeContact(phone, { pendingSync: true, pendingSyncReason: sync.reason });
     }

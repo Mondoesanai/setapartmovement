@@ -1119,6 +1119,173 @@
     .conn-flow-link{display:block;text-align:center;margin-top:24px;font-family:"Space Grotesk",sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:14px;border:1px solid rgba(196,149,42,.3);border-radius:6px;transition:background .2s ease,border-color .2s ease,transform .18s cubic-bezier(.34,1.56,.64,1);}
     .conn-flow-link:hover{background:rgba(196,149,42,.08);border-color:rgba(196,149,42,.55);}
     .conn-flow-link:active{transform:scale(.98);}
+    /* ============ RELEASE GATE ============ */
+    /* Until the server answers, both entrances stay dark and still. The overlay is already
+       full-bleed black, so this reads as the page loading, not as a flash of the wrong event. */
+    html.sam-gate-pending #intro > *,
+    html.sam-gate-pending #intro-light > * { visibility: hidden; }
+    #hero-belight[hidden] { display: none !important; }
+    #hero-legacy[hidden] { display: none !important; }
+
+    /* ============ BE THE LIGHT ============ */
+    #hero-belight { position: relative; display: block; }
+
+    /* Light emerging through darkness: two soft beams from above, nothing else glowing. */
+    .bl-beams {
+      position: absolute; left: 50%; top: -140px; transform: translateX(-50%);
+      /* Sized to the content column, never the viewport: at 768px a 900px-wide decorative
+         element pushed the document 66px sideways. */
+      width: 100%; max-width: 900px; height: 620px; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(60% 50% at 50% 0%, rgba(232,184,74,.20), rgba(232,184,74,0) 70%),
+        conic-gradient(from 168deg at 50% 0%, rgba(232,184,74,0) 0deg, rgba(232,184,74,.11) 12deg, rgba(232,184,74,0) 26deg),
+        conic-gradient(from 192deg at 50% 0%, rgba(232,184,74,0) 0deg, rgba(232,184,74,.08) 10deg, rgba(232,184,74,0) 22deg);
+      filter: blur(2px);
+    }
+    #hero-belight > *:not(.bl-beams) { position: relative; z-index: 1; }
+
+    .bl-eyebrow {
+      font-family: "Space Grotesk", sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase; color: rgba(196,149,42,.75);
+      text-align: center; margin: 2px 0 10px;
+    }
+    .bl-headline {
+      font-family: "Bebas Neue", impact, sans-serif;
+      font-size: clamp(54px, 17vw, 104px); line-height: .84; letter-spacing: -.01em;
+      text-align: center; color: var(--cream); margin: 0 0 14px;
+    }
+    .bl-lit {
+      color: #F2DFA8;
+      text-shadow: 0 0 28px rgba(232,184,74,.5), 0 0 70px rgba(232,184,74,.22);
+    }
+    .bl-tagline {
+      text-align: center; font-family: "Cormorant Garamond", serif; font-style: italic;
+      font-size: clamp(17px, 4.6vw, 21px); color: rgba(240,237,230,.62); margin: 0 0 20px;
+    }
+    .bl-scripture {
+      text-align: center; max-width: 30ch; margin: 0 auto 26px;
+      font-family: "Cormorant Garamond", serif; font-size: 15px; line-height: 1.65;
+      color: rgba(240,237,230,.42);
+    }
+    .bl-scripture span {
+      display: block; margin-top: 8px; font-family: "Space Grotesk", sans-serif;
+      font-size: 9.5px; font-style: normal; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(196,149,42,.6);
+    }
+
+    .bl-card {
+      background: linear-gradient(180deg, rgba(240,237,230,.045), rgba(240,237,230,.015));
+      border: 1px solid rgba(196,149,42,.26); border-radius: 16px;
+      padding: 22px 20px 18px; margin-bottom: 18px;
+      box-shadow: 0 18px 50px -24px rgba(0,0,0,.9), 0 0 42px -28px rgba(232,184,74,.5);
+    }
+    .bl-card-date {
+      font-family: "Bebas Neue", impact, sans-serif; font-size: clamp(28px, 7.6vw, 36px);
+      letter-spacing: .02em; color: var(--cream); text-align: center; margin: 0;
+    }
+    .bl-card-time {
+      font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 600;
+      letter-spacing: .14em; color: var(--gold); text-align: center; margin: 4px 0 0;
+    }
+    .bl-card-rule { height: 1px; background: rgba(196,149,42,.16); margin: 16px 0; }
+    .bl-card-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 13px; }
+    /* The page centres by default; anything longer than a line reads better ranged left. */
+    .bl-card-list li { display: flex; gap: 12px; align-items: flex-start; text-align: left; font-size: 14px; line-height: 1.5; color: rgba(240,237,230,.82); }
+    .bl-ico { flex-shrink: 0; width: 20px; font-size: 15px; line-height: 1.4; }
+    .bl-dim { font-size: 12px; color: rgba(240,237,230,.42); }
+
+    .bl-countdown { display: flex; align-items: flex-start; justify-content: center; gap: 5px; }
+    .bl-cd-unit { display: flex; flex-direction: column; align-items: center; min-width: 46px; }
+    .bl-cd-num { font-family: "Bebas Neue", impact, sans-serif; font-size: 30px; line-height: 1; color: var(--cream); }
+    .bl-cd-lbl { font-family: "Space Grotesk", sans-serif; font-size: 8.5px; letter-spacing: .17em; text-transform: uppercase; color: rgba(240,237,230,.34); margin-top: 4px; }
+    .bl-cd-sep { font-family: "Bebas Neue", impact, sans-serif; font-size: 26px; color: rgba(196,149,42,.4); line-height: 1.1; }
+
+    .bl-rsvp {
+      display: block; width: 100%; border: 0; cursor: pointer;
+      background: linear-gradient(135deg, #E8B84A, #C4952A); color: #120d04;
+      font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase; padding: 17px 20px; border-radius: 10px;
+      box-shadow: 0 14px 34px -14px rgba(232,184,74,.75);
+      transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .bl-rsvp:hover { box-shadow: 0 18px 42px -14px rgba(232,184,74,.9); }
+    .bl-rsvp:active { transform: scale(.98); }
+    .bl-rsvp:focus-visible { outline: 2px solid #F2DFA8; outline-offset: 3px; }
+    .bl-rsvp.rsvp-confirmed {
+      background: rgba(196,149,42,.1); color: var(--gold);
+      border: 1px solid rgba(196,149,42,.38); box-shadow: none; cursor: default;
+    }
+
+    .bl-desc { margin: 22px 0 0; text-align: left; font-size: 14.5px; line-height: 1.75; color: rgba(240,237,230,.6); }
+
+    .bl-evening { margin-top: 26px; border-top: 1px solid rgba(196,149,42,.12); padding-top: 22px; }
+    .bl-evening-h {
+      font-family: "Space Grotesk", sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase; color: rgba(196,149,42,.7); margin: 0 0 16px;
+    }
+    .bl-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    .bl-steps li { display: flex; gap: 13px; align-items: flex-start; text-align: left; font-size: 14px; line-height: 1.6; color: rgba(240,237,230,.72); }
+    .bl-step-n {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+      border: 1px solid rgba(196,149,42,.4); color: var(--gold);
+      font-family: "Bebas Neue", impact, sans-serif; font-size: 13px;
+      display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .bl-note { margin: 18px 0 0; text-align: left; font-size: 12.5px; line-height: 1.7; color: rgba(240,237,230,.4); }
+
+    /* ============ NEW ENTRANCE ============ */
+    #intro-light {
+      position: fixed; inset: 0; z-index: 9999; display: none;
+      background: #050504; align-items: center; justify-content: center; flex-direction: column;
+      transition: opacity .5s ease;
+    }
+    #intro-light.show { display: flex; }
+    #intro-light.out { opacity: 0; pointer-events: none; }
+    .il-stage { position: relative; display: flex; align-items: center; justify-content: center; }
+    .il-logo {
+      width: min(52vw, 210px); height: auto; /* 534x467 — real proportions, never stretched */
+      opacity: 0; filter: brightness(.4);
+    }
+    #intro-light.go .il-logo { animation: ilResolve 1.25s cubic-bezier(.22,.9,.3,1) .12s forwards; }
+    @keyframes ilResolve {
+      0%   { opacity: 0; filter: brightness(.3) blur(6px); transform: scale(.97); }
+      45%  { opacity: 1; filter: brightness(1.7) blur(0);  transform: scale(1.005); }
+      100% { opacity: 1; filter: brightness(1) blur(0);    transform: scale(1); }
+    }
+    .il-sweep {
+      position: absolute; top: -12%; bottom: -12%; width: 38%; left: -60%;
+      background: linear-gradient(100deg, rgba(232,184,74,0) 0%, rgba(255,247,222,.8) 46%, rgba(255,210,120,.4) 62%, rgba(232,184,74,0) 100%);
+      filter: blur(10px); opacity: 0;
+    }
+    #intro-light.go .il-sweep { animation: ilSweep 1.05s cubic-bezier(.4,0,.2,1) forwards; }
+    @keyframes ilSweep {
+      0%   { left: -60%; opacity: 0; }
+      18%  { opacity: 1; }
+      82%  { opacity: 1; }
+      100% { left: 115%; opacity: 0; }
+    }
+    .il-text { margin-top: 26px; text-align: center; opacity: 0; }
+    #intro-light.go .il-text { animation: ilTextUp .6s cubic-bezier(.22,.9,.3,1) 1.15s forwards; }
+    @keyframes ilTextUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .il-kicker {
+      font-family: "Bebas Neue", impact, sans-serif; font-size: clamp(30px, 9vw, 46px);
+      letter-spacing: .04em; margin: 0; color: #F2DFA8;
+      text-shadow: 0 0 26px rgba(232,184,74,.5);
+    }
+    .il-date {
+      font-family: "Space Grotesk", sans-serif; font-size: 10.5px; letter-spacing: .17em;
+      text-transform: uppercase; color: rgba(240,237,230,.5); margin: 9px 0 0; padding: 0 18px;
+    }
+
+    /* Reduced motion: no sweep, no strobe — the mark and the words are simply there. */
+    @media (prefers-reduced-motion: reduce) {
+      #intro-light .il-sweep { display: none; }
+      #intro-light .il-logo { opacity: 1; filter: none; animation: none !important; }
+      #intro-light .il-text { opacity: 1; animation: none !important; }
+      .bl-beams { filter: none; }
+    }
+
     /* SITE FOOTER — legal entity + compliance links (required on every page) */
     .sam-footer{position:relative;z-index:20;border-top:1px solid rgba(212,168,74,.12);padding:34px 24px max(env(safe-area-inset-bottom,0px),34px);text-align:center;font-family:'Space Grotesk',sans-serif;background:var(--ink);}
     .sam-footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-bottom:16px;}
@@ -1127,6 +1294,27 @@
     .sam-footer-legal{font-size:11px;line-height:1.85;color:rgba(242,238,230,.3);max-width:640px;margin:0 auto;}
 
   </style>
+<script>
+/* Release gate coordinator.
+   Nothing that depends on WHICH event is live may run until the server has told us. Both
+   configurations ship in this one build; this decides which the visitor sees. Everything that
+   cares subscribes through SAMGate.on(). */
+window.SAMGate = {
+  state: null,
+  _waiters: [],
+  on: function (fn) { if (this.state) { try { fn(this.state); } catch (e) {} } else this._waiters.push(fn); },
+  set: function (st) {
+    var first = !this.state;
+    this.state = st;
+    if (first) {
+      document.documentElement.classList.remove('sam-gate-pending');
+      var w = this._waiters; this._waiters = [];
+      w.forEach(function (fn) { try { fn(st); } catch (e) {} });
+    }
+  }
+};
+document.documentElement.classList.add('sam-gate-pending');
+</script>
 </head>
 <body class="locked">
 
@@ -1170,6 +1358,19 @@
 </div>
 
 
+<!-- NEW ENTRANCE (BE THE LIGHT). Replaces the card entrance once released. Uses the real logo
+     at its true 534x467 proportions — no redrawn or substituted lettering. -->
+<div id="intro-light" aria-hidden="true">
+  <div class="il-stage">
+    <div class="il-sweep" aria-hidden="true"></div>
+    <img class="il-logo" src="images/logo.png" alt="Set Apart Movement" width="534" height="467" decoding="async" onerror="this.style.display='none'">
+  </div>
+  <div class="il-text">
+    <p class="il-kicker">BE THE LIGHT</p>
+    <p class="il-date">Saturday, October 31 &middot; 6&ndash;8 PM &middot; Denton Town Square</p>
+  </div>
+</div>
+
 <!-- INVITE PAGE -->
 <div id="invite">
   <div class="page-glow"></div>
@@ -1177,6 +1378,9 @@
 
     <img class="inv-logo rv" id="sam-logo-tap" src="images/logo.png" alt="Set Apart Movement logo - student faith community in Denton, Texas" width="130" height="130" fetchpriority="high" decoding="async">
 
+    <!-- Everything inside #hero-legacy is the Oct 17 site, untouched. The release gate hides
+         this wholesale rather than editing it, so nothing about the current event can regress. -->
+    <div id="hero-legacy">
     <p class="inv-pre rv">This is your invite.</p>
 
     <h1 class="inv-headline rv">You&rsquo;ve been<br><em>selected.</em></h1>
@@ -1238,6 +1442,60 @@
         <button class="cmi-btn" onclick="openJoinModal('list')">Text me when the next one drops &rarr;</button>
       </div>
     </div>
+    </div><!-- /#hero-legacy -->
+
+    <!-- BE THE LIGHT — Meetup 009, Saturday 31 October. Shipped in this build but hidden until
+         the server-authoritative gate says the release time has passed. -->
+    <div id="hero-belight" hidden>
+
+      <div class="bl-beams" aria-hidden="true"></div>
+
+      <p class="bl-eyebrow rv">Set Apart Movement &middot; Saturday, October 31</p>
+
+      <h1 class="bl-headline rv">BE THE<br><span class="bl-lit">LIGHT</span></h1>
+
+      <p class="bl-tagline rv">One night. Real hope. Bold faith.</p>
+
+      <p class="bl-scripture rv">&ldquo;You are the light of the world. A town built on a hill cannot be hidden.&rdquo;<span>Matthew 5:14&ndash;16</span></p>
+
+      <div class="bl-card rv">
+        <p class="bl-card-date">Saturday, October 31</p>
+        <p class="bl-card-time">6:00 &ndash; 8:00 PM</p>
+        <div class="bl-card-rule"></div>
+        <ul class="bl-card-list">
+          <li><span class="bl-ico">&#128205;</span><span><strong>Denton Town Square</strong><br><span class="bl-dim">Denton, Texas &middot; where we start and finish</span></span></li>
+          <li><span class="bl-ico">&#128694;</span><span><strong>We walk together</strong><br><span class="bl-dim">About a mile total, plus walking downtown</span></span></li>
+          <li><span class="bl-ico">&#10024;</span><span><strong>Free &middot; bring a friend</strong></span></li>
+        </ul>
+        <div class="bl-card-rule"></div>
+        <div class="bl-countdown">
+          <div class="bl-cd-unit"><span class="bl-cd-num" id="bl-cd-days">--</span><span class="bl-cd-lbl">Days</span></div>
+          <span class="bl-cd-sep">:</span>
+          <div class="bl-cd-unit"><span class="bl-cd-num" id="bl-cd-hrs">--</span><span class="bl-cd-lbl">Hrs</span></div>
+          <span class="bl-cd-sep">:</span>
+          <div class="bl-cd-unit"><span class="bl-cd-num" id="bl-cd-mins">--</span><span class="bl-cd-lbl">Min</span></div>
+          <span class="bl-cd-sep">:</span>
+          <div class="bl-cd-unit"><span class="bl-cd-num" id="bl-cd-secs">--</span><span class="bl-cd-lbl">Sec</span></div>
+        </div>
+      </div>
+
+      <button type="button" class="bl-rsvp rv" id="bl-rsvp-btn">RSVP &mdash; I&rsquo;M IN &nbsp;&rarr;</button>
+
+      <p class="bl-desc rv">Join Set Apart Movement on October 31 as we step out together to be a light in our community. We&rsquo;ll meet at Denton Town Square, connect and pray, then head out to encourage people, offer prayer, and share the good news of Jesus. Come ready to love people, walk with purpose, and put your faith into action.</p>
+
+      <div class="bl-evening rv">
+        <p class="bl-evening-h">What the evening looks like</p>
+        <ol class="bl-steps">
+          <li><span class="bl-step-n">1</span><span>Meet at <strong>Denton Town Square</strong> at 6 PM.</span></li>
+          <li><span class="bl-step-n">2</span><span>About 15&ndash;20 minutes connecting, preparing and praying together.</span></li>
+          <li><span class="bl-step-n">3</span><span>Walk around downtown, meeting people and sharing hope.</span></li>
+          <li><span class="bl-step-n">4</span><span>Walk together to <strong>Quakertown Park</strong> and connect with people near the active market.</span></li>
+          <li><span class="bl-step-n">5</span><span>Head back to the Square together before we finish at 8 PM.</span></li>
+        </ol>
+        <p class="bl-note">The walk to the park is about half a mile each way &mdash; roughly a mile total, plus walking around downtown. Wear comfortable shoes.</p>
+      </div>
+
+    </div><!-- /#hero-belight -->
 
     <a href="#community" class="community-scroll-btn rv" onclick="event.preventDefault();document.getElementById('community').scrollIntoView({behavior:'smooth'})">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2438,8 +2696,10 @@
   }
 
 
-  /* Start the envelope animation */
-  runSequence();
+  /* Start the envelope animation — held until the release gate answers, so nobody sees a frame
+     of the wrong event's entrance. After release this never runs; the light entrance does. */
+  window.__samRevealInvite = revealInvite;
+  window.SAMGate.on(function (st) { if (!st.released) runSequence(); });
 
   /* Tapping anywhere on the intro screen skips straight to the invite */
   if (intro) {
@@ -3114,7 +3374,10 @@ function submitWaitlist(){
 
 /* Flips the hero RSVP button into its reserved state once a spot is actually saved. */
 function _markRsvpButtonReserved(){
-  var b=document.getElementById('ev-rsvp-btn');
+  /* Whichever event is live owns the visible RSVP button. */
+  var blBtn=document.getElementById('bl-rsvp-btn');
+  var blWrap=document.getElementById('hero-belight');
+  var b=(blBtn && blWrap && !blWrap.hidden) ? blBtn : document.getElementById('ev-rsvp-btn');
   if(!b || b.classList.contains('rsvp-confirmed')) return;
   b.classList.add('rsvp-confirmed');
   b.innerHTML='YOUR SPOT IS RESERVED &nbsp;&#10003;';
@@ -3343,5 +3606,186 @@ document.addEventListener('DOMContentLoaded',function(){
 </footer>
 
 <script defer src="https://agency-dashboard-omega-red.vercel.app/t.js"></script>
+<script>
+/* ============================================================================
+   BE THE LIGHT release gate.
+
+   Release: Saturday 17 October 2026, 8:00 PM America/Chicago = 2026-10-18T01:00:00Z.
+
+   The decision is the server's, never the device's: /api/release reports its own clock, and we
+   keep the offset so an already-open tab can flip on time even if the visitor's clock is wrong.
+   Both event versions are in this build, so the switch needs no deploy.
+   ============================================================================ */
+(function () {
+  var RELEASE_AT = Date.parse('2026-10-18T01:00:00Z'); // release of the WEBSITE
+  var MEETUP_AT  = Date.parse('2026-10-31T23:00:00Z'); // Oct 31, 6:00 PM CDT — the countdown target
+
+  var qs        = new URLSearchParams(location.search);
+  var preview   = qs.get('preview') || '';
+  var testAt    = qs.get('at') || '';
+  var skewMs    = 0;      // server clock minus device clock
+  var applied   = null;   // last state actually rendered
+  var flipTimer = null;
+  var cdTimer   = null;
+
+  function serverNow() { return Date.now() + skewMs; }
+
+  function endpoint() {
+    var ps = [];
+    if (preview) ps.push('preview=' + encodeURIComponent(preview));
+    if (testAt)  ps.push('at=' + encodeURIComponent(testAt));
+    ps.push('_=' + Date.now());
+    return '/api/release?' + ps.join('&');
+  }
+
+  function revealRv(root) {
+    var els = root.querySelectorAll('.rv');
+    for (var i = 0; i < els.length; i++) els[i].classList.add('on');
+  }
+
+  function startCountdown() {
+    if (cdTimer) return;
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function put(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+    function tick() {
+      var diff = MEETUP_AT - serverNow();
+      if (diff < 0) diff = 0;
+      put('bl-cd-days', Math.floor(diff / 86400000));
+      put('bl-cd-hrs',  pad(Math.floor(diff / 3600000) % 24));
+      put('bl-cd-mins', pad(Math.floor(diff / 60000) % 60));
+      put('bl-cd-secs', pad(Math.floor(diff / 1000) % 60));
+    }
+    tick();
+    cdTimer = setInterval(tick, 1000);
+  }
+
+  function wireRsvp() {
+    var btn = document.getElementById('bl-rsvp-btn');
+    if (!btn || btn.getAttribute('data-wired')) return;
+    btn.setAttribute('data-wired', '1');
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (btn.classList.contains('rsvp-confirmed')) return;
+      openJoinModal('rsvp');
+    });
+    try {
+      if (localStorage.getItem('sam_rsvp_009') === '1') _markRsvpButtonReserved();
+    } catch (e) {}
+  }
+
+  function apply(released) {
+    if (applied === released) return;
+    var isFlip = applied !== null;   // an already-open tab crossing the release moment
+    applied = released;
+
+    var legacy = document.getElementById('hero-legacy');
+    var bl     = document.getElementById('hero-belight');
+    if (!legacy || !bl) return;
+
+    if (released) {
+      legacy.hidden = true;
+      bl.hidden = false;
+      /* New registrations belong to meetup 009. Nothing here touches 008's records. */
+      window.SAM_CURRENT_MEETUP_ID = '009';
+      window.CURRENT_MEETUP_CONFIRM_LINE = 'Saturday, October 31 at 6 PM &middot; Denton Town Square';
+      startCountdown();
+      wireRsvp();
+      revealRv(bl);
+      if (isFlip) {
+        /* Live switchover on a tab that is already open. A full-screen entrance would hijack
+           someone mid-scroll, so this is a quiet cross-fade instead. */
+        bl.style.transition = 'opacity .6s ease';
+        bl.style.opacity = '0';
+        requestAnimationFrame(function () { bl.style.opacity = '1'; });
+      }
+    } else {
+      bl.hidden = true;
+      legacy.hidden = false;
+      /* Leave the Oct 17 configuration exactly as it is. */
+    }
+  }
+
+  function runLightIntro() {
+    var el = document.getElementById('intro-light');
+    var card = document.getElementById('intro');
+    if (card) card.remove();            // the old entrance never plays after release
+    function finish() {
+      if (window.__samRevealInvite) window.__samRevealInvite();
+      else document.body.classList.remove('locked');
+    }
+    if (!el) { finish(); return; }
+
+    var seen = false;
+    try { seen = sessionStorage.getItem('sam_bl_intro') === '1'; } catch (e) {}
+    if (seen) { el.remove(); finish(); return; }   // once per session, not every navigation
+    try { sessionStorage.setItem('sam_bl_intro', '1'); } catch (e) {}
+
+    var reduced = false;
+    try { reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+    el.classList.add('show');
+    if (!reduced) el.classList.add('go');
+
+    var done = false;
+    function out() {
+      if (done) return;
+      done = true;
+      el.classList.add('out');
+      finish();
+      setTimeout(function () { if (el.parentNode) el.remove(); }, 560);
+    }
+    el.addEventListener('click', out);
+    setTimeout(out, reduced ? 450 : 2150);
+  }
+
+  function schedule() {
+    if (flipTimer) clearTimeout(flipTimer);
+    if (testAt) return;                       // a test clock does not advance on its own
+    var ms = RELEASE_AT - serverNow();
+    if (ms > 0 && ms < 2147483000) {
+      flipTimer = setTimeout(check, ms + 400);  // small cushion so the server agrees when we ask
+    }
+  }
+
+  var first = true;
+  function check() {
+    fetch(endpoint(), { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (typeof d.now === 'number') skewMs = d.now - Date.now();
+        settle(!!d.released, d.mode || 'live');
+      })
+      .catch(function () {
+        /* Offline or the function is down: fall back to the device clock rather than hanging.
+           Reported honestly in SAMGate.state.mode. */
+        settle(Date.now() >= RELEASE_AT, 'client-fallback');
+      });
+  }
+
+  function settle(released, mode) {
+    apply(released);
+    if (first) {
+      first = false;
+      window.SAMGate.set({ released: released, mode: mode });
+      if (released) runLightIntro();
+    }
+    schedule();
+  }
+
+  /* An inactive tab's timers are throttled or frozen, so re-ask whenever it comes back. */
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) check();
+  });
+  /* Backstop in case both the timer and the visibility event are missed. */
+  setInterval(function () { if (!document.hidden) check(); }, 600000);
+
+  /* Never let a slow network leave the visitor on a black screen. */
+  setTimeout(function () {
+    if (first) settle(Date.now() >= RELEASE_AT, 'client-fallback-timeout');
+  }, 2000);
+
+  check();
+})();
+</script>
 </body>
 </html>

@@ -22,3 +22,6 @@ NEED-numbers.csv
 .env.*
 
 .env*.local
+
+# local copy of the preview token
+.preview-token.txt
