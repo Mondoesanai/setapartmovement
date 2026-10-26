@@ -3442,7 +3442,13 @@ function fetchAdminResource(resource, cb){
         try { sessionStorage.removeItem('sam_admin_pw'); } catch(e) {}
         throw new Error('Wrong password.');
       }
-      if (!r.ok) throw new Error('Could not load.');
+      /* Surface what the server actually said. "Could not load." sent us chasing the wrong
+         thing once already when the real answer was a missing environment variable. */
+      if (!r.ok) {
+        return r.json().catch(function(){ return null; }).then(function(j){
+          throw new Error((j && j.error) || ('Could not load (HTTP ' + r.status + ').'));
+        });
+      }
       return r.json();
     })
     .then(function(data){ cb(data, null); })
