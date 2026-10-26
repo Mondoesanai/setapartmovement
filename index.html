@@ -2536,6 +2536,8 @@ document.documentElement.classList.add('sam-gate-pending');
         '#menu-panel.open{transform:translateX(0)}' +
         '#menu-panel a{display:block;padding:16px 0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(212,168,74,.8);text-decoration:none;border-bottom:1px solid rgba(196,146,58,.1);transition:color .2s}' +
         '#menu-panel a:hover{color:rgba(232,192,96,1)}' +
+        '#menu-panel #menu-admin-link{margin-top:auto;border-bottom:0;font-size:9.5px;letter-spacing:.2em;color:rgba(212,168,74,.38)}' +
+        '#menu-panel #menu-admin-link:hover{color:rgba(212,168,74,.8)}' +
         '#menu-overlay{position:fixed;inset:0;z-index:9498;display:none}' +
         '#menu-panel.open ~ #menu-overlay{display:block}';
       document.head.appendChild(mStyle);
@@ -2551,7 +2553,8 @@ document.documentElement.classList.add('sam-gate-pending');
       hamPanel.innerHTML = '<a href="/rankings">&#9733; Rankings</a>' +
         '<a href="/how-it-works">How It Works</a>' +
         '<a href="#community" onclick="this.closest(\'#menu-panel\').classList.remove(\'open\');document.getElementById(\'menu-fab\').classList.remove(\'open\');document.getElementById(\'menu-overlay\').style.display=\'none\'">Join WhatsApp</a>' +
-        '<a href="/">Home</a>';
+        '<a href="/">Home</a>' +
+        '<a href="javascript:void(0)" id="menu-admin-link" onclick="closeHamMenu();openAdminPanel()">Admin</a>';
       document.body.appendChild(hamPanel);
 
       var hamOverlay = document.createElement('div');
@@ -3482,6 +3485,33 @@ function openWlAdmin(){
   document.body.style.overflow='hidden';
   switchWlaTab(wlaCurrentTab);
 }
+/* Opened from the menu. Deliberately skips the five-tap unlock: that only ever hid the UI,
+   and the data behind it is gated server-side by the admin password. */
+function openAdminPanel(){
+  var panel=document.getElementById('wl-admin-panel');
+  if(!panel)return;
+  panel.classList.add('open');
+  document.body.style.overflow='hidden';
+  switchWlaTab(wlaCurrentTab);
+}
+function closeHamMenu(){
+  ['menu-panel','menu-fab'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.classList.remove('open');
+  });
+  var ov=document.getElementById('menu-overlay'); if(ov) ov.style.display='none';
+}
+/* Wrong password? Clear it so the next attempt re-prompts instead of silently failing. */
+function resetAdminPassword(){
+  try { sessionStorage.removeItem('sam_admin_pw'); } catch(e) {}
+  switchWlaTab(wlaCurrentTab);
+}
+function fmtPhone(v){
+  var d=String(v||'').replace(/[^0-9]/g,'');
+  if(d.length===11 && d.charAt(0)==='1') d=d.slice(1);
+  if(d.length!==10) return String(v||'');
+  return '('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6);
+}
+
 function renderWlaWaitlist(){
   var body=document.getElementById('wla-body');
   if(body)body.innerHTML='<div class="sdp-loading">Loading&hellip;</div>';
@@ -3509,33 +3539,49 @@ function renderWlaWaitlist(){
 function renderWlaRsvps(){
   var body=document.getElementById('wla-body');
   if(body)body.innerHTML='<div class="sdp-loading">Loading&hellip;</div>';
-  fetchAdminResource('rsvps', function(data, err){
+  /* RSVPs are stored on the contact (contacts/{phone}.rsvps[meetupId]), not as anonymous
+     {ts} rows, so this can show the name and number of everyone who said they are coming. */
+  fetchAdminResource('contacts', function(data, err){
     var body=document.getElementById('wla-body');
-    if(err==='cancelled'){ if(body)body.innerHTML='<div class="sdp-loading">Admin password required.</div>'; return; }
-    if(err){ if(body)body.innerHTML='<div class="sdp-loading">'+err+'</div>'; return; }
-    var meetups=Object.keys(data||{}).map(function(mid){
-      var entries=Object.keys(data[mid]||{}).map(function(k){return data[mid][k];});
-      entries.sort(function(a,b){return(a.ts||0)-(b.ts||0);});
-      return {id:mid,entries:entries};
-    });
-    meetups.sort(function(a,b){return b.id.localeCompare(a.id);});
-    var html='';
-    if(!meetups.length){
-      html='<div class="sdp-loading">No RSVPs yet.</div>';
-    } else {
-      meetups.forEach(function(m){
-        html+='<div class="wla-meetup" onclick="toggleWlaMeetup(this)">';
-        html+='<div class="wla-meetup-hd"><span>Meetup '+m.id+'</span><span class="wla-meetup-count">'+m.entries.length+' RSVP'+(m.entries.length===1?'':'s')+'</span></div>';
-        html+='<div class="wla-meetup-detail">';
-        m.entries.forEach(function(e,i){
-          var dt=e.ts?new Date(e.ts).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'—';
-          html+='<div class="wla-row"><div class="wla-num">'+(i+1)+'</div><div><div class="wla-name">RSVP</div><div class="wla-phone">'+dt+'</div></div></div>';
-        });
-        html+='</div></div>';
+    if(!body)return;
+    if(err==='cancelled'){ body.innerHTML='<div class="sdp-loading">Admin password required.</div>'; return; }
+    if(err){ body.innerHTML='<div class="sdp-loading">'+err+' <a href="javascript:void(0)" onclick="resetAdminPassword()" style="color:var(--gold)">Try again</a></div>'; return; }
+
+    var byMeetup={};
+    Object.keys(data||{}).forEach(function(key){
+      var c=data[key]||{};
+      var rs=c.rsvps||{};
+      Object.keys(rs).forEach(function(mid){
+        if(!byMeetup[mid]) byMeetup[mid]=[];
+        byMeetup[mid].push({ name:c.name||'(no name)', phone:c.phone||key, ts:rs[mid] });
       });
-    }
-    var body2=document.getElementById('wla-body');
-    if(body2)body2.innerHTML=html;
+    });
+
+    var meetups=Object.keys(byMeetup).map(function(mid){
+      var e=byMeetup[mid];
+      e.sort(function(x,y){ return (x.ts||0)-(y.ts||0); });
+      return { id:mid, entries:e };
+    });
+    meetups.sort(function(x,y){ return y.id.localeCompare(x.id); });
+
+    if(!meetups.length){ body.innerHTML='<div class="sdp-loading">No RSVPs yet.</div>'; return; }
+
+    var html='';
+    meetups.forEach(function(m,mi){
+      /* Newest meetup opens by default — that is the one being run. */
+      html+='<div class="wla-meetup'+(mi===0?' open':'')+'" onclick="toggleWlaMeetup(this)">';
+      html+='<div class="wla-meetup-hd"><span>Meetup '+m.id+'</span><span class="wla-meetup-count">'+m.entries.length+' RSVP'+(m.entries.length===1?'':'s')+'</span></div>';
+      html+='<div class="wla-meetup-detail">';
+      m.entries.forEach(function(e,i){
+        var dt=e.ts?new Date(e.ts).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'\u2014';
+        html+='<div class="wla-row"><div class="wla-num">'+(i+1)+'</div><div>'+
+              '<div class="wla-name">'+e.name+'</div>'+
+              '<div class="wla-phone"><a href="tel:'+String(e.phone).replace(/[^0-9]/g,'')+'" style="color:inherit;text-decoration:none">'+fmtPhone(e.phone)+'</a> &middot; '+dt+'</div>'+
+              '</div></div>';
+      });
+      html+='</div></div>';
+    });
+    body.innerHTML=html;
   });
 }
 function toggleWlaMeetup(el){

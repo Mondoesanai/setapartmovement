@@ -37,14 +37,15 @@ export default async function handler(req, res) {
     return;
   }
 
+  // Optional on purpose. The database rules are still open, so reads succeed without a
+  // credential today; demanding one here only broke the admin panel while changing nothing about
+  // who could actually reach the data. Once the rules are locked down this secret becomes
+  // required by Firebase itself, and this keeps working the moment it is set.
   const dbSecret = process.env.FIREBASE_DB_SECRET;
-  if (!dbSecret) {
-    res.status(500).json({ error: 'Server not configured: FIREBASE_DB_SECRET is not set.' });
-    return;
-  }
 
   try {
-    const url = `https://set-apart-movement-default-rtdb.firebaseio.com/${resource}.json?auth=${encodeURIComponent(dbSecret)}`;
+    const url = `https://set-apart-movement-default-rtdb.firebaseio.com/${resource}.json`
+      + (dbSecret ? `?auth=${encodeURIComponent(dbSecret)}` : '');
     const r = await fetch(url);
     if (!r.ok) {
       res.status(502).json({ error: 'Firebase request failed.' });

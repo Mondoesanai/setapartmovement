@@ -70,6 +70,7 @@ const RSVP_LISTS = {
 // list but not exclude one, so this bucket is kept disjoint from the matching RSVP list.
 const NOT_RSVPD_LISTS = {
   '008': 183783,
+  '009': 195158, // Oct 31 — BE THE LIGHT
 };
 
 async function stFetch(path, options = {}) {
