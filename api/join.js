@@ -64,6 +64,7 @@ const LISTS = {
 const RSVP_LISTS = {
   '008': 183781, // Oct 17 — CONNECT
   '009': 188989, // Oct 31 — BE THE LIGHT
+  '010': 199787, // Nov 14 — CONNECT
 };
 
 // "Everyone who has not RSVP'd" only exists where a split send needs it. Campaigns can target a
@@ -71,6 +72,7 @@ const RSVP_LISTS = {
 const NOT_RSVPD_LISTS = {
   '008': 183783,
   '009': 195158, // Oct 31 — BE THE LIGHT
+  '010': 199788, // Nov 14 — CONNECT, seeded with all 120 subscribed by setup-nov14-lists.mjs
 };
 
 async function stFetch(path, options = {}) {

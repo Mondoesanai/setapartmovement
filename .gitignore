@@ -25,3 +25,7 @@ NEED-numbers.csv
 
 # local copy of the preview token
 .preview-token.txt
+
+# scratch output
+temporary screenshots/
+_patch/
