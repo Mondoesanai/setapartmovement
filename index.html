@@ -1132,202 +1132,11 @@
     #hero-legacy { display: none !important; }
 
     /* ============ MEETUP 010 — CONNECT ============ */
-    /* Deliberately not the previous outreach hero treatment. That one was a poster — overhead beams and a
-       104px shout — which was right for a public outreach night. CONNECT is the close, in-the-Word
-       one, so this is an invitation plate: one warm pool of light instead of beams, a tracked-out
-       wordmark instead of a headline, and the date set as a printed stub. Same tokens, same gold,
-       different room. */
-    #hero-event { position: relative; display: block; }
-    #hero-event > *:not(.mt-glow) { position: relative; z-index: 1; }
-
-    /* One low, warm pool of light behind the plate. Sized in % of the content column and never
-       in vw: a 900px-wide decorative layer once pushed the whole document 66px sideways at 768px. */
-    .mt-glow {
-      position: absolute; left: 50%; top: 26px; transform: translateX(-50%);
-      width: 100%; max-width: 720px; height: 560px; pointer-events: none; z-index: 0;
-      background:
-        radial-gradient(50% 42% at 50% 34%, rgba(232,184,74,.16), rgba(232,184,74,0) 72%),
-        radial-gradient(74% 56% at 50% 74%, rgba(196,149,42,.07), rgba(196,149,42,0) 78%);
-      filter: blur(7px);
-    }
-
-    .mt-eyebrow {
-      font-family: "Space Grotesk", sans-serif; font-size: 10px; font-weight: 700;
-      letter-spacing: .24em; text-transform: uppercase; color: rgba(196,149,42,.75);
-      text-align: center; margin: 2px 0 16px;
-    }
-
-    /* Wordmark, not a headline: hairline rules close it in on both sides so it reads as a stamp. */
-    .mt-wordmark { display: flex; align-items: center; gap: 14px; margin: 0 0 16px; }
-    .mt-wm-rule {
-      flex: 1; height: 1px; min-width: 10px;
-      background: linear-gradient(90deg, rgba(196,149,42,0), rgba(196,149,42,.55));
-    }
-    .mt-wordmark .mt-wm-rule:last-child {
-      background: linear-gradient(90deg, rgba(196,149,42,.55), rgba(196,149,42,0));
-    }
-    .mt-wm-text {
-      font-family: "Bebas Neue", impact, sans-serif;
-      font-size: clamp(38px, 11.4vw, 62px); line-height: .9; letter-spacing: .07em;
-      color: var(--cream); margin: 0; white-space: nowrap;
-      text-shadow: 0 0 34px rgba(232,184,74,.28);
-    }
-    .mt-wm-text .mt-dot { color: var(--gold); }
-
-    .mt-promise {
-      text-align: center; max-width: 26ch; margin: 0 auto 13px;
-      font-family: "Cormorant Garamond", serif; font-style: italic;
-      font-size: clamp(17px, 4.7vw, 21px); line-height: 1.45; color: rgba(240,237,230,.66);
-    }
-    .mt-nopressure {
-      text-align: center; margin: 0 0 26px;
-      font-family: "Space Grotesk", sans-serif; font-size: 10px; font-weight: 600;
-      letter-spacing: .2em; text-transform: uppercase; color: rgba(240,237,230,.3);
-    }
-
-    /* ---- the plate ---- */
-    /* Three planes on purpose: the glow sits behind, the plate is the elevated surface, the seal
-       floats off its corner. Grain over the top so a large flat panel does not read as plastic. */
-    .mt-plate {
-      position: relative; margin: 0 0 20px; border-radius: 18px;
-      padding: 24px 20px 20px;
-      background:
-        linear-gradient(170deg, rgba(240,237,230,.062), rgba(240,237,230,.016) 58%, rgba(240,237,230,.03));
-      border: 1px solid rgba(196,149,42,.3);
-      box-shadow:
-        0 1px 0 rgba(240,237,230,.07) inset,
-        0 24px 60px -28px rgba(0,0,0,.95),
-        0 0 52px -30px rgba(232,184,74,.55);
-    }
-    .mt-plate::after {
-      content: ''; position: absolute; inset: 0; border-radius: 18px; pointer-events: none;
-      opacity: .5; mix-blend-mode: overlay;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.3'/%3E%3C/svg%3E");
-    }
-    .mt-plate > * { position: relative; z-index: 1; }
-
-    .mt-seal {
-      position: absolute; top: -13px; right: 18px; z-index: 2;
-      width: 44px; height: 44px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: "Bebas Neue", impact, sans-serif; font-size: 16px; letter-spacing: .06em;
-      color: #120d04; background: linear-gradient(140deg, #F0CE6E, #C4952A);
-      box-shadow: 0 8px 20px -8px rgba(232,184,74,.8), 0 0 0 4px var(--ink);
-    }
-
-    /* Date stub beside the details, rather than a centred date line. */
-    .mt-plate-top { display: flex; align-items: stretch; gap: 18px; text-align: left; }
-    .mt-stub {
-      flex-shrink: 0; width: 76px; padding: 10px 0 9px; border-radius: 12px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background: rgba(196,149,42,.09); border: 1px solid rgba(196,149,42,.26);
-    }
-    .mt-stub-mo {
-      font-family: "Space Grotesk", sans-serif; font-size: 10px; font-weight: 700;
-      letter-spacing: .2em; color: var(--gold);
-    }
-    .mt-stub-day {
-      font-family: "Bebas Neue", impact, sans-serif; font-size: 44px; line-height: .96;
-      color: var(--cream); margin: 1px 0 0;
-    }
-    .mt-stub-dow {
-      font-family: "Space Grotesk", sans-serif; font-size: 9px; font-weight: 600;
-      letter-spacing: .19em; color: rgba(240,237,230,.38);
-    }
-    .mt-plate-head { flex: 1; min-width: 0; }
-    .mt-plate-time {
-      font-family: "Bebas Neue", impact, sans-serif; font-size: clamp(25px, 7vw, 31px);
-      line-height: 1; letter-spacing: .02em; color: var(--cream); margin: 1px 0 9px;
-    }
-    .mt-plate-where { margin: 0 0 8px; font-size: 13.5px; line-height: 1.5; color: rgba(240,237,230,.8); }
-    .mt-plate-where strong { color: var(--cream); font-weight: 600; }
-    .mt-plate-where span { display: block; font-size: 11.5px; color: rgba(240,237,230,.4); margin-top: 2px; }
-    .mt-plate-who {
-      margin: 0; font-family: "Space Grotesk", sans-serif; font-size: 10px; font-weight: 600;
-      letter-spacing: .13em; text-transform: uppercase; color: rgba(196,149,42,.72);
-      line-height: 1.7;
-    }
-
-    /* Perforation, so the plate reads as a torn ticket rather than one more rounded box. The two
-       notches are filled with the page ink, which is why this cannot sit on a lighter surface. */
-    .mt-perf { position: relative; height: 1px; margin: 18px -20px; background: transparent; }
-    .mt-perf::before {
-      content: ''; position: absolute; inset: 0;
-      background: repeating-linear-gradient(90deg, rgba(196,149,42,.4) 0 5px, rgba(196,149,42,0) 5px 11px);
-    }
-    .mt-perf i {
-      position: absolute; top: -7px; width: 14px; height: 14px; border-radius: 50%;
-      background: var(--ink); border: 1px solid rgba(196,149,42,.26);
-    }
-    .mt-perf i:first-child { left: -8px; }
-    .mt-perf i:last-child { right: -8px; }
-
-    .mt-bring-lbl {
-      font-family: "Space Grotesk", sans-serif; font-size: 9.5px; font-weight: 700;
-      letter-spacing: .22em; text-transform: uppercase; color: rgba(196,149,42,.7);
-      text-align: left; margin: 0 0 11px;
-    }
-    /* Chips rather than another stack of bullet rows — three short things, so they can sit on
-       one line and stop the plate turning into a list. */
-    /* One per row at every width. The invite column is capped at 460px, so a viewport-based
-       media query put three chips across in 128px each and wrapped every label. */
-    .mt-bring { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; grid-template-columns: 1fr; }
-    .mt-bring li {
-      display: flex; align-items: center; gap: 10px;
-      padding: 11px 14px; border-radius: 12px;
-      background: rgba(240,237,230,.035); border: 1px solid rgba(196,149,42,.2);
-      font-size: 13px; color: rgba(240,237,230,.84);
-    }
-    /* Drawn in gold rather than set as emoji: the platform emoji for a book and a sandwich come
-       in blue and brown and were the only things on the page fighting the palette. */
-    .mt-bring-ico { flex-shrink: 0; color: rgba(196,149,42,.95); line-height: 0; }
-    .mt-bring-ico svg { width: 17px; height: 17px; display: block; }
-
-    .mt-cd {
-      display: flex; align-items: baseline; justify-content: center; gap: 4px;
-      margin: 20px 0 0; padding-top: 16px; border-top: 1px solid rgba(196,149,42,.14);
-    }
-    .mt-cd-u { display: flex; flex-direction: column; align-items: center; min-width: 44px; }
-    .mt-cd-n { font-family: "Bebas Neue", impact, sans-serif; font-size: 27px; line-height: 1; color: var(--cream); }
-    .mt-cd-l {
-      font-family: "Space Grotesk", sans-serif; font-size: 8px; letter-spacing: .17em;
-      text-transform: uppercase; color: rgba(240,237,230,.32); margin-top: 5px;
-    }
-    .mt-cd-sep { font-family: "Bebas Neue", impact, sans-serif; font-size: 22px; color: rgba(196,149,42,.38); }
-
-    .mt-rsvp {
-      display: block; width: 100%; border: 0; cursor: pointer;
-      background: linear-gradient(135deg, #E8B84A, #C4952A); color: #120d04;
-      font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700;
-      letter-spacing: .15em; text-transform: uppercase; padding: 17px 20px; border-radius: 11px;
-      box-shadow: 0 14px 34px -14px rgba(232,184,74,.75);
-      transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .mt-rsvp:hover { transform: translateY(-1px); box-shadow: 0 19px 44px -14px rgba(232,184,74,.92); }
-    .mt-rsvp:active { transform: scale(.98); }
-    .mt-rsvp:focus-visible { outline: 2px solid #F2DFA8; outline-offset: 3px; }
-    .mt-rsvp.rsvp-confirmed {
-      background: rgba(196,149,42,.1); color: var(--gold);
-      border: 1px solid rgba(196,149,42,.38); box-shadow: none; cursor: default;
-      transform: none;
-    }
-
-    .mt-about { margin-top: 28px; border-top: 1px solid rgba(196,149,42,.12); padding-top: 22px; }
-    .mt-about-h {
-      font-family: "Space Grotesk", sans-serif; font-size: 10px; font-weight: 700;
-      letter-spacing: .2em; text-transform: uppercase; color: rgba(196,149,42,.7); margin: 0 0 14px;
-      text-align: left;
-    }
-    .mt-about p { margin: 0 0 12px; text-align: left; font-size: 14.5px; line-height: 1.75; color: rgba(240,237,230,.62); }
-    .mt-about p:last-child { margin-bottom: 0; }
-    .mt-about em { font-style: normal; color: rgba(240,237,230,.86); }
-
-    /* ---- waitlist state ---- */
-    /* When the meetup has passed this card IS the hero, so it gets the same pool of light the
-       plate had. Without it the page looked like something had failed to load. */
-    #hero-tba { position: relative; display: block; }
-    #hero-tba > *:not(.mt-glow) { position: relative; z-index: 1; }
+    /* The hero deliberately carries no styles of its own. CONNECT has a look already — the
+       Bebas headline, the pulsing gold event card, the circled bullet icons, the serif
+       countdown — and all of it is in the base stylesheet above. The hero just uses those
+       classes, so every meetup renders the same way without a per-meetup copy of the CSS. */
+    #hero-tba { display: block; }
 
     /* ============ NEW ENTRANCE ============ */
     #intro-light {
@@ -1534,6 +1343,9 @@ document.documentElement.classList.add('sam-gate-pending');
     <!-- =========================================================================================
          MEETUP 010 — CONNECT, Saturday 14 November 2026.
 
+         Uses the standing CONNECT look from the base stylesheet — nothing here is bespoke, which
+         is the point: the next meetup is a content edit, not a redesign.
+
          The WORDS live here. The CLOCK lives in api/release.js, which is the only thing that
          decides whether this block or #hero-tba is on screen. One hour after the meetup starts
          the server flips to #hero-tba on its own, so this can never sit here inviting people to
@@ -1549,67 +1361,49 @@ document.documentElement.classList.add('sam-gate-pending');
          data-expires-at="2026-11-15T02:00:00Z"
          data-confirm-line="Saturday, November 14 at 7 PM &middot; 2200 Driskell Dr, Corinth">
 
-      <div class="mt-glow" aria-hidden="true"></div>
-
       <!-- Quick-answer block for AI / search citation. Deliberately inside this block: when the
            meetup expires the block is hidden and the claim goes with it. -->
       <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;" aria-hidden="true">
         Set Apart Movement is a student-led faith community for students ages 12 to 19. Meetup 010 is titled CONNECT. and is on Saturday, November 14, 2026 from 7:00 PM to 9:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. Food is not included — bring a snack to share. Bring your Bible and bring a friend. Parents and volunteers are welcome. Text 817-983-3004 for more information.
       </div>
 
-      <p class="mt-eyebrow rv">Set Apart Movement &middot; Meetup 010</p>
+      <p class="inv-pre rv">Set Apart Movement &middot; Meetup 010</p>
 
-      <div class="mt-wordmark rv">
-        <span class="mt-wm-rule"></span>
-        <h1 class="mt-wm-text">CONNECT<span class="mt-dot">.</span></h1>
-        <span class="mt-wm-rule"></span>
-      </div>
+      <h1 class="inv-headline rv">CONNECT.</h1>
 
-      <p class="mt-promise rv">Get in the Word together. Ask the real questions. Actually know the people next to you.</p>
-      <p class="mt-nopressure rv">No performance &middot; No pressure</p>
+      <p class="inv-sub rv">Not for everyone. Just for the ones who want to level up.</p>
 
-      <div class="mt-plate rv">
-        <div class="mt-seal" aria-hidden="true">010</div>
-
-        <div class="mt-plate-top">
-          <div class="mt-stub">
-            <span class="mt-stub-mo">NOV</span>
-            <span class="mt-stub-day">14</span>
-            <span class="mt-stub-dow">SAT</span>
-          </div>
-          <div class="mt-plate-head">
-            <p class="mt-plate-time">7:00 &ndash; 9:00 PM</p>
-            <p class="mt-plate-where"><strong>2200 Driskell Drive</strong><span>Corinth, TX &middot; off I&#8209;35E &middot; free parking</span></p>
-            <p class="mt-plate-who">Ages 12&ndash;19 &middot; Free<br>Parents &amp; volunteers welcome</p>
-          </div>
-        </div>
-
-        <div class="mt-perf" aria-hidden="true"><i></i><i></i></div>
-
-        <p class="mt-bring-lbl">Bring</p>
-        <ul class="mt-bring">
-          <li><span class="mt-bring-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.6C10.4 5.1 7.9 4.4 4.4 4.6v13c3.5-.2 6 .5 7.6 2 1.6-1.5 4.1-2.2 7.6-2v-13c-3.5-.2-6 .5-7.6 2z"/><path d="M12 6.6v13"/></svg></span>Your Bible</li>
-          <li><span class="mt-bring-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.2 3v7.2M4.8 3v4.3a2.4 2.4 0 0 0 4.8 0V3M7.2 10.2V21"/><path d="M17.6 3c-1.7 1.1-2.8 3.3-2.8 6.1 0 1.9.9 2.8 2.8 2.8M17.6 3v18"/></svg></span>A snack to share</li>
-          <li><span class="mt-bring-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="8.4" r="3.3"/><path d="M3.6 19.4c0-3.1 2.5-5.2 5.6-5.2s5.6 2.1 5.6 5.2"/><path d="M16.2 5.6a3.3 3.3 0 0 1 0 6.4"/><path d="M17.6 14.6c2.1.7 3.4 2.5 3.4 4.8"/></svg></span>A friend</li>
+      <div class="event-card rv" style="margin-top:8px;opacity:1;">
+        <p class="ev-tag">Set Apart Movement &middot; Meetup 010</p>
+        <p class="ev-date">November 14</p>
+        <p class="ev-time">Saturday &middot; 7:00 PM &ndash; 9:00 PM</p>
+        <p class="ev-limit">Ages 12&ndash;19 &middot; FREE</p>
+        <div class="ev-rule"></div>
+        <ul class="ev-bullets">
+          <li><span class="ev-icon">&#128205;</span> <span>2200 Driskell Drive &middot; Corinth, TX<br><span style="font-size:12px;opacity:.45">Off I&#8209;35E &middot; Free parking</span></span></li>
+          <li><span class="ev-icon">&#128368;&#65039;</span> <strong>Saturday, November 14 &middot; 7:00&ndash;9:00 PM</strong></li>
+          <li><span class="ev-icon">&#128214;</span> <strong>Bring your Bible</strong></li>
+          <li><span class="ev-icon">&#129386;</span> <strong style="color:var(--gold)">Food not included &mdash; bring a snack to share!</strong></li>
+          <li><span class="ev-icon">&#128101;</span> <strong>Bring a friend</strong></li>
+          <li><span class="ev-icon">&#128588;</span> <strong>Parents &amp; volunteers welcome</strong></li>
         </ul>
-
-        <div class="mt-cd">
-          <div class="mt-cd-u"><span class="mt-cd-n" id="mt-cd-days">--</span><span class="mt-cd-l">days</span></div>
-          <span class="mt-cd-sep">:</span>
-          <div class="mt-cd-u"><span class="mt-cd-n" id="mt-cd-hrs">--</span><span class="mt-cd-l">hrs</span></div>
-          <span class="mt-cd-sep">:</span>
-          <div class="mt-cd-u"><span class="mt-cd-n" id="mt-cd-mins">--</span><span class="mt-cd-l">min</span></div>
-          <span class="mt-cd-sep">:</span>
-          <div class="mt-cd-u"><span class="mt-cd-n" id="mt-cd-secs">--</span><span class="mt-cd-l">sec</span></div>
+        <div class="ev-rule" style="margin-top:18px;margin-bottom:14px;"></div>
+        <div class="countdown-wrap">
+          <div class="cd-unit"><span class="cd-num" id="mt-cd-days">--</span><span class="cd-lbl">Days</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span class="cd-num" id="mt-cd-hrs">--</span><span class="cd-lbl">Hours</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span class="cd-num" id="mt-cd-mins">--</span><span class="cd-lbl">Mins</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-unit"><span class="cd-num" id="mt-cd-secs">--</span><span class="cd-lbl">Secs</span></div>
         </div>
       </div>
 
-      <button type="button" class="mt-rsvp rv" id="mt-rsvp-btn">RSVP &mdash; I&rsquo;M IN &nbsp;&rarr;</button>
+      <button type="button" class="rsvp-btn rv" id="mt-rsvp-btn">I&rsquo;M COMING &nbsp;&rarr;</button>
 
-      <div class="mt-about rv">
-        <p class="mt-about-h">What CONNECT is</p>
-        <p>CONNECT is the smaller, closer kind of meetup. We get in the Word together, ask the questions people usually keep to themselves, and spend real time knowing the people in the room.</p>
-        <p><em>You don&rsquo;t need to know anybody, and you don&rsquo;t need to have it all together.</em> Bring your Bible, bring a snack to share, bring a friend, and come ready.</p>
+      <div class="cant-make-it rv">
+        <div class="cmi-label">Can&rsquo;t make it to this one?</div>
+        <button class="cmi-btn" onclick="openJoinModal('list')">Text me when the next one drops &rarr;</button>
       </div>
 
     </div><!-- /#hero-event -->
@@ -1619,7 +1413,6 @@ document.documentElement.classList.add('sam-gate-pending');
          api/release.js. There is no dismiss button on this copy on purpose: here the card is the
          whole page, and dismissing it would leave a blank hero. -->
     <div id="hero-tba" hidden>
-      <div class="mt-glow" aria-hidden="true"></div>
       <div class="wl-card rv" style="margin-top:8px;">
         <div class="wl-eyebrow">Set Apart Movement</div>
         <div class="wl-headline">THE NEXT MEETUP<span>ISN&rsquo;T ANNOUNCED YET.</span></div>

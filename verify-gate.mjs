@@ -78,8 +78,8 @@ console.log('\n1. the live clock, today — the meetup is announced');
   check('Event stays in structured data', s.schemaHasEvent);
 
   console.log('   visible copy:');
-  for (const want of ['CONNECT', 'NOV', '14', 'SAT', '7:00 – 9:00 PM', '2200 Driskell Drive',
-                      'Corinth, TX', 'Your Bible', 'A snack to share', 'A friend',
+  for (const want of ['CONNECT', 'NOV', '14', 'SAT', '7:00 PM – 9:00 PM', '2200 Driskell Drive',
+                      'Corinth, TX', 'Bring your Bible', 'a snack to share', 'Bring a friend',
                       'Parents & volunteers welcome', 'Meetup 010']) {
     check(`says "${want}"`, s.text.toLowerCase().includes(want.toLowerCase()));
   }
@@ -122,7 +122,7 @@ console.log('\n3. after it expires, the page asks for the waitlist');
   check('says the next meetup is not announced', s.text.includes('ISN’T ANNOUNCED YET'));
   check('offers to text them first', s.text.includes('GET TEXTED FIRST'));
   check('no leftover November 14 invitation', !s.text.includes('2200 Driskell Drive'));
-  check('no stale countdown', !s.text.includes('7:00 – 9:00 PM'));
+  check('no stale countdown', !s.text.includes('7:00 PM – 9:00 PM'));
   check('Event removed from structured data', !s.schemaHasEvent);
   check('no meetup id, so nothing can RSVP to a finished event', s.meetupId === null, s.meetupId);
   check('waitlist card cannot be dismissed away', !s.text.includes('×'));
