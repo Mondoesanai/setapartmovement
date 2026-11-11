@@ -77,19 +77,30 @@ const NOT_RSVPD_LISTS = {
 
 async function stFetch(path, options = {}) {
   const key = process.env.SLICKTEXT_API_KEY;
-  const r = await fetch(`${SLICKTEXT_BASE}${path}`, {
-    ...options,
-    headers: {
-      Authorization: `Bearer ${key}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
-    },
-  });
-  const text = await r.text();
-  let body;
-  try { body = JSON.parse(text); } catch { body = null; }
-  return { ok: r.ok, status: r.status, body };
+  try {
+    const r = await fetch(`${SLICKTEXT_BASE}${path}`, {
+      ...options,
+      headers: {
+        Authorization: `Bearer ${key}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        ...(options.headers || {}),
+      },
+      // Without this a hung connection would hold the whole signup open until the function
+      // times out, and the visitor would be left watching a spinner.
+      signal: AbortSignal.timeout(8000),
+    });
+    const text = await r.text();
+    let body;
+    try { body = JSON.parse(text); } catch { body = null; }
+    return { ok: r.ok, status: r.status, body };
+  } catch (err) {
+    // Unreachable host, DNS failure, timeout, lapsed account. A non-ok STATUS was already
+    // handled; a THROWN error was not, and it escaped all the way to the handler's catch —
+    // turning a signup that had already been written to Firebase into a 500 for the visitor.
+    // The whole point of this sync is that it is best-effort, so it must not throw either.
+    return { ok: false, status: 0, body: null, reason: String((err && err.message) || err) };
+  }
 }
 
 // Best-effort push into SlickText. A failure here must never cost us the signup — the person is
@@ -120,7 +131,7 @@ async function syncToSlickText({ phone, name, kind, meetupId }) {
         opt_in_status: 'subscribed',
       }),
     });
-    if (!created.ok) return { ok: false, reason: `create ${created.status}` };
+    if (!created.ok) return { ok: false, reason: created.status ? `create ${created.status}` : 'slicktext unreachable' };
     contactId = created.body && created.body.contact_id;
   }
   if (!contactId) return { ok: false, reason: 'no contact id' };
@@ -136,7 +147,7 @@ async function syncToSlickText({ phone, name, kind, meetupId }) {
     method: 'POST',
     body: JSON.stringify([{ contact_id: contactId, lists }]),
   });
-  if (!add.ok) return { ok: false, reason: `list add ${add.status}` };
+  if (!add.ok) return { ok: false, reason: add.status ? `list add ${add.status}` : 'slicktext unreachable' };
 
   // An RSVP has to leave that meetup's "not RSVP'd" bucket, or they get both versions of the
   // day-of text.
@@ -238,6 +249,9 @@ export default async function handler(req, res) {
       synced: sync.ok,
     });
   } catch (err) {
+    // The visitor gets a plain message, but the reason has to go somewhere. Swallowing it
+    // entirely meant a signup could start failing silently and look fine from the outside.
+    console.error('join failed:', (err && err.stack) || err);
     res.status(500).json({ error: 'Something went wrong — try again.' });
   }
 }

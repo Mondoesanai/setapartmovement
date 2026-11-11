@@ -11,7 +11,7 @@
   <!-- Title stays evergreen: naming a meetup here went stale every two weeks. The towns are
        Denton and Corinth now; Hurst was two venues ago. -->
   <title>Set Apart Movement | Student Faith Community in Denton &amp; Corinth, TX</title>
-  <meta name="description" content="A student faith community for Denton, Corinth &amp; DFW teens ages 12–19. Next up: CONNECT, Saturday November 14, 7–9 PM in Corinth, TX. Free. Bring your Bible, a snack and a friend.">
+  <meta name="description" content="A student faith community for Denton, Corinth &amp; DFW teens ages 12–19. Next up: CONNECT — Prepare the Way. Saturday November 14, 7–9 PM in Corinth, TX. Free. Bring your Bible, a snack and a friend.">
   <meta name="keywords" content="Set Apart Movement, student movement Corinth TX, youth faith community DFW, student Bible study, youth meetup Corinth Texas, Christian student community Texas, student community event DFW, youth event November 2026, faith community for students Texas, CONNECT meetup 010">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="author" content="Set Apart Movement">
@@ -24,7 +24,7 @@
   <meta property="og:url" content="https://setapartmovement.com/">
   <meta property="og:site_name" content="Set Apart Movement">
   <meta property="og:title" content="Set Apart Movement | Student Faith Community in Denton &amp; Corinth, TX">
-  <meta property="og:description" content="Free meetups for DFW teens ages 12–19 — Denton, Corinth &amp; beyond. Next up: CONNECT, Meetup 010, Saturday November 14, 2026, 7–9 PM in Corinth, TX.">
+  <meta property="og:description" content="CONNECT — Prepare the Way. Meetup 010, Saturday November 14, 2026, 7–9 PM in Corinth, TX. Students ages 12–19. Free. Bring your Bible, a snack and a friend.">
   <meta property="og:image" content="https://setapartmovement.com/images/card.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -34,7 +34,7 @@
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CONNECT. — Set Apart Movement Meetup 010">
-  <meta name="twitter:description" content="Get in the Word. Ask the real questions. Know the people next to you. Meetup 010 · Sat Nov 14 · 7–9 PM · Corinth, TX. Ages 12–19. Free.">
+  <meta name="twitter:description" content="We&#39;re not preparing anybody for war — we&#39;re staying ready so we don&#39;t have to get ready. CONNECT · Prepare the Way · Sat Nov 14 · 7–9 PM · Corinth, TX.">
   <meta name="twitter:image" content="https://setapartmovement.com/images/card.png">
   <meta name="twitter:image:alt" content="Set Apart Movement — CONNECT. Meetup 010">
 
@@ -80,8 +80,8 @@
       {
         "@type": "Event",
         "@id": "https://setapartmovement.com/#event-connect-010",
-        "name": "Set Apart Movement — CONNECT. (Meetup 010)",
-        "description": "Set Apart Movement Meetup 010: CONNECT. The smaller, closer kind of meetup — getting in the Word together, asking the real questions, and actually knowing the people next to you. Open to students ages 12–19. Free. Bring your Bible, a snack to share and a friend. Parents and volunteers welcome.",
+        "name": "Set Apart Movement — CONNECT: Prepare the Way (Meetup 010)",
+        "description": "Set Apart Movement Meetup 010: CONNECT, themed Prepare the Way. A laid-back night — getting in the Word together and knowing the people next to you. Open to students ages 12–19. Free. Bring your Bible, a snack to share and a friend. Students only; parents are not attending this one.",
         "startDate": "2026-11-14T19:00:00-06:00",
         "endDate": "2026-11-14T21:00:00-06:00",
         "eventStatus": "https://schema.org/EventScheduled",
@@ -140,7 +140,7 @@
           {
             "@type": "Question",
             "name": "When and where is the next Set Apart Movement meetup?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Set Apart Movement Meetup 010 (CONNECT.) is on Saturday, November 14, 2026 from 7:00 PM to 9:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. Bring your Bible, a snack to share and a friend. Parents and volunteers are welcome." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Set Apart Movement Meetup 010 (CONNECT, themed Prepare the Way) is on Saturday, November 14, 2026 from 7:00 PM to 9:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free for students ages 12 to 19. Bring your Bible, a snack to share and a friend. This one is for students only." }
           },
           {
             "@type": "Question",
@@ -927,6 +927,56 @@
     .wla-title { font-family: 'Bebas Neue', impact, sans-serif; font-size: 22px; letter-spacing: .06em; color: var(--gold); }
     .wla-close { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(196,146,58,.35); background: rgba(196,146,58,.14); display: flex; align-items: center; justify-content: center; color: rgba(240,236,228,.85); font-size: 22px; cursor: pointer; }
     .wla-body { padding: 14px 20px; }
+
+    /* Admin unlock, shown inside the panel instead of a native prompt. */
+    .wla-lock { padding: 26px 4px 30px; text-align: center; }
+    .wla-lock-h {
+      font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase; color: rgba(212,168,74,.75);
+      margin-bottom: 14px;
+    }
+    .wla-lock-err { font-size: 12px; color: #E8886A; margin-bottom: 12px; }
+    .wla-lock-input {
+      width: 100%; box-sizing: border-box; padding: 14px 16px; margin-bottom: 10px;
+      background: rgba(240,237,230,.04); border: 1px solid rgba(196,149,42,.3);
+      border-radius: 8px; color: var(--cream);
+      font-family: 'Space Grotesk', sans-serif; font-size: 16px; /* 16px: iOS zooms in below it */
+      -webkit-appearance: none;
+    }
+    .wla-lock-input::placeholder { color: rgba(240,237,230,.3); }
+    .wla-lock-input:focus { outline: none; border-color: rgba(196,149,42,.7); }
+    .wla-lock-btn {
+      width: 100%; padding: 14px 16px; border: 0; border-radius: 8px; cursor: pointer;
+      background: linear-gradient(135deg, #E8B84A, #C4952A); color: #120d04;
+      font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease;
+    }
+    .wla-lock-btn:hover { box-shadow: 0 10px 26px -12px rgba(232,184,74,.8); }
+    .wla-lock-btn:active { transform: scale(.98); }
+    .wla-lock-btn:focus-visible { outline: 2px solid #F2DFA8; outline-offset: 3px; }
+
+    /* Rankings and Get the text used to float over the page bottom-right, covering whatever
+       was behind them. They are ordinary page content now — see .sam-utility below. */
+    #sam-fab, #wl-bubble { display: none !important; }
+
+    .sam-utility { display: flex; gap: 10px; margin: 0 0 14px; width: 100%; }
+    .sam-utility a, .sam-utility button {
+      flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center;
+      gap: 6px; padding: 13px 10px; border-radius: 999px; cursor: pointer;
+      background: rgba(240,237,230,.025); border: 1px solid rgba(196,149,42,.28);
+      color: rgba(212,168,74,.85); text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase; white-space: nowrap;
+      transition: transform .18s cubic-bezier(.34,1.56,.64,1), border-color .2s ease, color .2s ease;
+    }
+    .sam-utility a:hover, .sam-utility button:hover {
+      border-color: rgba(196,149,42,.6); color: #E8C060;
+    }
+    .sam-utility a:active, .sam-utility button:active { transform: scale(.98); }
+    .sam-utility a:focus-visible, .sam-utility button:focus-visible {
+      outline: 2px solid rgba(232,192,96,.8); outline-offset: 3px;
+    }
     .wla-count-hd { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(212,168,74,.7); margin-bottom: 14px; }
     .wla-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid rgba(212,168,74,.07); }
     .wla-row:last-child { border-bottom: none; }
@@ -1131,11 +1181,72 @@
        because older, date-expired scripts still reach for its children; it is never shown again. */
     #hero-legacy { display: none !important; }
 
-    /* ============ MEETUP 010 — CONNECT ============ */
-    /* The hero deliberately carries no styles of its own. CONNECT has a look already — the
-       Bebas headline, the pulsing gold event card, the circled bullet icons, the serif
-       countdown — and all of it is in the base stylesheet above. The hero just uses those
-       classes, so every meetup renders the same way without a per-meetup copy of the CSS. */
+    /* ============ MEETUP 010 — PREPARE THE WAY ============ */
+    /* The CONNECT look itself still carries no per-meetup styles — the headline, card, bullets
+       and countdown all come from the base stylesheet above. Everything here is a thin theme
+       layer on top, so next meetup it lifts off in one block.
+
+       The motif is a path being laid: dashes marching outward from the theme line, a trail
+       descending from the headline into the card, and a light running along the card's top
+       edge. It points at the card on purpose — the card is what people come here for. */
+    .ptw { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; }
+    .ptw-rule {
+      flex: 1; min-width: 12px; height: 2px;
+      background-image: repeating-linear-gradient(90deg,
+        rgba(196,149,42,.7) 0 7px, rgba(196,149,42,0) 7px 15px);
+      background-size: 15px 2px;
+      animation: ptwMarch 1.7s linear infinite;
+    }
+    /* The two sides travel outward from the words rather than both drifting right. */
+    .ptw .ptw-rule:first-child { animation-direction: reverse; }
+    @keyframes ptwMarch { to { background-position: 15px 0; } }
+    .ptw-text {
+      font-family: "Bebas Neue", impact, sans-serif;
+      font-size: clamp(17px, 5.2vw, 23px); letter-spacing: .2em; line-height: 1;
+      color: var(--gold2); white-space: nowrap;
+      text-shadow: 0 0 22px rgba(232,184,74,.35);
+    }
+
+    /* The trail from the headline down into the card. */
+    .ptw-trail { position: relative; width: 2px; height: 24px; margin: 0 auto 6px; overflow: hidden; }
+    .ptw-trail::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(180deg,
+        rgba(196,149,42,.95) 0 7px, rgba(196,149,42,0) 7px 12px);
+      background-size: 2px 12px;
+      animation: ptwDown 1.05s linear infinite;
+    }
+    @keyframes ptwDown { to { background-position: 0 12px; } }
+
+    /* A light running along the card's top edge — the way being lit. The card already clips
+       its own overflow, so this disappears off each end. */
+    .ptw-sweep {
+      position: absolute; top: 0; left: 0; z-index: 2; height: 2px; width: 34%;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(232,184,74,0), #F2DFA8, rgba(232,184,74,0));
+      animation: ptwSweep 4.2s cubic-bezier(.45,0,.55,1) infinite;
+    }
+    @keyframes ptwSweep {
+      0%        { transform: translateX(-120%); }
+      55%, 100% { transform: translateX(320%); }
+    }
+
+    /* The saying. Underneath the card and short, on purpose. */
+    .ptw-note { margin: 20px 0 26px; text-align: center; }
+    .ptw-note::before {
+      content: ''; display: block; width: 44px; height: 1px; margin: 0 auto 14px;
+      background: rgba(196,149,42,.45);
+    }
+    .ptw-note p {
+      max-width: 27ch; margin: 0 auto; font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(16px, 4.4vw, 19px); line-height: 1.55; color: rgba(240,237,230,.6);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ptw-rule, .ptw-trail::before, .ptw-sweep { animation: none; }
+      .ptw-sweep { opacity: .5; transform: translateX(120%); }
+    }
+
     #hero-tba { display: block; }
 
     /* ============ NEW ENTRANCE ============ */
@@ -1280,7 +1391,7 @@ document.documentElement.classList.add('sam-gate-pending');
     <img class="il-logo" src="images/logo.png" alt="Set Apart Movement logo introducing CONNECT, the November 14 youth meetup in Corinth, TX" width="534" height="467" decoding="async" onerror="this.style.display='none'">
   </div>
   <div class="il-text">
-    <p class="il-kicker">CONNECT</p>
+    <p class="il-kicker">PREPARE THE WAY</p>
     <p class="il-date">Saturday, November 14 &middot; 7&ndash;9 PM &middot; Corinth, TX</p>
   </div>
 </div>
@@ -1364,16 +1475,23 @@ document.documentElement.classList.add('sam-gate-pending');
       <!-- Quick-answer block for AI / search citation. Deliberately inside this block: when the
            meetup expires the block is hidden and the claim goes with it. -->
       <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;" aria-hidden="true">
-        Set Apart Movement is a student-led faith community for students ages 12 to 19. Meetup 010 is titled CONNECT. and is on Saturday, November 14, 2026 from 7:00 PM to 9:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. Food is not included — bring a snack to share. Bring your Bible and bring a friend. Parents and volunteers are welcome. Text 817-983-3004 for more information.
+        Set Apart Movement is a student-led faith community for students ages 12 to 19. Meetup 010 is titled CONNECT and the theme is Prepare the Way. It is on Saturday, November 14, 2026 from 7:00 PM to 9:00 PM at 2200 Driskell Drive, Corinth, TX 76210. Entry is free. Food is not included — bring a snack to share. Bring your Bible and bring a friend. This one is for students only; parents are not attending this meetup. Text 817-983-3004 for more information.
       </div>
 
       <p class="inv-pre rv">Set Apart Movement &middot; Meetup 010</p>
 
+      <div class="ptw rv">
+        <span class="ptw-rule" aria-hidden="true"></span>
+        <span class="ptw-text">PREPARE THE WAY</span>
+        <span class="ptw-rule" aria-hidden="true"></span>
+      </div>
+
       <h1 class="inv-headline rv">CONNECT.</h1>
 
-      <p class="inv-sub rv">Not for everyone. Just for the ones who want to level up.</p>
+      <div class="ptw-trail rv" aria-hidden="true"></div>
 
-      <div class="event-card rv" style="margin-top:8px;opacity:1;">
+      <div class="event-card rv" style="margin-top:0;opacity:1;">
+        <div class="ptw-sweep" aria-hidden="true"></div>
         <p class="ev-tag">Set Apart Movement &middot; Meetup 010</p>
         <p class="ev-date">November 14</p>
         <p class="ev-time">Saturday &middot; 7:00 PM &ndash; 9:00 PM</p>
@@ -1385,7 +1503,7 @@ document.documentElement.classList.add('sam-gate-pending');
           <li><span class="ev-icon">&#128214;</span> <strong>Bring your Bible</strong></li>
           <li><span class="ev-icon">&#129386;</span> <strong style="color:var(--gold)">Food not included &mdash; bring a snack to share!</strong></li>
           <li><span class="ev-icon">&#128101;</span> <strong>Bring a friend</strong></li>
-          <li><span class="ev-icon">&#128588;</span> <strong>Parents &amp; volunteers welcome</strong></li>
+          <li><span class="ev-icon">&#127890;</span> <strong>Students only &mdash; no parents</strong></li>
         </ul>
         <div class="ev-rule" style="margin-top:18px;margin-bottom:14px;"></div>
         <div class="countdown-wrap">
@@ -1400,6 +1518,10 @@ document.documentElement.classList.add('sam-gate-pending');
       </div>
 
       <button type="button" class="rsvp-btn rv" id="mt-rsvp-btn">I&rsquo;M COMING &nbsp;&rarr;</button>
+
+      <div class="ptw-note rv">
+        <p>We&rsquo;re not preparing anybody for war &mdash; we&rsquo;re staying ready so we don&rsquo;t have to get ready.</p>
+      </div>
 
       <div class="cant-make-it rv">
         <div class="cmi-label">Can&rsquo;t make it to this one?</div>
@@ -1425,6 +1547,14 @@ document.documentElement.classList.add('sam-gate-pending');
         <div class="wl-fine">One text when it drops. No spam, no group chat, nothing else.</div>
       </div>
     </div><!-- /#hero-tba -->
+
+    <!-- Secondary nav. These two were fixed-position buttons hovering over the bottom-right
+         of every screen; in the flow they sit with "Join the Community" as a row of three
+         equal-weight secondary actions instead of covering the copy. -->
+    <div class="sam-utility rv">
+      <a href="/rankings">&#9733; Rankings</a>
+      <button type="button" onclick="openJoinModal('list')">Get the text</button>
+    </div>
 
     <a href="#community" class="community-scroll-btn rv" onclick="event.preventDefault();document.getElementById('community').scrollIntoView({behavior:'smooth'})">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2455,8 +2585,8 @@ document.documentElement.classList.add('sam-gate-pending');
         '#menu-panel.open{transform:translateX(0)}' +
         '#menu-panel a{display:block;padding:16px 0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(212,168,74,.8);text-decoration:none;border-bottom:1px solid rgba(196,146,58,.1);transition:color .2s}' +
         '#menu-panel a:hover{color:rgba(232,192,96,1)}' +
-        '#menu-panel #menu-admin-link{margin-top:auto;border-bottom:0;font-size:9.5px;letter-spacing:.2em;color:rgba(212,168,74,.38)}' +
-        '#menu-panel #menu-admin-link:hover{color:rgba(212,168,74,.8)}' +
+        '#menu-panel #menu-admin-link{margin-top:auto;border-bottom:0;border-top:1px solid rgba(196,146,58,.14);padding-top:18px;font-size:11px;letter-spacing:.22em;color:rgba(212,168,74,.72)}' +
+        '#menu-panel #menu-admin-link:hover{color:rgba(232,192,96,1)}' +
         '#menu-overlay{position:fixed;inset:0;z-index:9498;display:none}' +
         '#menu-panel.open ~ #menu-overlay{display:block}';
       document.head.appendChild(mStyle);
@@ -2473,7 +2603,7 @@ document.documentElement.classList.add('sam-gate-pending');
         '<a href="/how-it-works">How It Works</a>' +
         '<a href="#community" onclick="this.closest(\'#menu-panel\').classList.remove(\'open\');document.getElementById(\'menu-fab\').classList.remove(\'open\');document.getElementById(\'menu-overlay\').style.display=\'none\'">Join WhatsApp</a>' +
         '<a href="/">Home</a>' +
-        '<a href="javascript:void(0)" id="menu-admin-link" onclick="closeHamMenu();openAdminPanel()">Admin</a>';
+        '<a href="javascript:void(0)" id="menu-admin-link" onclick="closeHamMenu();openAdminPanel()">&#128274; Admin</a>';
       document.body.appendChild(hamPanel);
 
       var hamOverlay = document.createElement('div');
@@ -3055,7 +3185,7 @@ window._samDb = (function(){
       fetchAdminResource('waitlist', function(data, err){
         var pane=document.getElementById('tab-waitlist');
         if(!pane)return;
-        if(err==='cancelled'){ pane.innerHTML='<div class="sdp-loading">Admin password required.</div>'; waitlistTabLoaded=false; return; }
+        if(err==='locked'){ pane.innerHTML='<div class="sdp-loading">Open Admin from the menu to unlock.</div>'; waitlistTabLoaded=false; return; }
         if(err){ pane.innerHTML='<div class="sdp-loading">'+err+'</div>'; waitlistTabLoaded=false; return; }
         var entries=Object.keys(data||{}).map(function(k){return data[k];});
         entries.sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
@@ -3345,23 +3475,45 @@ function dismissWlCard(){
    checks a real password server-side and uses a privileged credential the browser never sees.
    The password is asked for the first time it's needed each browser session and re-checked by
    the server on every single request — nothing about "being admin" is just trusted client-side. */
-function getAdminPassword(promptIfMissing){
-  var pw = null;
-  try { pw = sessionStorage.getItem('sam_admin_pw'); } catch(e) {}
-  if (!pw && promptIfMissing) {
-    pw = window.prompt('Admin password:');
-    if (pw) { try { sessionStorage.setItem('sam_admin_pw', pw); } catch(e) {} }
+function getAdminPassword(){
+  try { return sessionStorage.getItem('sam_admin_pw'); } catch(e) { return null; }
+}
+/* Was a native window.prompt, which only appeared once a tab tried to fetch — so opening the
+   panel showed no way to enter anything, and some mobile browsers suppress it outright. The
+   field now lives in the panel where someone is actually looking for it. */
+function showAdminUnlock(message){
+  var body = document.getElementById('wla-body');
+  if (!body) return;
+  body.innerHTML =
+    '<div class="wla-lock">' +
+      '<div class="wla-lock-h">Admin password</div>' +
+      (message ? '<div class="wla-lock-err">' + message + '</div>' : '') +
+      '<input type="password" id="wla-pw" class="wla-lock-input" autocomplete="current-password" ' +
+        'autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Enter password">' +
+      '<button type="button" class="wla-lock-btn" onclick="submitAdminPassword()">Unlock</button>' +
+    '</div>';
+  var input = document.getElementById('wla-pw');
+  if (input) {
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') submitAdminPassword(); });
+    setTimeout(function(){ try { input.focus(); } catch(e) {} }, 60);
   }
-  return pw;
+}
+function submitAdminPassword(){
+  var input = document.getElementById('wla-pw');
+  var v = input && input.value.trim();
+  if (!v) { showAdminUnlock('Type the password first.'); return; }
+  try { sessionStorage.setItem('sam_admin_pw', v); } catch(e) {}
+  switchWlaTab(wlaCurrentTab);
 }
 function fetchAdminResource(resource, cb){
-  var pw = getAdminPassword(true);
-  if (!pw) { cb(null, 'cancelled'); return; }
+  var pw = getAdminPassword();
+  if (!pw) { showAdminUnlock(''); cb(null, 'locked'); return; }
   fetch('/api/admin-data?resource='+resource, { headers: { 'X-Admin-Password': pw } })
     .then(function(r){
       if (r.status === 403) {
         try { sessionStorage.removeItem('sam_admin_pw'); } catch(e) {}
-        throw new Error('Wrong password.');
+        showAdminUnlock('That password was not right.');
+        var locked = new Error('locked'); locked.locked = true; throw locked;
       }
       /* Surface what the server actually said. "Could not load." sent us chasing the wrong
          thing once already when the real answer was a missing environment variable. */
@@ -3373,7 +3525,7 @@ function fetchAdminResource(resource, cb){
       return r.json();
     })
     .then(function(data){ cb(data, null); })
-    .catch(function(err){ cb(null, (err && err.message) || 'error'); });
+    .catch(function(err){ cb(null, (err && err.locked) ? 'locked' : ((err && err.message) || 'error')); });
 }
 
 function adminUnlockValid(){
@@ -3430,7 +3582,7 @@ function closeHamMenu(){
 /* Wrong password? Clear it so the next attempt re-prompts instead of silently failing. */
 function resetAdminPassword(){
   try { sessionStorage.removeItem('sam_admin_pw'); } catch(e) {}
-  switchWlaTab(wlaCurrentTab);
+  showAdminUnlock('');
 }
 function fmtPhone(v){
   var d=String(v||'').replace(/[^0-9]/g,'');
@@ -3444,7 +3596,7 @@ function renderWlaWaitlist(){
   if(body)body.innerHTML='<div class="sdp-loading">Loading&hellip;</div>';
   fetchAdminResource('waitlist', function(data, err){
     var body=document.getElementById('wla-body');
-    if(err==='cancelled'){ if(body)body.innerHTML='<div class="sdp-loading">Admin password required.</div>'; return; }
+    if(err==='locked'){ return; }   // showAdminUnlock already rendered the form here
     if(err){ if(body)body.innerHTML='<div class="sdp-loading">'+err+'</div>'; return; }
     var entries=Object.keys(data||{}).map(function(k){return data[k];});
     entries.sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
@@ -3471,7 +3623,7 @@ function renderWlaRsvps(){
   fetchAdminResource('contacts', function(data, err){
     var body=document.getElementById('wla-body');
     if(!body)return;
-    if(err==='cancelled'){ body.innerHTML='<div class="sdp-loading">Admin password required.</div>'; return; }
+    if(err==='locked'){ return; }   // showAdminUnlock already rendered the form here
     if(err){ body.innerHTML='<div class="sdp-loading">'+err+' <a href="javascript:void(0)" onclick="resetAdminPassword()" style="color:var(--gold)">Try again</a></div>'; return; }
 
     var byMeetup={};

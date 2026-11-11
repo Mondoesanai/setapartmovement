@@ -80,11 +80,12 @@ console.log('\n1. the live clock, today — the meetup is announced');
   console.log('   visible copy:');
   for (const want of ['CONNECT', 'NOV', '14', 'SAT', '7:00 PM – 9:00 PM', '2200 Driskell Drive',
                       'Corinth, TX', 'Bring your Bible', 'a snack to share', 'Bring a friend',
-                      'Parents & volunteers welcome', 'Meetup 010']) {
+                      'Students only', 'Meetup 010', 'PREPARE THE WAY',
+                      'staying ready so we don', 'I’M COMING']) {
     check(`says "${want}"`, s.text.toLowerCase().includes(want.toLowerCase()));
   }
   for (const no of ['BE THE LIGHT', 'Denton Town Square', 'October 31', 'September 19',
-                    'North East Mall', 'July 25', 'You’ve been', 'selected']) {
+                    'North East Mall', 'July 25', 'You’ve been', 'selected', 'Parents & volunteers welcome']) {
     check(`does not say "${no}"`, !s.text.toLowerCase().includes(no.toLowerCase()));
   }
 
