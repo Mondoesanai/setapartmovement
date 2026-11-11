@@ -29,3 +29,7 @@ NEED-numbers.csv
 # scratch output
 temporary screenshots/
 _patch/
+
+# Dedupe backup — real names and numbers. This repo is public.
+waitlist-dupes-backup.json
+*-backup.json

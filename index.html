@@ -983,6 +983,11 @@
     .wla-num { font-size: 11px; color: rgba(212,168,74,.35); min-width: 22px; text-align: right; }
     .wla-name { font-size: 14px; font-weight: 600; color: #F0ECE4; }
     .wla-phone { font-size: 12px; color: rgba(240,236,228,.38); margin-top: 1px; }
+    /* Marks someone who came from the old contact list rather than the website form, so it
+       is obvious at a glance who never ticked a consent box. */
+    .wla-tag { display:inline-block; margin-left:7px; padding:1px 6px; border-radius:999px;
+      font-size:8.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+      color:rgba(212,168,74,.75); border:1px solid rgba(196,149,42,.3); vertical-align:1px; }
     .wla-tabs { display: flex; gap: 8px; padding: 12px 20px 4px; }
     .wla-tabbtn { font-family: 'Space Grotesk', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(240,236,228,.4); background: rgba(212,168,74,.05); border: 1px solid rgba(212,168,74,.14); border-radius: 20px; padding: 7px 14px; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
     .wla-tabbtn.active { color: var(--gold); border-color: rgba(212,168,74,.45); background: rgba(212,168,74,.1); }
@@ -1207,16 +1212,48 @@
       text-shadow: 0 0 22px rgba(232,184,74,.35);
     }
 
-    /* The trail from the headline down into the card. */
-    .ptw-trail { position: relative; width: 2px; height: 24px; margin: 0 auto 6px; overflow: hidden; }
-    .ptw-trail::before {
-      content: ''; position: absolute; inset: 0;
-      background-image: repeating-linear-gradient(180deg,
-        rgba(196,149,42,.95) 0 7px, rgba(196,149,42,0) 7px 12px);
-      background-size: 2px 12px;
-      animation: ptwDown 1.05s linear infinite;
+    /* The trail from the headline down into the card, as a heartbeat rather than a march.
+       Two quick beats run down a dim rail and bloom where they meet the card, then a long rest.
+       The rest is what keeps it from reading as a loading bar: it charges the card, pauses,
+       charges again. The card's own glow is retimed below to the same period so the two breathe
+       together instead of drifting against each other. */
+    .ptw-trail {
+      position: relative; width: 2px; height: 34px; margin: 0 auto 8px;
+      background: linear-gradient(180deg, rgba(196,149,42,.07), rgba(196,149,42,.34));
+      border-radius: 2px;
     }
-    @keyframes ptwDown { to { background-position: 0 12px; } }
+    .ptw-trail::before {                       /* the beat travelling down */
+      content: ''; position: absolute; left: -1px; top: 0; width: 4px; height: 13px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, rgba(242,223,168,0), #F6E7BC 55%, rgba(242,223,168,0));
+      box-shadow: 0 0 10px rgba(232,184,74,.75);
+      animation: ptwBeat 2.6s cubic-bezier(.35,0,.45,1) infinite;
+    }
+    .ptw-trail::after {                        /* the bloom where it lands on the card */
+      content: ''; position: absolute; left: 50%; bottom: -4px; width: 30px; height: 12px;
+      transform: translateX(-50%); pointer-events: none;
+      background: radial-gradient(50% 100% at 50% 100%, rgba(232,184,74,.6), rgba(232,184,74,0) 70%);
+      animation: ptwLand 2.6s cubic-bezier(.35,0,.45,1) infinite;
+    }
+    @keyframes ptwBeat {
+      0%        { transform: translateY(-110%); opacity: 0; }
+      3%        { transform: translateY(-80%);  opacity: 1; }
+      16%       { transform: translateY(205%);  opacity: 0; }
+      18%       { transform: translateY(-110%); opacity: 0; }
+      21%       { transform: translateY(-80%);  opacity: 1; }
+      34%       { transform: translateY(205%);  opacity: 0; }
+      100%      { transform: translateY(205%);  opacity: 0; }
+    }
+    @keyframes ptwLand {
+      0%, 10%   { opacity: 0; }
+      15%       { opacity: 1; }
+      23%       { opacity: 0; }
+      28%       { opacity: 0; }
+      33%       { opacity: 1; }
+      41%, 100% { opacity: 0; }
+    }
+    /* Same period as the heartbeat, so the card looks like it is answering the line. */
+    #hero-event .event-card { animation-duration: 2.6s; }
 
     /* A light running along the card's top edge — the way being lit. The card already clips
        its own overflow, so this disappears off each end. */
@@ -1243,8 +1280,10 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .ptw-rule, .ptw-trail::before, .ptw-sweep { animation: none; }
+      .ptw-rule, .ptw-trail::before, .ptw-trail::after, .ptw-sweep { animation: none; }
       .ptw-sweep { opacity: .5; transform: translateX(120%); }
+      .ptw-trail::before { opacity: 0; }
+      .ptw-trail::after { opacity: .5; }
     }
 
     #hero-tba { display: block; }
@@ -2585,8 +2624,14 @@ document.documentElement.classList.add('sam-gate-pending');
         '#menu-panel.open{transform:translateX(0)}' +
         '#menu-panel a{display:block;padding:16px 0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(212,168,74,.8);text-decoration:none;border-bottom:1px solid rgba(196,146,58,.1);transition:color .2s}' +
         '#menu-panel a:hover{color:rgba(232,192,96,1)}' +
-        '#menu-panel #menu-admin-link{margin-top:auto;border-bottom:0;border-top:1px solid rgba(196,146,58,.14);padding-top:18px;font-size:11px;letter-spacing:.22em;color:rgba(212,168,74,.72)}' +
-        '#menu-panel #menu-admin-link:hover{color:rgba(232,192,96,1)}' +
+        /* Admin used to be the last link in the panel, pinned to the bottom with margin-top:auto.
+           On a phone that lands under the browser's own toolbar and cannot be tapped, so it is
+           a lock button beside the close X instead — same place on every screen size. */
+        '#menu-lock{position:fixed;top:max(env(safe-area-inset-top,0px),16px);right:72px;z-index:9500;width:44px;height:44px;padding:0;background:rgba(10,10,8,.75);backdrop-filter:blur(8px);border:1px solid rgba(196,146,58,.2);border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;color:rgba(212,168,74,.85);transition:border-color .2s,color .2s,transform .18s cubic-bezier(.34,1.56,.64,1)}' +
+        '#menu-fab.open ~ #menu-lock{display:flex}' +
+        '#menu-lock:hover{border-color:rgba(196,146,58,.6);color:#E8C060}' +
+        '#menu-lock:active{transform:scale(.93)}' +
+        '#menu-lock:focus-visible{outline:2px solid rgba(232,192,96,.8);outline-offset:3px}' +
         '#menu-overlay{position:fixed;inset:0;z-index:9498;display:none}' +
         '#menu-panel.open ~ #menu-overlay{display:block}';
       document.head.appendChild(mStyle);
@@ -2597,13 +2642,27 @@ document.documentElement.classList.add('sam-gate-pending');
       hamFab.innerHTML = '<span></span><span></span><span></span>';
       document.body.appendChild(hamFab);
 
+      /* Appended straight after the FAB so '#menu-fab.open ~ #menu-lock' can reveal it. */
+      var hamLock = document.createElement('button');
+      hamLock.id = 'menu-lock';
+      hamLock.type = 'button';
+      hamLock.setAttribute('aria-label', 'Admin');
+      hamLock.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" ' +
+        'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ' +
+        'aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2"/>' +
+        '<path d="M8 10.5V7.4a4 4 0 0 1 8 0v3.1"/></svg>';
+      hamLock.addEventListener('click', function () {
+        closeHamMenu();
+        openAdminPanel();
+      });
+      document.body.appendChild(hamLock);
+
       var hamPanel = document.createElement('div');
       hamPanel.id = 'menu-panel';
       hamPanel.innerHTML = '<a href="/rankings">&#9733; Rankings</a>' +
         '<a href="/how-it-works">How It Works</a>' +
         '<a href="#community" onclick="this.closest(\'#menu-panel\').classList.remove(\'open\');document.getElementById(\'menu-fab\').classList.remove(\'open\');document.getElementById(\'menu-overlay\').style.display=\'none\'">Join WhatsApp</a>' +
-        '<a href="/">Home</a>' +
-        '<a href="javascript:void(0)" id="menu-admin-link" onclick="closeHamMenu();openAdminPanel()">&#128274; Admin</a>';
+        '<a href="/">Home</a>';
       document.body.appendChild(hamPanel);
 
       var hamOverlay = document.createElement('div');
@@ -3604,9 +3663,18 @@ function renderWlaWaitlist(){
     var offset=0;
     function render(){
       var total=offset+entries.length;
-      var html='<div class="wla-count-hd">'+total.toLocaleString()+' total on the list ('+entries.length+' via site)</div>';
+      var viaSite=entries.filter(function(e){return e.source!=='imported';}).length;
+      var imported=entries.length-viaSite;
+      var html='<div class="wla-count-hd">'+total.toLocaleString()+' total on the list ('+viaSite+' via site'+(imported?', '+imported+' imported':'')+')</div>';
       entries.forEach(function(e,i){
-        html+='<div class="wla-row"><div class="wla-num">'+(i+1)+'</div><div><div class="wla-name">'+(e.name||'—')+'</div><div class="wla-phone">'+(e.phone||'—')+'</div></div></div>';
+        /* Older rows were stored as E.164 (+18179833004), newer ones as 10 digits. Prefixing
+           +1 onto an already-prefixed number produced sms:+118179833004, which dials nothing. */
+        var digits=String(e.phone||'').replace(/[^0-9]/g,'');
+        if(digits.length===11&&digits.charAt(0)==='1')digits=digits.slice(1);
+        /* sms: not tel: — the point of this list is texting people one at a time. */
+        var num=digits.length===10?'<a href="sms:+1'+digits+'" style="color:inherit;text-decoration:none">'+fmtPhone(digits)+'</a>':(e.phone||'—');
+        var tag=e.source==='imported'?'<span class="wla-tag">imported</span>':'';
+        html+='<div class="wla-row"><div class="wla-num">'+(i+1)+'</div><div><div class="wla-name">'+(e.name||'—')+tag+'</div><div class="wla-phone">'+num+'</div></div></div>';
       });
       var body=document.getElementById('wla-body');
       if(body)body.innerHTML=html||'<div class="sdp-loading">No site signups yet.</div>';

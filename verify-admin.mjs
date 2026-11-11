@@ -54,40 +54,48 @@ console.log('\n1. the floating buttons are gone, the pills are in the page');
   check('no stray fixed buttons left hovering', s.anyFixedOverlap.length === 0, s.anyFixedOverlap.join(',') || 'none');
 }
 
-console.log('\n2. the Admin link can actually be found');
+console.log('\n2. the lock sits beside the X, where a phone can reach it');
 {
+  // It used to be the last link in the panel, pinned to the bottom — which on a phone lands
+  // under the browser's own toolbar and cannot be tapped at all.
+  const closed = await page.evaluate(() => {
+    const l = document.getElementById('menu-lock');
+    // A fixed-position element always reports offsetParent null, so that is not a visibility test.
+    return { exists: !!l, shownWhenClosed: !!(l && getComputedStyle(l).display !== 'none') };
+  });
+  check('lock button exists', closed.exists);
+  check('hidden while the menu is closed', !closed.shownWhenClosed);
+
   const fab = await page.evaluate(() => {
-    const f = document.getElementById('menu-fab');
-    const r = f.getBoundingClientRect();
-    return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+    const r = document.getElementById('menu-fab').getBoundingClientRect();
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2, right: r.right };
   });
   await page.mouse.click(fab.x, fab.y);
   await new Promise((r) => setTimeout(r, 650));
   const a = await page.evaluate(() => {
-    const el = document.getElementById('menu-admin-link');
-    if (!el) return null;
-    const cs = getComputedStyle(el);
+    const el = document.getElementById('menu-lock');
     const r = el.getBoundingClientRect();
-    const m = cs.color.match(/[\d.]+/g);
     return {
-      text: el.textContent.trim(),
-      fontSize: parseFloat(cs.fontSize),
-      alpha: m && m.length > 3 ? parseFloat(m[3]) : 1,
-      visible: el.offsetParent !== null,
-      onScreen: r.top >= 0 && r.bottom <= window.innerHeight,
+      shown: getComputedStyle(el).display !== 'none',
+      top: Math.round(r.top), right: Math.round(r.right),
+      w: Math.round(r.width), h: Math.round(r.height),
+      inUpperThird: r.top < window.innerHeight / 3,
+      hasLockIcon: !!el.querySelector('svg'),
+      oldBottomLinkGone: !document.getElementById('menu-admin-link'),
     };
   });
-  check('Admin link exists and is visible', !!a && a.visible);
-  check('readable size, not 9.5px', a.fontSize >= 11, a.fontSize + 'px');
-  check('readable contrast, not 38% opacity', a.alpha >= 0.6, 'alpha ' + a.alpha);
-  check('fully on screen', a.onScreen);
-  check('carries a glyph so it reads as a thing to tap', /\u{1F512}/u.test(a.text), JSON.stringify(a.text));
+  check('appears when the menu opens', a.shown);
+  check('at the top of the screen, not the bottom', a.inUpperThird, 'top ' + a.top + 'px');
+  check('to the left of the X', a.right < fab.right - 20, a.right + ' vs X ' + Math.round(fab.right));
+  check('44px tap target', a.w >= 44 && a.h >= 44, a.w + 'x' + a.h);
+  check('drawn as a lock', a.hasLockIcon);
+  check('the old unreachable bottom link is gone', a.oldBottomLinkGone);
 }
 
 console.log('\n3. tapping it shows a password field, in the page');
 {
   const box = await page.evaluate(() => {
-    const r = document.getElementById('menu-admin-link').getBoundingClientRect();
+    const r = document.getElementById('menu-lock').getBoundingClientRect();
     return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
   });
   await page.mouse.click(box.x, box.y);
@@ -146,6 +154,31 @@ console.log('\n5. the right password gets in');
   });
   check('unlocked — the password field is gone', !s.stillLocked, s.text.slice(0, 80));
   check('and real admin content loaded', !/not right|password/i.test(s.text), s.text.slice(0, 80));
+}
+
+console.log('\n6. the waitlist is a list you can work straight down');
+{
+  const s = await page.evaluate(() => {
+    const body = document.getElementById('wla-body');
+    const rows = body.querySelectorAll('.wla-row');
+    const sms = body.querySelectorAll('.wla-phone a[href^="sms:"]');
+    const bad = [...sms].filter((a) => !/^sms:\+1\d{10}$/.test(a.getAttribute('href')));
+    return {
+      header: (body.querySelector('.wla-count-hd') || {}).textContent || '',
+      rows: rows.length,
+      sms: sms.length,
+      tags: body.querySelectorAll('.wla-tag').length,
+      badHrefs: bad.map((a) => a.getAttribute('href')).slice(0, 3),
+    };
+  });
+  console.log(`      ${s.header}`);
+  check('rows rendered', s.rows > 0, s.rows + ' people');
+  check('every row is a one-tap text', s.sms === s.rows, `${s.sms}/${s.rows}`);
+  // Older rows are stored as E.164, newer ones as ten digits; prefixing +1 onto an already
+  // prefixed number produced sms:+118179833004, which dials nothing.
+  check('no double country codes', s.badHrefs.length === 0, s.badHrefs.join(', ') || 'all well formed');
+  check('imported people are marked', s.tags > 0, s.tags + ' tagged');
+  check('header separates site signups from imports', /via site/.test(s.header) && /imported/.test(s.header));
 }
 
 await page.screenshot({ path: 'temporary screenshots/admin-unlocked.png' });
