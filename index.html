@@ -985,6 +985,9 @@
     .wla-phone { font-size: 12px; color: rgba(240,236,228,.38); margin-top: 1px; }
     /* Marks someone who came from the old contact list rather than the website form, so it
        is obvious at a glance who never ticked a consent box. */
+    /* How many meetups this person has actually been to — the thing he wanted visible locally. */
+    .wla-meets { display:inline-block; margin-left:6px; font-size:9.5px; font-weight:600;
+      letter-spacing:.06em; color:rgba(240,236,228,.4); }
     .wla-tag { display:inline-block; margin-left:7px; padding:1px 6px; border-radius:999px;
       font-size:8.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
       color:rgba(212,168,74,.75); border:1px solid rgba(196,149,42,.3); vertical-align:1px; }
@@ -3661,6 +3664,15 @@ function renderWlaWaitlist(){
     entries.sort(function(a,b){return(a.createdAt||0)-(b.createdAt||0);});
     var d=window._samDb;
     var offset=0;
+    /* Meetup counts live on the contacts record, not the waitlist row, so they are pulled
+       separately and matched on a normalised number. Rendering does not wait on this — if the
+       second call is slow or fails, the list still works, just without the counts. */
+    var meetups={};
+    function normNum(v){
+      var x=String(v||'').replace(/[^0-9]/g,'');
+      if(x.length===11&&x.charAt(0)==='1')x=x.slice(1);
+      return x.length===10?x:null;
+    }
     function render(){
       var total=offset+entries.length;
       var viaSite=entries.filter(function(e){return e.source!=='imported';}).length;
@@ -3674,13 +3686,28 @@ function renderWlaWaitlist(){
         /* sms: not tel: — the point of this list is texting people one at a time. */
         var num=digits.length===10?'<a href="sms:+1'+digits+'" style="color:inherit;text-decoration:none">'+fmtPhone(digits)+'</a>':(e.phone||'—');
         var tag=e.source==='imported'?'<span class="wla-tag">imported</span>':'';
-        html+='<div class="wla-row"><div class="wla-num">'+(i+1)+'</div><div><div class="wla-name">'+(e.name||'—')+tag+'</div><div class="wla-phone">'+num+'</div></div></div>';
+        var n=meetups[normNum(e.phone)];
+        var been=n?'<span class="wla-meets">'+n+' meetup'+(n===1?'':'s')+'</span>':'';
+        html+='<div class="wla-row"><div class="wla-num">'+(i+1)+'</div><div><div class="wla-name">'+(e.name||'—')+tag+been+'</div><div class="wla-phone">'+num+'</div></div></div>';
       });
       var body=document.getElementById('wla-body');
       if(body)body.innerHTML=html||'<div class="sdp-loading">No site signups yet.</div>';
     }
-    if(d){ d.ref('config/waitlistOffset').get().then(function(os){offset=os.val()||0;render();}).catch(render); }
-    else render();
+    function withOffset(){
+      if(d){ d.ref('config/waitlistOffset').get().then(function(os){offset=os.val()||0;render();}).catch(render); }
+      else render();
+    }
+    fetchAdminResource('contacts', function(cs, cErr){
+      /* If the password was cleared between the two calls, the unlock form is already on screen
+         and rendering the list over it would strand them. */
+      if(cErr==='locked') return;
+      Object.keys(cs||{}).forEach(function(k){
+        var c=cs[k]||{};
+        var key=normNum(c.phone||k);
+        if(key&&c.meetupsAttended>0)meetups[key]=c.meetupsAttended;
+      });
+      withOffset();
+    });
   });
 }
 function renderWlaRsvps(){
